@@ -1,0 +1,107 @@
+
+	@media (min-width: 1200px) {
+ #header  #main_menu  {
+    width: 1170px;
+    margin-right: auto;
+  	margin-left: auto;
+  }
+}
+@media (min-width: 768px) {
+  #header  #main_menu {
+    width: 750px;
+    margin-right: 8.3%;
+  	margin-left: 8.3%;
+  }
+}
+@media (min-width: 992px) {
+#header   #main_menu {
+    width: 970px;
+     margin-right: auto;
+  	margin-left: auto;
+  }
+}
+@media (min-width: 384px) and (max-width: 767px){
+  #header  #main_menu{
+    width: auto;
+  }
+}
+@media (max-width: 383px) {
+  #header  #main_menu {
+    width: auto;
+	font-size: 11px;
+  }
+}
+			#main_menu{
+				margin-top: 20px;
+				
+				height: 45px;
+				border-bottom: 2px solid #555;
+				border-top: 5px solid #000;
+			}
+			/** 리스트 항목 가로 배치 */
+			.navi > li {
+				width: 20%;
+				float: left;
+				height: 45px;
+			}
+			/** Float 처리 마감제 */
+			.navi:after {
+				content: '';
+				display: block;
+				float: none;
+				clear: both;
+			}
+			/** 링크의 사이즈 처리 및 텍스트 꾸밈 */
+			.navi > li > a {
+				text-decoration: none;
+				display: block;
+				width: auto;
+				height: 45px;
+				text-align: center;
+				font-weight: bold;
+				line-height: 45px;
+				color: #000;
+				-webkit-transition: all 0.2s ease-in;
+			}
+			/** 링크 마우스 오버 */
+			.navi > li:hover > a {
+				color: #f0f;
+				position: relative;
+				top: -1px;
+			}
+
+			/** 2depth 메뉴 컨테이너 */
+			.navi > li > ul {
+				background: #fff;
+				width: 100%;
+				box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+				z-index: 100;
+				opacity: 0;
+				visibility: hidden;
+				position: relative;
+				top: 10px;
+			}
+
+			/* 2detp메뉴 보이기 처리 */
+			.navi > li:hover > ul {
+				opacity: 1;
+				visibility: visible;
+				-webkit-transition: all 0.5s;
+				position: relative;
+				top: -5px;
+			}
+			/* 2depth 메뉴 컨테이너 각 항목 > 링크 */
+			.navi ul > li > a {
+				display: block;
+				text-align: center;
+				height: 30px;
+				font-weight: normal;
+				font-size: 11px;
+				line-height: 30px;
+				color: #000;
+				text-decoration: none;
+			}
+			/* 2depth 메뉴 컨테이너 각 항목 > 링크 마우스 오버 */
+			.navi ul > li > a:hover {
+				background: #eee;
+			}

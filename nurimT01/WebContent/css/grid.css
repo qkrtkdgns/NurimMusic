@@ -1,0 +1,35 @@
+.white{color:#fff; font-size="14px";}
+
+ul{
+	list-style:none;
+}
+address{
+	text-align:center;
+	color:white;
+}
+#footer{
+	background:#383838;
+	position:absolute;
+	bottom:0;
+	width:100%;
+}
+#top_bar{
+	background:#383838;
+	position:absolute;
+	top:0;
+	width:100%;
+	heigth:100%;
+}
+#search{
+	width:80px;
+	height:20px;
+}
+.footer{
+	color:white;
+	font-size:10px;
+	text-align:center;
+	height:60px;
+}
+span{
+	color:white;
+}
