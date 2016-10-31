@@ -1,0 +1,13 @@
+#content > hr{
+  border-bottom: 2px solid #bbb;
+}
+
+#drop_out{
+  border: 0px;
+  display: block;
+  margin: auto;
+  width: 100px;
+  height:30px;
+  background: #222;
+  color:white;
+}

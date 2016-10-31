@@ -1,0 +1,161 @@
+/** Comunity Youtube CSS 시작 */
+/** youtube 영상 + 리스트 영역 크기 지정 */
+#youtube_box{
+   width:100%;
+   height:430px;
+   float: left;
+   margin-bottom: 60px;
+}
+iframe{
+   float: left;
+}
+.youtube_list{
+   width:380px;
+   height:430px;
+   margin-left: 30px;
+   float: left;
+}
+
+/** 리스트 개별 크기 및 간격 지정 */
+.youtube_list > ul > li{
+   height:100px;
+   margin-bottom: 10px;
+   border-bottom: 1px solid #000;
+}
+.youtube_list > ul > li:nth-last-child(1){
+   margin: 0;
+   border-bottom: none;
+}
+
+/** 이미지 사이즈 고정 */
+.youtube_list > ul > li img{
+   width:180px;
+   height:100px;
+   padding: 10px;
+   float: left;
+}
+/** 이미지 호버시 투명도 */
+.youtube_list > ul > li img:hover{
+   opacity: 0.7;
+}
+/** 본문 내용 위치 지정 */
+.youtube_list > ul > li span{
+   padding: 10px;
+   display: block;
+   float: left;
+}
+.youtube_list > ul > li span > b{
+   font-size: 16px;
+   width:170px;
+   height:20px;
+   overflow: hidden;
+   display: block;
+}
+.youtube_list > ul > li span p{
+   font-size: 12px;
+   color: gray;
+   display: block;
+   width: 170px;
+   height:40px;
+   overflow: hidden;
+}
+/** Comunity Youtube CSS 끝 */
+
+/** comm_foot 영역 시작 */
+
+        .dis_table {
+          border-top: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
+          font-size: 14px;
+        }
+
+        .dis_table th {
+          border-bottom: 2px solid #ccc;
+        }
+
+        .dis_table th, .dis_table td {
+          padding: 5px;
+        }
+
+        .cont_date, .cont_datec, .cont_view, .cont_ag, .cont_disag {
+           text-align: center;
+       }
+
+        .cont_ag {
+          color:red; 
+       }
+
+        .cont_disag {
+          color: blue;
+       }
+
+       .cont_sub a {
+          color: black;
+       }
+
+       #comm_main_foot {
+         width: 1170px;
+       }
+
+       #comm_main_foot > .dis_comm {
+        float: left;
+        width: 760px;
+       }
+
+       #comm_main_foot > .review_comm {
+        float: left;
+        width: 360px;
+        margin-left: 30px;
+        height: 330px;
+       }
+
+       span.rev_sub {
+        font-weight: bold;
+        margin-left: 5px;
+        display: inline-block;
+        float: left;
+       }
+
+        .thumb img {
+         display: inline-block;
+         float: left;
+       }
+
+       .rev_text a {
+          color: black;
+       }
+
+       span.user_id {
+        display: inline-block;
+        float: left;
+        margin-left: 5px;
+        padding-top: 5px;
+       }
+
+       .rev_text span.rev_desc {
+        padding-top: 5px;
+        display: inline-block;
+        float: left;
+        overflow: hidden;
+        white-space: wrap;
+        width: 260px;
+        height: 55px;
+        line-height: 16px;
+        padding-left: 5px;
+        margin-bottom: 15px;
+        /* rv_list1, rv_list2를 인식하지 못해서 desc에 margin-bottom줌 */
+       }
+
+       .dis_btn {
+        float: right;
+        display: inline-block;
+        padding-top: 20px;
+       }
+
+       .dis_comm > h2 {
+        margin-bottom: 20px;
+       }
+
+       .review_comm > h2 {
+        margin-bottom: 20px;
+       }

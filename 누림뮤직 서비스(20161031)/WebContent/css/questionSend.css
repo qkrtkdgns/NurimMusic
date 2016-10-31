@@ -1,0 +1,24 @@
+
+#button{
+	width:610px;
+	margin-left: 245px;
+	height:80px;
+}
+.form-group > .control-label{
+	width:200px;
+	margin-left: 260px;
+	margin-right: 10px;
+	text-align: left !important;
+	float: left;
+}
+#qna_type, #name, #tel, #email, #title{
+	width:400px;
+	float: left;
+}
+#information{
+	width:400px;
+	height:200px;
+}
+.form-horizontal{
+	margin-top: 15px;
+}

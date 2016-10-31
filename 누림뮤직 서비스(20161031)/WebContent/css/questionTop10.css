@@ -1,0 +1,10 @@
+#qs{
+	margin-top:30px;
+}
+#qs > .qs{
+	padding-top:20px;
+}
+#qs > .qs > hr{
+	border:0;
+	border-bottom: 1px dashed #ddd;
+}

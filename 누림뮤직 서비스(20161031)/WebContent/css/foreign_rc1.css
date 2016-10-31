@@ -1,0 +1,233 @@
+  		#content:after{
+         content:"";
+         display:block;
+         clear: both;
+      }
+  
+  #content{
+         height: auto;
+      }
+
+      #content hr {
+         margin: 0px;
+      }
+
+      .side_area{
+         margin-top: 20px;
+         width: 200px;
+         height: 500px;
+         background-color: #F8F2FA;
+         float: left;
+      }
+      .side_area > a{
+         padding: 5px 0 5px 10px;
+         margin-bottom: 10px;
+         background-color: #af64a9;
+         display: block;
+         font-size: 18px;
+         color: #fff;
+         border-top: 1px solid #aaa;
+         border-bottom: 1px solid #aaa;
+         text-decoration: none;
+      }
+
+      .side_area ul > li > a{
+         margin-left: 20px;
+         color: #000;
+         text-decoration: none;
+      }
+
+      .thumb {
+         display: block;
+      }
+
+      .list-topbar{
+         width: 950px;
+         height: 38px;
+         border-bottom: 2px solid #000;
+         float: right;
+         border-top: 1px solid #000;
+      }
+
+      .check_list button {
+         height: 22px;
+         line-height: 10px;
+      }      
+
+      .check_list {
+         float: left;
+         width: 300px;
+         height: 35px;
+         padding-top: 8px;
+      }
+
+      .search_list{
+         float: right;
+         height: 33px;
+         padding-top: 8px;
+         text-align: center;
+
+      }
+
+      .search_list > a{
+         color: #000;
+      }
+
+      .list_lineup{
+         margin-left: 10px;
+         margin-right: 10px;
+         height: auto;
+          width: 950px;
+         float: right;
+      }
+      
+      .list_lineup > ul > li{
+      	padding-top:15px;
+         border-bottom: 1px solid #aaa;
+         height: 155px;
+         padding-bottom: 15px;
+      }
+
+      #check {
+         display: inline-block;
+         float: left;
+         margin-top: 55px;
+         margin-left: 10px;
+      }
+
+      .list_lineup > ul > li img{
+       	 width:  121px;
+       	 height: 121px;
+         margin-left: 14px;
+         float: left;
+         margin-right: 10px;
+      }
+
+      .list_lineup > ul > li > .text {
+         display: block;
+         width: 470px;
+         margin-right: 30px;
+         height: 100px;
+         float:left;
+      }
+
+      .text span {
+         display: block;
+      }
+
+      .text .title {
+         white-space: wrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         font-weight: bold;
+         padding-top: 20px;
+      }
+
+      .text .desc {
+         white-space: wrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         font-size: 13px;
+         margin-top: 27px;
+      }
+
+      div.prices {
+         display: inline-block; 
+         float: left;
+      }
+
+      .price {
+         font-weight: bold;
+         display: inline-block;
+         text-decoration: line-through;
+         margin-top: 40px;
+      }
+
+      span.price_dc {
+         display: block;
+         font-weight: bold;
+         color: red;
+      }
+
+      div.button {
+         display: block;
+         float: right;
+         width: 120px;
+         height:90px;
+         margin-top: 30px;
+      }
+
+      .basket_btn {
+         float: right;
+         padding-right: 6px;
+      }
+
+      .buy_btn {
+         float: right;
+         padding-top: 10px;
+         padding-left: 60px;
+         padding-right: 6px;
+      }
+
+      .so_btn {
+         float: right;
+         padding-right: 6px;
+        
+      }
+
+      .al_btn {
+         float: right;
+         padding-top: 10px;
+         padding-left: 60px;
+         padding-right: 6px;
+      }
+
+      #A1 {
+         height: 26px;
+         width: 77px;
+         line-height: 13px;
+      }
+
+      #A{
+         background: #f44336;
+         color: #fff;
+         height: 26px;
+         line-height: 13px;
+      }
+
+      #B1 {
+         height: 26px;
+         line-height: 13px;
+      }
+
+      #B {
+         height: 26px;
+         line-height: 13px;
+      }
+
+      .list_lineup > ul > li hr{
+           margin-bottom: 10px;
+           border: 0;
+           border-top: 1px solid #fff;
+         }
+      .page_num{
+         margin-bottom: 20px;
+         margin-left: 450px;
+         margin-top:30px;
+      }
+
+      .pagination > li > a, .pagination > li > span {
+        color: #000;
+      }
+      .pagination > li > a:hover,.pagination > li > span:hover,
+      .pagination > li > a:focus,.pagination > li > span:focus {
+           color: #af64a9;
+      }
+      .pagination > .active > a,.pagination > .active > span,
+      .pagination > .active > a:hover,.pagination > .active > span:hover,
+      .pagination > .active > a:focus,.pagination > .active > span:focus {
+    
+        background-color: #af64a9;
+        border-color: #af64a9;
+      }
+   
