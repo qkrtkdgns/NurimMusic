@@ -1,0 +1,44 @@
+/** 상품 수정 테이블 위치 */
+form > table{
+	margin-left: 100px;
+	margin-top: 100px;
+	width: 800px;
+	border-top: 2px solid rgba(100,150,220,1);
+}
+/** th 배경색 주기 */
+form > table > tbody > tr > th{
+	background: rgba(100,150,220,1);
+	border-bottom: 2px solid rgba(220,220,220,1);
+	border-right: 2px solid rgba(220,220,220,1);
+	width:100px;
+	line-height: 30px;
+	height:30px;
+	font-size: 16px;
+}
+/** input width 값 주기 */
+td > input[type="text"]{
+	width:200px;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+/** 카테고리 수량 선택 크기 조정 */
+#no{
+	width:30px;
+}
+/**버튼 디자인 */
+button{
+	background:rgba(150,150,240,1);
+	border: 1px solid rgba(100,100,100,1);
+	border-radius: 10px;
+	margin-right: 30px;
+	width:80px;
+	height:30px;
+}
+/** 버튼 위치 */
+#bt{
+	margin-left: 100px;
+	margin-top: 30px;
+	width:800px;
+	text-align: center;
+	color: black;
+}

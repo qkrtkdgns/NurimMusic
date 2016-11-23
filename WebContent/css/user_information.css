@@ -1,0 +1,72 @@
+h2,h3{
+   display: inline-block;
+}
+table > tbody > tr > th{
+   width:150px;
+   background: #ddd;
+   border-bottom: 1px solid white;
+   padding-top: 10px;
+   padding-left: 10px;
+}
+td{
+vertical-align:middle;
+padding-left:10px;
+}
+td > input{
+   height:20px;
+}
+td > input[type='radio']{
+   vertical-align:middle;
+   margin-bottom: 5px;
+   margin-right:5px;
+}
+#id{
+   background:none;
+   border:none;
+}
+td > input[type='password']{
+   width:200px;
+}
+#phone_middle, #phone_last{
+   width:50px;
+}
+#sample6_address, #sample6_address2{
+   margin-top:5px;
+   width:350px;
+}
+td > input[type='button']{
+   background:black;
+   color:white;
+   border:none;
+   height:20px;
+   font-size:12px;
+   line-height:20px;
+}
+td > input[type='button']:hover{
+   opacity: 0.8;
+}
+
+.ext_bt {
+   width: 500px;
+   margin:20px auto;
+   
+}
+.btn{
+   width:100px;
+   margin-bottom: 50px;
+}
+
+.btn-primary{
+   float: right;
+   background-color: #af64a9;
+   border-color: #af64a9;
+}
+
+.btn-default{
+   float: left;
+}
+
+.user_change{
+   width: 500px;
+   margin: auto;
+}

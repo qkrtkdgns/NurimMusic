@@ -1,0 +1,94 @@
+/** 답변이 완료될 경우 선택 불가 */
+.answer_end {
+	cursor: not-allowed;
+}
+/** 답변박스 설정 (평소에 보이지 않음) */
+#answer_box{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+}
+#content_box{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+} 
+/** 선택 불가능한 영역 만들기 */
+.no_touch {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: black;
+	opacity: 0.5;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+}
+/** 데이터 입력 창 만들기(no_touch보다 상위에 보임) */
+.control_box {
+	position: relative;
+	top: 150px;
+	left: 500px;
+	width: 400px;
+	height: 400px;
+	background: white;
+	border-radius: 30px;
+	border: 3px solid blue;
+	padding: 30px;
+	z-index: 1;
+}
+/** control_box 안의 내용 디자인 */
+.input_box>label {
+	display: block;
+	width: 80px;
+	font-size: 16px;
+	margin-left: 30px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.input_box>input[type="text"] {
+	margin-left: 30px;
+	border-radius: 5px;
+	height: 30px;
+	border: 1px solid black;
+	background: rgb(235, 235, 235);
+	width: 80%;
+}
+
+.input_box>textarea {
+	margin-left: 30px;
+	margin-top: 10px;
+	border-radius: 5px;
+	height: 30px;
+	border: 1px solid black;
+	background: rgb(235, 235, 235);
+	width: 80%;
+	height: 200px;
+}
+
+#commit, .cancel {
+	margin-left: 30px;
+	width: 80px;
+	height: 30px;
+	margin-top: 10px;
+	background: rgb(79, 129, 189);
+	border: 1px solid black;
+	border-radius: 5px;
+	color: white;
+}
+
+#commit {
+	float: right;
+	margin-right: 40px;
+}
+
+.content{
+	color:black !important;
+}

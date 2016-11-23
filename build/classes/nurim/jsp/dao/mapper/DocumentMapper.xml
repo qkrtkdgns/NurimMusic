@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.og/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
+
+<!--회원에 대한 CRUD -->
+<mapper namespace="DocumentMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="document" type="nurim.jsp.model.Document">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="id" column="id" />
+		<result property="member_id" column="member_id" />
+		<result property="category" column="category" />
+		<result property="subject" column="subject" />
+		<result property="content" column="content" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date"/>
+		<result property="hit" column="hit" />
+		<result property="ip_address" column="ip_address" />
+		<result property="agree" column="agree" />
+		<result property="disagree" column="disagree" />
+		<result property="qna_type" column="qna_type" />
+		
+	</resultMap>
+	
+</mapper>
+

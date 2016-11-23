@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.og/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
+
+<!--회원에 대한 CRUD -->
+<mapper namespace="OrderMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="order" type="nurim.jsp.model.Order">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="id" column="id" />
+		<result property="product_id" column="product_id" />
+		<result property="member_id" column="member_id" />
+		<result property="basket_id" column="basket_id" />
+		<result property="rec_name" column="rec_name" />
+		<result property="rec_tel" column="rec_tel" />
+		<result property="rec_postcode" column="rec_postcode" />
+		<result property="rec_addr1" column="rec_addr1" />
+		<result property="rec_addr2" column="rec_addr2" />
+		<result property="rec_state" column="rec_state" />
+		<result property="o_amount" column="o_amount" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date"/>
+	</resultMap>
+	
+</mapper>
+

@@ -1,0 +1,34 @@
+h2,h3{
+      display: inline-block;
+    }
+#content > div > img{
+  display: block;
+  margin: auto;
+  margin-bottom: 70px;
+}
+.buy{
+  margin-bottom: 30px;
+}
+#tab{
+  font-size: 12px;
+  background: #EBD8F5;
+}
+.barket{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#item{
+  vertical-align: middle;
+}
+#item > a{
+  text-decoration: none;
+  color:black;
+}
+#item > a > img{
+  width: 70px;
+  height:70px;
+}
+.hei{
+  width:100%;
+  height:20px;
+}
