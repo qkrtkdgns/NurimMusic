@@ -52,7 +52,7 @@
 						<tr height="4"></tr>
 						<tr>
 							<td class="title">생년월일</td>
-							<td><input type="text" name="birth_year" id="birth_year" maxlength="4" size="5">&nbsp;년&nbsp;&nbsp;<input type="text" name="birth_month" id="birth_month" maxlength="2" size="3">&nbsp;월&nbsp;&nbsp;<input type="text" name="birth_day" id="birth_day" maxlength="2" size="3">&nbsp;일<hr/></td>
+							<td><input type="text" name="birthdate" id="birthdate" maxlength="8" size="15" placeholder="'-'없이 입력하세요.">생년월일<hr/></td>
 						</tr>
 
 						<tr>
@@ -75,7 +75,7 @@
 						<tr height="4"></tr>
 						<tr>
 							<td class="title">상세 주소<font color="red">*</font></td>
-							<td><input type="text"  name="address_sub" size="63" id="sample6_address2" placeholder="상세주소를 입력해주세요."/><hr/></td>
+							<td><input type="text"  name="address_sub2" size="63" id="sample6_address2" placeholder="상세주소를 입력해주세요."/><hr/></td>
 						</tr>
 
 						<tr>
