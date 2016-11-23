@@ -11,18 +11,18 @@
 	<resultMap id="order" type="nurim.jsp.model.Order">
 		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="id" column="id" />
-		<result property="product_id" column="product_id" />
-		<result property="member_id" column="member_id" />
-		<result property="basket_id" column="basket_id" />
-		<result property="rec_name" column="rec_name" />
-		<result property="rec_tel" column="rec_tel" />
-		<result property="rec_postcode" column="rec_postcode" />
-		<result property="rec_addr1" column="rec_addr1" />
-		<result property="rec_addr2" column="rec_addr2" />
-		<result property="rec_state" column="rec_state" />
-		<result property="o_amount" column="o_amount" />
-		<result property="reg_date" column="reg_date" />
-		<result property="edit_date" column="edit_date"/>
+		<result property="productId" column="product_id" />
+		<result property="memberId" column="member_id" />
+		<result property="basketId" column="basket_id" />
+		<result property="recName" column="rec_name" />
+		<result property="recTel" column="rec_tel" />
+		<result property="recPostcode" column="rec_postcode" />
+		<result property="recAddr1" column="rec_addr1" />
+		<result property="recAddr2" column="rec_addr2" />
+		<result property="recState" column="rec_state" />
+		<result property="oAmount" column="o_amount" />
+		<result property="regDate" column="reg_date" />
+		<result property="editDate" column="edit_date"/>
 	</resultMap>
 	
 </mapper>

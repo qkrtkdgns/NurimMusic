@@ -11,15 +11,15 @@
 	<resultMap id="product" type="nurim.jsp.model.Product">
 		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="id" column="id" />
-		<result property="document_id" column="document_id" />
-		<result property="pro_img" column="pro_img" />
-		<result property="pro_name" column="pro_name" />
+		<result property="documentId" column="document_id" />
+		<result property="proImg" column="pro_img" />
+		<result property="proName" column="pro_name" />
 		<result property="category" column="category" />
-		<result property="pro_price" column="pro_price" />
+		<result property="proPrice" column="pro_price" />
 		<result property="amount" column="amount" />
-		<result property="pro_hit" column="pro_hit" />
-		<result property="reg_date" column="reg_date" />
-		<result property="edit_date" column="edit_date"/>
+		<result property="proHit" column="pro_hit" />
+		<result property="regDate" column="reg_date" />
+		<result property="editDate" column="edit_date"/>
 		<result property="provider" column="provider" />
 		<result property="content" column="content" />
 	</resultMap>
