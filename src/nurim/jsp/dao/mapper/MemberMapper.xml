@@ -1,79 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.og/dtd/mybatis-3-mapper.dtd">
-
-<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
-
-<!--회원에 대한 CRUD -->
-<mapper namespace="MemberMapper">
-
-	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
-	<resultMap id="member" type="nurim.jsp.model.Member">
-		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
-		<result property="id" column="id" />
-		<result property="user_id" column="user_id" />
-		<result property="user_pw" column="user_pw" />
-		<result property="user_name" column="user_name" />
-		<result property="gender" column="gender" />
-		<result property="birthdate" column="birthdate" />
-		<result property="email" column="email" />
-		<result property="tel" column="tel" />
-		<result property="postcode" column="postcode" />
-		<result property="addr1" column="addr1" />
-		<result property="addr2" column="addr2" />
-		<result property="reg_date" column="reg_date" />
-		<result property="edit_date" column="edit_date"/>
-	</resultMap>
-	
-	<!-- 아이디와 비밀번호가 일치하는 회원정보를 조회한다. -->
-	<select id="selectLoginInfo" parameterType="nurim.jsp.model.Member"
-	resultMap="member">
-	SELECT
-	id,user_name,user_id,user_pw,email,gender,
-	DATE_FORMAT(birthdate,'%Y-%m-%d') AS birthdate,
-	tel, postcode, addr1,addr2, reg_date, edit_date
-	FROM member
-	WHERE user_id=#{user_id} AND user_pw = password(#{user_pw})
-	ORDER BY id DESC
-	LIMIT 0,1
-	</select>
-	<!-- 회원수 체크 -->
-	<select id="selectMemberCount" parameterType="nurim.jsp.model.Member"
-	resultType="int">
-	SELECT count(id) FROM member
-	</select>
-	
-	<!-- 회원 리스트 출력 -->
-	<select id="selectMemberList" parameterType="nurim.jsp.model.Member"
-	resultMap="member">
-	SELECT 
-	id,user_name,user_id,user_pw,email,gender,
-	DATE_FORMAT(birthdate,'%Y-%m-%d') AS birthdate,
-	tel, postcode, addr1,addr2, reg_date, edit_date
-	FROM member
-	<where>
-	user_id != "admin"
-	<if test="user_id != null">
-	 AND user_id LIKE concat('%',#{user_id},'%')
-	</if>
-	</where>
-	ORDER BY id DESC
-	LIMIT #{limitStart},#{listCount}
-	</select>
-	<insert id="insertMemberByAdmin" parameterType="nurim.jsp.model.Member"
-	useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO member(
-	user_name,user_id,user_pw,email,gender,
-	birthdate,
-	tel, postcode, addr1,addr2, reg_date, edit_date
-	)VALUES(
-	#{user_name},#{user_id},password(#{user_pw}),
-	#{email},#{gender},now(),#{tel},
-	#{postcode},"1","1",now(),now()
-	)
-	
-	</insert>
-	
-	
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- 회원에 대한 CRUD -->
+<mapper namespace="memberMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="member" type="nurim.jsp.model.Member">
+    	<result property="id" 			column="id" />
+    	<result property="userId" 		column="user_id" />
+    	<result property="userPw" 		column="user_pw" />
+    	<result property="gender" 		column="gender" />
+    	<result property="birthdate"	column="birthdate" />
+    	<result property="email" 		column="email" />
+    	<result property="tel" 			column="tel" />
+    	<result property="postcode" 	column="postcode" />
+    	<result property="addr1" 		column="addr1" />
+    	<result property="addr2" 		column="addr2" />
+    	<result property="regDate" 		column="reg_date" />
+    	<result property="editDate" 	column="edit_date" />
+    </resultMap>
+    
 </mapper>
-
