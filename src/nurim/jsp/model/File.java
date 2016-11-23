@@ -1,83 +1,83 @@
 package nurim.jsp.model;
 
 public class File {
-	private int id;
-	private int product_id;
-	private int document_id;
-	private String origin_name;
-	private String file_dir;
-	private String file_name;
-	private String content_type;
-	private long file_size;
-	private String reg_date;
-	private String edit_date;
+	private int id = 0;
+	private int productId = 0;
+	private int documentId = 0;
+	private String originName = null;
+	private String fileDir = null;
+	private String fileName = null;
+	private String contentType = null;
+	private int fileSize = 0;
+	private String regDate = null;
+	private String editDate = null;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getProduct_id() {
-		return product_id;
+	public int getProductId() {
+		return productId;
 	}
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
-	public int getDocument_id() {
-		return document_id;
+	public int getDocumentId() {
+		return documentId;
 	}
-	public void setDocument_id(int document_id) {
-		this.document_id = document_id;
+	public void setDocumentId(int documentId) {
+		this.documentId = documentId;
 	}
-	public String getOrigin_name() {
-		return origin_name;
+	public String getOriginName() {
+		return originName;
 	}
-	public void setOrigin_name(String origin_name) {
-		this.origin_name = origin_name;
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
-	public String getFile_dir() {
-		return file_dir;
+	public String getFileDir() {
+		return fileDir;
 	}
-	public void setFile_dir(String file_dir) {
-		this.file_dir = file_dir;
+	public void setFileDir(String fileDir) {
+		this.fileDir = fileDir;
 	}
-	public String getFile_name() {
-		return file_name;
+	public String getFileName() {
+		return fileName;
 	}
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
-	public String getContent_type() {
-		return content_type;
+	public String getContentType() {
+		return contentType;
 	}
-	public void setContent_type(String content_type) {
-		this.content_type = content_type;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
-	public long getFile_size() {
-		return file_size;
+	public int getFileSize() {
+		return fileSize;
 	}
-	public void setFile_size(long file_size) {
-		this.file_size = file_size;
+	public void setFileSize(int fileSize) {
+		this.fileSize = fileSize;
 	}
-	public String getReg_date() {
-		return reg_date;
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
-	public String getEdit_date() {
-		return edit_date;
+	public String getEditDate() {
+		return editDate;
 	}
-	public void setEdit_date(String edit_date) {
-		this.edit_date = edit_date;
+	public void setEditDate(String editDate) {
+		this.editDate = editDate;
 	}
+	
 	@Override
 	public String toString() {
-		return "File [id=" + id + ", product_id=" + product_id + ", document_id=" + document_id + ", origin_name="
-				+ origin_name + ", file_dir=" + file_dir + ", file_name=" + file_name + ", content_type=" + content_type
-				+ ", file_size=" + file_size + ", reg_date=" + reg_date + ", edit_date=" + edit_date + "]";
+		return "File [id=" + id + ", productId=" + productId + ", documentId=" + documentId + ", originName="
+				+ originName + ", fileDir=" + fileDir + ", fileName=" + fileName + ", contentType=" + contentType
+				+ ", fileSize=" + fileSize + ", regDate=" + regDate + ", editDate=" + editDate + "]";
 	}
 	
-	
-
 }

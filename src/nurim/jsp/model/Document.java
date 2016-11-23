@@ -1,29 +1,30 @@
 package nurim.jsp.model;
 
 public class Document {
-	private int id;
-	private int member_id;
-	private String category;
-	private String subject;
-	private String content;
-	private String reg_date;
-	private String edit_date;
-	private int hit;
-	private String ip_address;
-	private String agree;
-	private String disagree;
-	private String qna_type;
+	private int id = 0;
+	private int memberId = 0;
+	private String category = null;
+	private String subject = null;
+	private String content = null;
+	private String regDate = null;
+	private String editDate = null;
+	private int hit = 0;
+	private String ipAddress = null;
+	private int agree = 0;
+	private int disagree = 0;
+	private String qnaType = null;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getMember_id() {
-		return member_id;
+	public int getMemberId() {
+		return memberId;
 	}
-	public void setMember_id(int member_id) {
-		this.member_id = member_id;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 	public String getCategory() {
 		return category;
@@ -43,17 +44,17 @@ public class Document {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getReg_date() {
-		return reg_date;
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
-	public String getEdit_date() {
-		return edit_date;
+	public String getEditDate() {
+		return editDate;
 	}
-	public void setEdit_date(String edit_date) {
-		this.edit_date = edit_date;
+	public void setEditDate(String editDate) {
+		this.editDate = editDate;
 	}
 	public int getHit() {
 		return hit;
@@ -61,39 +62,37 @@ public class Document {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public String getIp_address() {
-		return ip_address;
+	public String getIpAddress() {
+		return ipAddress;
 	}
-	public void setIp_address(String ip_address) {
-		this.ip_address = ip_address;
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
-	public String getAgree() {
+	public int getAgree() {
 		return agree;
 	}
-	public void setAgree(String agree) {
+	public void setAgree(int agree) {
 		this.agree = agree;
 	}
-	public String getDisagree() {
+	public int getDisagree() {
 		return disagree;
 	}
-	public void setDisagree(String disagree) {
+	public void setDisagree(int disagree) {
 		this.disagree = disagree;
 	}
-	public String getQna_type() {
-		return qna_type;
+	public String getQnaType() {
+		return qnaType;
 	}
-	public void setQna_type(String qna_type) {
-		this.qna_type = qna_type;
+	public void setQnaType(String qnaType) {
+		this.qnaType = qnaType;
 	}
+	
 	@Override
 	public String toString() {
-		return "Document [id=" + id + ", member_id=" + member_id + ", category=" + category + ", subject=" + subject
-				+ ", content=" + content + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", hit=" + hit
-				+ ", ip_address=" + ip_address + ", agree=" + agree + ", disagree=" + disagree + ", qna_type="
-				+ qna_type + "]";
+		return "Document [id=" + id + ", memberId=" + memberId + ", category=" + category + ", subject=" + subject
+				+ ", content=" + content + ", regDate=" + regDate + ", editDate=" + editDate + ", hit=" + hit
+				+ ", ipAddress=" + ipAddress + ", agree=" + agree + ", disagree=" + disagree + ", qnaType=" + qnaType
+				+ "]";
 	}
 	
-	
-	
-
 }
