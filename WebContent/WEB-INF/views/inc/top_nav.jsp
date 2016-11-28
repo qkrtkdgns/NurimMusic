@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- 상단 바 start -->
 <div class="top_container">
   <div id="top_bar">
@@ -21,8 +23,17 @@
        </div>
      <div class="top_nav">
    <ul class="list-inline">
+   <c:choose>
+   <c:when test="${loginInfo ==null}">
       <li><a href="${pageContext.request.contextPath }/LoginPage.do">로그인</a></li>
       <li><a href="${pageContext.request.contextPath }/join.do">회원가입</a></li>
+      </c:when>
+      <c:otherwise>
+      <li>${loginInfo.name}님 <span class="caret"></span></li>
+      <li><a href="${pageContext.request.contextPath}/logout.do">
+	로그아웃</a></li>
+      </c:otherwise>
+   </c:choose>
       <li><a href="${pageContext.request.contextPath }/mypage.do">마이페이지</a></li>
       <li><a href="${pageContext.request.contextPath }/basket.do">장바구니</a></li>
       <li><a href="${pageContext.request.contextPath }/info.do">고객센터</a></li>
