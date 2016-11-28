@@ -24,11 +24,11 @@
 	<div id="member">
 	<!--검색 start -->
 	<div id="search">
-	<form>
+	<form method="get" action="${pageContext.request.contextPath }/admin/member.do">
 	<select name="dropdown" id="dropdown">
-	<option value="검색조건">검색조건</option>
-	<option value="아이디">아이디</option>
-	<option value="이름">이름</option>
+	<option value="0">검색조건</option>
+	<option value="1">아이디</option>
+	<option value="2">이름</option>
 	</select>
 	<input type="text" name="search_item" id="search_item" placeholder="검색어를 입력하세요." />
 	<button type="submit" id="submit_bt">검색</button>
@@ -72,14 +72,14 @@
 		<tr>
 		<td>${member.id}</td>
 		<td><input type="checkbox" class="item_checked" /></td>
-		<td>${member.user_id}</td>
-		<td>${member.user_name}</td>
+		<td>${member.userId}</td>
+		<td>${member.userName}</td>
 		<td>${member.gender}</td>
 		<td>${member.postcode}</td>
 		<td>${member.tel}</td>
 		<td>${member.email}</td>
-		<td>${member.reg_date}</td>
-		<td>${member.edit_date}</td>
+		<td>${member.regDate}</td>
+		<td>${member.editDate}</td>
 		</tr>
 		</c:forEach>
 		</c:when>
@@ -155,7 +155,7 @@
 	<!-- 인설트 버튼 클릭시 start -->
 	<div id="insert_box">
 		<div class="control_box">
-			<form method="post" action="../admin/member_add.do">
+			<form method="post" action="${pageContext.request.contextPath }/admin/member_add.do">
 		<div class="control_box2">
 			<div class="input_box">
 			<label>아이디</label>
@@ -163,7 +163,7 @@
 			</div>
 			<div class="input_box">
 			<label>비밀번호</label>
-			<input type="text" name="insert_user_pw" id="insert_user_pw" />
+			<input type="password" name="insert_user_pw" id="insert_user_pw" />
 			</div>
 			<div class="input_box">
 			<label>이름</label>
@@ -180,6 +180,10 @@
 			<div class="input_box">
 			<label>주소</label>
 			<input type="text" name="insert_user_home" id="insert_user_home" />
+			</div>
+			<div class="input_box">
+			<label>생년월일</label>
+			<input type="text" name="insert_user_birthdate" id="insert_user_birthdate" />
 			</div>
 			<div class="input_box">
 			<label>전화번호</label>

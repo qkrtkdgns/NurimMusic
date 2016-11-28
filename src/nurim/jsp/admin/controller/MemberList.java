@@ -61,13 +61,17 @@ public class MemberList extends BaseController{
 		int page = web.getInt("page",1);
 		//검색어
 				String keyword = web.getString("search_item");
-				String search_item = web.getString("dropdown");
+				String dropdown = web.getString("dropdown");
 				logger.debug("keyword >> " + keyword);
-				logger.debug("search_item >> " + search_item);
-				
-				//제목과 내용에 대한 검색으로 활용하기 위해서 입력값을 설정한다.
-				member.setUserId(keyword);
+				logger.debug("dropdown >> " + dropdown);
 
+				if(dropdown==null){}
+				else if(dropdown.equals("1")){
+					member.setUserId(keyword);
+				}else if(dropdown.equals("2")){
+					member.setUserName(keyword);
+				}
+				
 				/** (6) 게시글 목록 조회 */
 				int totalCount = 0;
 				List<Member> memberList = null;
@@ -75,7 +79,7 @@ public class MemberList extends BaseController{
 				try {
 					//전체 게시물 수
 					totalCount = memberService.selectMemberCount(member);
-					System.out.println(member.toString());
+					logger.debug("totalCount >> " + totalCount);
 					//나머지 페이지 번호 계산하기
 					//--> 현재 페이지, 전체 게시물 수, 한 페이지의 목록 수, 그룹갯수
 					pageHelper.pageProcess(page, totalCount, 3, 7);

@@ -68,6 +68,7 @@ public class MemberAdd extends BaseController {
 		String tel = web.getString("insert_user_tel");
 		String gender = web.getString("insert_user_gender");
 		String home = web.getString("insert_user_home");
+		String birthdate = web.getString("insert_user_birthdate");
 
 		// 전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
 		logger.debug("userId=" + userId);
@@ -77,6 +78,7 @@ public class MemberAdd extends BaseController {
 		logger.debug("tel=" + tel);
 		logger.debug("gender=" + gender);
 		logger.debug("postcode=" + home);
+		logger.debug("birthdate >> " + birthdate);
 
 		/** (5) 입력값의 유효성 검사 */
 		// 아이디 검사
@@ -170,11 +172,13 @@ public class MemberAdd extends BaseController {
 		/** (7) 전달받은 파라미터를 Beans 객체에 담는다. */
 		Member member = new Member();
 		member.setUserId(userId);
+		member.setUserPw(userPw);
 		member.setUserName(name);
 		member.setEmail(email);
 		member.setTel(tel);
 		member.setGender(gender);
 		member.setPostcode(home);
+		member.setBirthdate(birthdate);
 
 		/** (8) Service를 통한 데이터베이스 저장 처리 */
 		try {

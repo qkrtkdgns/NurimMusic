@@ -82,7 +82,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertMemberByAdmin(Member member) throws Exception {
 		try{
-			int result = sqlSession.insert("MemberMapper.insertMemberByAdmin",member);
+			int result = sqlSession.insert("MemberMapper.insertMember",member);
 			if(result ==0){
 				throw new NullPointerException();
 			}

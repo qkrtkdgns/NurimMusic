@@ -1,5 +1,7 @@
 package nurim.jsp.service;
 
+import java.util.List;
+
 import nurim.jsp.model.Member;
 
 public interface MemberService {
@@ -25,6 +27,12 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public Member selectLoginInfo(Member member)throws Exception;
-	
+	/**
+	 * 이메일이 중복되는지 확인한다.
+	 * @param member
+	 * @return int
+	 * @throws Exception
+	 */
 	public int selectMemberEmailCheck(Member member)throws Exception;
+	
 }

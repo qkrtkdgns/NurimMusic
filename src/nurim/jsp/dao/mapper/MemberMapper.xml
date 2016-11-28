@@ -32,6 +32,7 @@
     #{addr2},now(),now()
     )
     </insert>
+    
     <!-- 등록된 회원인지 확인한다. -->
     <select id="selectMemberCheck" parameterType="nurim.jsp.model.Member"
     resultType="int">
@@ -39,6 +40,7 @@
     FROM member
     WHERE user_id=#{userId}
     </select>
+    
     <!-- 등록된 이메일인지 확인한다. -->
     <select id="selectMemberEmailCheck" parameterType="nurim.jsp.model.Member"
     resultType="int">
@@ -46,6 +48,7 @@
     FROM member
     WHERE email=#{email}
     </select>
+    
     <!-- 회원 정보를 조회한다. -->
     <select id="selectLoginInfo" parameterType="nurim.jsp.model.Member"
     resultMap="member">
@@ -53,5 +56,30 @@
     addr1,addr2,reg_date,edit_date
     FROM member
     WHERE user_id=#{userId} AND user_pw=password(#{userPw})
+    </select>
+    
+    <!-- 회원 목록을 조회한다. -->
+    <select id="selectMemberList" parameterType="nurim.jsp.model.Member"
+    resultMap="member">
+    SELECT id,user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,
+    addr1,addr2,reg_date,edit_date
+    FROM member
+    <where>
+	<if test="userId == null and userName == null">
+	</if>
+	<if test="userId !=null">
+	user_id like concat("%",#{userId},"%")
+	</if>
+	<if test="userName != null">
+	user_name like concat("%",#{userName},"%")
+	</if>
+	</where>
+    </select>
+    
+    <!-- 전체 회원의 수를 조회한다. -->
+    <select id="selectMemberCount" parameterType="nurim.jsp.model.Member"
+    resultType="int">
+    SELECT count(id)
+    FROM member;
     </select>
 </mapper>
