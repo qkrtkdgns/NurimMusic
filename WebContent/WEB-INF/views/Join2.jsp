@@ -6,7 +6,13 @@
 	<head>
 		<%@include file="inc/head.jsp" %>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/Join2.css" />
+		<style type="text/css">
 	
+		
+
+
+		</style>
+
 	</head>
 	<body>
 <%@include file="inc/top_nav.jsp" %>
@@ -14,9 +20,12 @@
 <!-- 본문내용 작성 start -->
 			<div id="content">
 			<p> * => 필수 입력사항</p>
+			
+			<form name="myform" method="post" action="${pageContext.request.contextPath}/join_ok.do">
 				<div class="join_substance">
 					<div class="join_substance1">
 					<br>
+				
 					<table class="Sub">
 						<tr>
 							<td class="title">아이디<font color="red">*</font></td>
@@ -52,7 +61,7 @@
 						<tr height="4"></tr>
 						<tr>
 							<td class="title">생년월일</td>
-							<td><input type="text" name="birthdate" id="birthdate" maxlength="8" size="15" placeholder="'-'없이 입력하세요.">생년월일<hr/></td>
+							<td><input type="text" name="birthdate" id="birthdate" maxlength="8" size="10"><hr/></td>
 						</tr>
 
 						<tr>
@@ -62,20 +71,20 @@
 						<tr height="4"></tr>
 						<tr>
 							<td class="title">우편번호<font color="red">*</font></td>
-							<td><input type="text" name="address" id="sample6_postcode">
+							<td><input type="text" name="postcode" id="sample6_postcode">
 							<input type="button" id="sample4_execDaumPostcode" name="chk_ad" value="주소찾기">
 							</td>
 						</tr>
 						<tr height="4"></tr>
 						<tr>
 							<td class="title">주소<font color="red">*</font></td>
-							<td><input type="text"  name="address_sub" size="30" id="sample6_address"
+							<td><input type="text"  name="address" size="30" id="sample6_address"
 							placeholder="주소"></td>
 						</tr>
 						<tr height="4"></tr>
 						<tr>
 							<td class="title">상세 주소<font color="red">*</font></td>
-							<td><input type="text"  name="address_sub2" size="63" id="sample6_address2" placeholder="상세주소를 입력해주세요."/><hr/></td>
+							<td><input type="text"  name="address_sub" size="63" id="sample6_address2" placeholder="상세주소를 입력해주세요."/><hr/></td>
 						</tr>
 
 						<tr>
@@ -88,9 +97,12 @@
 
 				</div>
 				<div class="join_button">
-							<a href="${pageContext.request.contextPath }/Join2Ok.do" id="OK"><img src="${pageContext.request.contextPath }/img/btn_join.gif"></a>
-							<a href="#" id="NO" onclick="history.back()"><img src="${pageContext.request.contextPath }/img/btn_back.gif"></a>	
+					<button type="submit" ><img src="${pageContext.request.contextPath }/img/btn_join.gif"></button>
+					<button type="reset" ><img src="${pageContext.request.contextPath }/img/btn_back.gif"></button>
+						
+							<a href="#" id="NO"></a>	
 					</div>
+			</form>
 </div>
 <!--본문내용 작성 end -->
 
@@ -145,89 +157,7 @@
     });
 
 		
-			$("#OK").click(function(){
-			
-				var Type =/^[a-zA-Z0-9]*$/;
-
-				if (!$("#user_id").val()) {
-					alert("아이디를 입력하세요.");
-					$("#user_id").focus();
-					return false;
-				}
-
-				if(!Type.test($('#user_id').val())){
-					alert("아이디는 숫자와 영문만 입력할 수 있습니다.");
- 					 $("#user_id").focus();
- 					 return false;
-				}
-
-				
-				if (!$("#user_pw").val()) {
-					alert("비밀번호를 작성 부탁드립니다.");
-					$("#user_pw").focus();
-					return false;
-				}
-
-				var pwType = /^[a-zA-Z0-9]*$/;
-				if (!pwType.test(document.getElementById('user_pw').value)) {
-				 alert('비밀번호는 숫자와 영문만 입력할 수 있습니다.');
-				 $("#user_pw").focus();
-				return false;
-				}
-
-
-				if (!$("#user_pw_re").val()) {
-					alert("비밀번호 확인란을 작성 부탁드립니다..");
-					$("#user_pw_re").focus();
-					return false;
-				}
-
-
-				if ($("#user_pw_re").val()!=$("#user_pw").val()) {
-					alert("비밀번호가 다릅니다.");
-					$("#user_pw_re").focus();
-					return false;
-				}
-
-				if (!$("#email").val()) {
-					alert("이메일 주소를 입력하세요.");
-					$("#email").focus();
-					return false;
-				}
-
-				var emType =/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-				if (!emType.test(document.getElementById('email').value)) {
-				 alert('이메일형식에 맞게 작성해주세요.');
-				 $("#email").focus();
-				return false;
-				}
-
-				if (!$("#sample6_postcode").val()) {
-					alert("우편번호를 입력하세요. 오른쪽의 주소찾기 버튼을 눌러주세요.");
-					$("#adress").focus();
-					return false;
-				}
-
-				if (!$("#sample6_address2").val()) {
-					alert("상세주소를 입력하세요.");
-					$("#sample6_address2").focus();
-					return false;
-				}
-
-				if (!$("#tel").val()) {
-					alert("'-'을 포함한 연락처를 입력하세요.");
-					$("#tel").focus();
-					return false;
-				}
-
-
-				var telType = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
-				if (!telType.test(document.getElementById('tel').value)) {
-				 alert('올바른 전화번호가 아닙니다.');
-				return false;
-				}
-
-			});
+	
 		});
 		</script>
 	</body>
