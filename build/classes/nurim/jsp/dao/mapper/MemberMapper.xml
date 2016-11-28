@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <!-- 회원에 대한 CRUD -->
-<mapper namespace="memberMapper">
+<mapper namespace="MemberMapper">
     
     <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
     <resultMap id="member" type="nurim.jsp.model.Member">
     	<result property="id" 			column="id" />
     	<result property="userId" 		column="user_id" />
     	<result property="userPw" 		column="user_pw" />
+    	<result property="userName"		column="user_name" />
     	<result property="gender" 		column="gender" />
     	<result property="birthdate"	column="birthdate" />
     	<result property="email" 		column="email" />
@@ -20,5 +21,12 @@
     	<result property="regDate" 		column="reg_date" />
     	<result property="editDate" 	column="edit_date" />
     </resultMap>
-    
+    <!-- 회원 정보를 조회한다. -->
+    <select id="selectLoginInfo" parameterType="nurim.jsp.model.Member"
+    resultMap="member">
+    SELECT id,user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,
+    addr1,addr2,reg_date,edit_date
+    FROM member
+    WHERE user_id=#{userId} AND user_pw=password(#{userPw})
+    </select>
 </mapper>

@@ -24,17 +24,17 @@
 				</div>
 				<br>
 				<div class="login_enter">
-					<div class="enter">
-						<form>
-						<fieldset>
+					
+						<form method="post" action="${pageContext.request.contextPath }/login_page_ok.do">
+						<div class="enter">
 								<div class="form-group">
 								<label for="user_id">아이디</label>
-								<input type="text" class="form-control"  id="user_id" placeholder="아이디를 입력하세요.">
+								<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디를 입력하세요.">
 								</div>
 								<div class="form-group">
 								<label for="password">비밀번호</label>
 
-								<input type="password"  class="form-control"  id="password" placeholder="비밀번호을 입력하세요.">
+								<input type="password"  class="form-control"name="password"  id="password" placeholder="비밀번호을 입력하세요.">
 								</div>
 								<div class="help">
 								<a href="${pageContext.request.contextPath }/join.do"><button type="button" class="btn btn-default">회원가입</button></a>
@@ -45,10 +45,10 @@
 								
 					</div>
 					<div class="login_button">
-					<a href="${pageContext.request.contextPath }/index.do"><button type="button" class="btn btn-primary">로그인</button></a>
+					<button type="submit" class="btn btn-primary">로그인</button>
 					
 					</div>
-						</fieldset>
+						
 					</form>
 				</div>
 			</div>

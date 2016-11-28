@@ -62,11 +62,12 @@ body{
 	top: 7px;
 }
 .top_nav{
-	width:324px;
+	width:400px;
 	height:16px;
 	position: absolute;
 	top:7px;
 	right:0px;
+	float:right;
 }
 .top_bar{
 	width:1170px;

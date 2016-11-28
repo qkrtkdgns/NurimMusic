@@ -29,8 +29,8 @@
       <li><a href="${pageContext.request.contextPath }/join.do">회원가입</a></li>
       </c:when>
       <c:otherwise>
-      <li>${loginInfo.name}님 <span class="caret"></span></li>
-      <li><a href="${pageContext.request.contextPath}/logout.do">
+      <li><a>${loginInfo.userName}님 </a></li>
+      <li><a href="${pageContext.request.contextPath}/login_page_out.do">
 	로그아웃</a></li>
       </c:otherwise>
    </c:choose>
