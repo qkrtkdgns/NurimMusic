@@ -32,9 +32,29 @@ public class MemberServiceImpl implements MemberService {
 			sqlSession.rollback();
 			logger.debug(e.getLocalizedMessage());
 			throw new Exception("회원정보를 저장하지 못했습니다.");
+		}finally{
+			sqlSession.commit();
 		}
 	}
 
+	@Override
+	public int selectMemberCheck(Member member) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.selectOne("MemberMapper.selectMemberCheck",member);
+			if(result >0){
+				throw new Exception();
+			}
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			if(result >0){
+				throw new Exception("아이디가 중복됩니다.");
+			}else{
+			throw new Exception("아이디 중복검사를 실패했습니다.");
+			}
+		}
+		return result;
+	}
 	@Override
 	public Member selectLoginInfo(Member member) throws Exception {
 		Member result = null;
@@ -53,5 +73,25 @@ public class MemberServiceImpl implements MemberService {
 		
 		return result;
 	}
+
+	@Override
+	public int selectMemberEmailCheck(Member member) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.selectOne("MemberMapper.selectMemberEmailCheck",member);
+			if(result >0){
+				throw new Exception();
+			}
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			if(result >0){
+				throw new Exception("이메일이 중복됩니다.");
+			}else{
+			throw new Exception("이메일 중복검사를 실패했습니다.");
+			}
+		}
+		return result;
+	}
+
 
 }

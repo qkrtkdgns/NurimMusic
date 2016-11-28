@@ -30,7 +30,6 @@
 						<tr>
 							<td class="title">아이디<font color="red">*</font></td>
 							<td ><input  id="user_id" type="text" placeholder="아이디는 4~16자 내외입니다." name="user_id"  minlength="4" maxlength="16">
-							<input type="button" name="chk_id" value="아이디중복체크">
 							<hr/>
 							</td>
 							

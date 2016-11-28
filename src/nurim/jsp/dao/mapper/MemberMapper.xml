@@ -21,6 +21,31 @@
     	<result property="regDate" 		column="reg_date" />
     	<result property="editDate" 	column="edit_date" />
     </resultMap>
+    
+    <!-- 회원 정보를 등록한다. -->
+    <insert id="insertMember" parameterType="nurim.jsp.model.Member"
+    useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO member (
+    user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,addr1,addr2,reg_date,edit_date
+    ) VALUES(
+    #{userId},#{userPw},#{userName},#{gender},#{birthdate},#{email},#{tel},#{postcode},#{addr1},
+    #{addr2},now(),now()
+    )
+    </insert>
+    <!-- 등록된 회원인지 확인한다. -->
+    <select id="selectMemberCheck" parameterType="nurim.jsp.model.Member"
+    resultType="int">
+    SELECT count(id)
+    FROM member
+    WHERE user_id=#{userId}
+    </select>
+    <!-- 등록된 이메일인지 확인한다. -->
+    <select id="selectMemberEmailCheck" parameterType="nurim.jsp.model.Member"
+    resultType="int">
+    SELECT count(id)
+    FROM member
+    WHERE email=#{email}
+    </select>
     <!-- 회원 정보를 조회한다. -->
     <select id="selectLoginInfo" parameterType="nurim.jsp.model.Member"
     resultMap="member">

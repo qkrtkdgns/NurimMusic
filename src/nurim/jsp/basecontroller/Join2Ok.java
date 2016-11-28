@@ -59,9 +59,9 @@ public class Join2Ok extends BaseController {
       String  tel=web.getString("tel");
       String  birthdate=web.getString("birthdate");
       String  gender=web.getString("gender");
-      String  postcode=web.getString("address");
-      String  addr1=web.getString("address_sub");
-      String  addr2=web.getString("address_sub2");
+      String  postcode=web.getString("postcode");
+      String  addr1=web.getString("address");
+      String  addr2=web.getString("address_sub");
       
       logger.debug("userId="+userId);
       logger.debug("userPw="+userPw);
@@ -193,6 +193,8 @@ public class Join2Ok extends BaseController {
       
       /**(8) Service를 통한 데이터베이스 저장 처리*/
       try{
+    	 memberService.selectMemberCheck(member);
+    	 memberService.selectMemberEmailCheck(member);
          memberService.insertMember(member);
       }catch(Exception e){
          sqlSession.close();
