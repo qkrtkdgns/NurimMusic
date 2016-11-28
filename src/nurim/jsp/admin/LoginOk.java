@@ -73,8 +73,8 @@ public class LoginOk extends BaseController {
 		/** (5) 전달받은 파라미터를 세션에 저장 */
 		// --> import study.jsp.mysite.model.Member
 		Member member = new Member();
-		member.setUser_id(userId);
-		member.setUser_pw(userPw);
+		member.setUserId(userId);
+		member.setUserPw(userPw);
 		
 		/** (6) Service를 통한 회원 인증 */
 		Member loginInfo;

@@ -88,7 +88,7 @@
 
 				</div>
 				<div class="join_button">
-							<a href="${pageContext.request.contextPath }/index.do" id="OK"><img src="${pageContext.request.contextPath }/img/btn_join.gif"></a>
+							<a href="${pageContext.request.contextPath }/Join2Ok.do" id="OK"><img src="${pageContext.request.contextPath }/img/btn_join.gif"></a>
 							<a href="#" id="NO" onclick="history.back()"><img src="${pageContext.request.contextPath }/img/btn_back.gif"></a>	
 					</div>
 </div>
@@ -202,15 +202,15 @@
 				return false;
 				}
 
-				if (!$("#sample4_postcode").val()) {
+				if (!$("#sample6_postcode").val()) {
 					alert("우편번호를 입력하세요. 오른쪽의 주소찾기 버튼을 눌러주세요.");
 					$("#adress").focus();
 					return false;
 				}
 
-				if (!$("#adress_sub").val()) {
+				if (!$("#sample6_address2").val()) {
 					alert("상세주소를 입력하세요.");
-					$("#adress_sub").focus();
+					$("#sample6_address2").focus();
 					return false;
 				}
 

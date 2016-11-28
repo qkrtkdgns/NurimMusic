@@ -64,7 +64,7 @@ public class NewItem extends BaseController{
 				logger.debug("keyword >> " + keyword);
 				
 				//제목과 내용에 대한 검색으로 활용하기 위해서 입력값을 설정한다.
-				prod.setPro_name(keyword);
+				prod.setProName(keyword);
 
 				/** (6) 게시글 목록 조회 */
 				int totalCount = 0;

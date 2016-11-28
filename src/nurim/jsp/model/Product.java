@@ -13,6 +13,22 @@ public class Product {
 	private String editDate = null;
 	private String provider = null;
 	private String content = null;
+	
+	private int LimitStart= 0;
+	private int ListCount=0;
+	
+	public int getLimitStart() {
+		return LimitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		LimitStart = limitStart;
+	}
+	public int getListCount() {
+		return ListCount;
+	}
+	public void setListCount(int listCount) {
+		ListCount = listCount;
+	}
 	public int getId() {
 		return id;
 	}
@@ -90,7 +106,7 @@ public class Product {
 		return "Product [id=" + id + ", documentId=" + documentId + ", proCategoryId=" + proCategoryId + ", proImg="
 				+ proImg + ", proName=" + proName + ", proPrice=" + proPrice + ", amount=" + amount + ", proHit="
 				+ proHit + ", regDate=" + regDate + ", editDate=" + editDate + ", provider=" + provider + ", content="
-				+ content + "]";
+				+ content + ", LimitStart=" + LimitStart + ", ListCount=" + ListCount + "]";
 	}
 	
 }

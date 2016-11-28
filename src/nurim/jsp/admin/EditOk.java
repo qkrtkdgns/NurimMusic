@@ -54,7 +54,6 @@ public class EditOk extends BaseController {
 		int no = web.getInt("no");
 		String date = web.getString("date");
 		String file = web.getString("file");
-		String category = web.getString("category");
 		String provide = web.getString("provide");
 		String cont = web.getString("cont");
 
@@ -63,19 +62,17 @@ public class EditOk extends BaseController {
 		logger.debug("no=" + no);
 		logger.debug("date=" + date);
 		logger.debug("file=" + file);
-		logger.debug("category=" + category);
 		logger.debug("provide=" + provide);
 		logger.debug("cont=" + cont);
 
 		/** (5) 전달받은 파라미터를 세션에 저장 */
 		// --> import study.jsp.mysite.model.Member
 		Product prod= new Product();
-		prod.setPro_name(title);
-		prod.setPro_price(price);
+		prod.setProName(title);
+		prod.setProPrice(price);
 		prod.setAmount(no);
-		prod.setReg_date(date);
-		prod.setPro_img(file);
-		prod.setCategory(category);
+		prod.setRegDate(date);
+		prod.setProImg(file);
 		prod.setProvider(provide);
 		prod.setContent(cont);
 		/** (8) Service를 통한 데이터베이스 저장 처리 */

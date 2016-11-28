@@ -169,8 +169,8 @@ public class MemberAdd extends BaseController {
 
 		/** (7) 전달받은 파라미터를 Beans 객체에 담는다. */
 		Member member = new Member();
-		member.setUser_id(userId);
-		member.setUser_name(name);
+		member.setUserId(userId);
+		member.setUserName(name);
 		member.setEmail(email);
 		member.setTel(tel);
 		member.setGender(gender);
