@@ -35,4 +35,26 @@ public interface MemberService {
 	 */
 	public int selectMemberEmailCheck(Member member)throws Exception;
 	
+	/**
+	 * 입력한 비밀번호와 유저의 비밀번호를 비교한다.
+	 * @param member
+	 * @return int
+	 * @throws Exception
+	 */
+	public int selectMemberPasswordCheck(Member member)throws Exception;
+	
+	/**
+	 * 회원 아이디와 비밀번호로 정보 확인
+	 * @param member
+	 * @return int
+	 * @throws Exception
+	 */
+	public int selectMemberInformation(Member member) throws Exception;
+	
+	/**
+	 * 회원정보 업데이트
+	 * @param member
+	 * @throws Exception
+	 */
+	public void updateMemberInformation (Member member) throws Exception;
 }

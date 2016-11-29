@@ -28,7 +28,7 @@
     INSERT INTO member (
     user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,addr1,addr2,reg_date,edit_date
     ) VALUES(
-    #{userId},#{userPw},#{userName},#{gender},#{birthdate},#{email},#{tel},#{postcode},#{addr1},
+    #{userId},password(#{userPw}),#{userName},#{gender},#{birthdate},#{email},#{tel},#{postcode},#{addr1},
     #{addr2},now(),now()
     )
     </insert>
@@ -80,6 +80,30 @@
     <select id="selectMemberCount" parameterType="nurim.jsp.model.Member"
     resultType="int">
     SELECT count(id)
-    FROM member;
+    FROM member
     </select>
+    
+    <!-- 정보수정페이지 접근을 위해 비밀번호를 조회한다. -->
+    <select id="selectMemberPasswordCheck" parameterType="nurim.jsp.model.Member"
+    resultType="int">
+    SELECT count(id)
+    FROM member
+    WHERE user_pw=password(#{userPw})
+    </select>
+    
+    <!-- 회원정보수정 페이지에서 아이디와 비밀번호로 회원정보를 검색한다. -->
+    <select id="selectMemberInformation" parameterType="nurim.jsp.model.Member"
+    resultType="int">
+    SELECT count(id)
+    FROM member
+    WHERE user_id=#{userId} AND user_pw=password(#{userPw})
+    </select>
+    
+    <!-- 회원정보수정 페이지에서 회원정보를 수정한다. -->
+    <update id="updateMemberInformation" parameterType="nurim.jsp.model.Member">
+	UPDATE member 
+	SET user_pw =password(#{userPw}),user_name=#{userName},gender=#{gender},birthdate=#{birthdate},
+	email=#{email},tel=#{tel},postcode=#{postcode},addr1=#{addr1},addr2=#{addr2},edit_date=now()
+	WHERE user_id =#{userId};
+    </update>
 </mapper>

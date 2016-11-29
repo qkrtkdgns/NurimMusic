@@ -93,4 +93,56 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int selectMemberPasswordCheck(Member member) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.selectOne("MemberMapper.selectMemberPasswordCheck",member);
+			if(result ==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("비밀번호가 일치하지 않습니다.");
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("비밀번호 검사를 실행하지 못했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public int selectMemberInformation(Member member) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("MemberMapper.selectMemberInformation",member);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("회원정보가 없습니다.");
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("회원정보 검색에 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void updateMemberInformation(Member member) throws Exception {
+
+		try{
+			sqlSession.update("MemberMapper.updateMemberInformation",member);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("회원정보 수정에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
 }

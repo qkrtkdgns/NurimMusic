@@ -5,6 +5,7 @@
 <html lang="ko">
 	<head>
 		<%@include file="inc/head.jsp" %>
+		<%@include file="inc/picker.jsp" %>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/Join2.css" />
 		<style type="text/css">
 	
@@ -60,7 +61,7 @@
 						<tr height="4"></tr>
 						<tr>
 							<td class="title">생년월일</td>
-							<td><input type="text" name="birthdate" id="birthdate" maxlength="8" size="10"><hr/></td>
+							<td><input type="text" name="birthdate" id="birthdate" maxlength="8" size="20" placeholder="생년월일을 선택하세요."><hr/></td>
 						</tr>
 
 						<tr>
@@ -112,7 +113,12 @@
 		<script type="text/javascript">
 
 		$(function(){
-
+			$('#birthdate').pickadate({
+				  formatSubmit: 'yyyy/mm/dd',
+				  hiddenName: true,
+				  selectMonths:true,
+				  selectYears:200,
+				});
 			$("#sample4_execDaumPostcode").click(function(){
        		 new daum.Postcode({
             oncomplete: function(data) {
