@@ -34,26 +34,20 @@
 	resultMap="product">
 	SELECT
 	id,pro_img,pro_name,pro_price,amount,pro_hit,reg_date,
-	edit_date,provider,document_id,category,content
-	FROM product 
-	<where>
-	<if test="pro_name != null">
-	 pro_name LIKE concat('%',#{pro_name},'%')
-	</if>
-	</where>
+	edit_date,provider,document_id,content
+	FROM product
 	ORDER BY id DESC
-	LIMIT #{limitStart},#{listCount}	
+	<!--  LIMIT #{limitStart},#{listCount}-->	
 	</select>
 	
-	<insert id="insertProductItem" parameterType="nurim.jsp.model.Product"
+	<insert id="insertProduct" parameterType="nurim.jsp.model.Product"
 	useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO product(
-	pro_img,pro_name,pro_price,amount,pro_hit,
-	reg_date,edit_date,provider,document_id,category,
-	content)
+	pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content)
 	VALUES(
-	#{pro_img},#{pro_name},#{pro_price},#{amount},0,
-	now(),now(),#{provider},null,#{category},#{content}
+	#{proImg},#{proName},#{proPrice},#{amount},0,
+	now(),now(),#{provider},#{content}
 	)
 	</insert>
 </mapper>

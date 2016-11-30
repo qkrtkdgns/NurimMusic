@@ -39,11 +39,9 @@ public class user_informationOk extends BaseController {
 		memberService = new MemberServiceImpl(sqlSession, logger);
 		
 		/**(3)POST 파라미터 받기*/
-	      String userId = web.getString("user_id");
 	      String userPw =web.getString("user_pw");
 	      String userPwRe =web.getString("user_pw_re");
 	      String userPwReCheck = web.getString("user_pw_re_check");
-	      String userName=web.getString("user_name");
 	      String  email= web.getString("email");
 	      String  tel=web.getString("tel");
 	      String  birthdate=web.getString("birthdate");
@@ -52,11 +50,9 @@ public class user_informationOk extends BaseController {
 	      String  addr1=web.getString("address");
 	      String  addr2=web.getString("address_sub");
 	      
-	      logger.debug("userId="+userId);
 	      logger.debug("userPw="+userPw);
 	      logger.debug("userPwRe="+userPwRe);
 	      logger.debug("userPwReCheck = " + userPwReCheck);
-	      logger.debug("userName="+userName);
 	      logger.debug("email="+email);
 	      logger.debug("tel="+tel);
 	      logger.debug("birthdate="+birthdate);
@@ -73,23 +69,6 @@ public class user_informationOk extends BaseController {
 		    	  return null;
 		      }}
 	      
-	      if(!regex.isValue(userId)){
-	         sqlSession.close();
-	         web.redirect(null, "아이디를 입력하세요");
-	         return null;
-	      }
-	      if(!regex.isEngNum(userId)){
-	         sqlSession.close();
-	         web.redirect(null, "아이디는 숫자와 영문의 조합만 가능합니다.");
-	         return null;
-	      }
-	      
-	      if(userId.length()>20){
-	         sqlSession.close();
-	         web.redirect(null, "아이디는 숫자와 영문의 조합으로 16자까지만 가능합니다.");
-	         return null;
-	      }
-	      
 	      if(!regex.isValue(userPw)){
 	         sqlSession.close();
 	         web.redirect(null, "비밀번호를 입력하세요");
@@ -104,23 +83,6 @@ public class user_informationOk extends BaseController {
 	      if(userPw.length()>20){
 	         sqlSession.close();
 	         web.redirect(null, "비밀번호는 숫자와 영문의 조합으로 20자까지만 가능합니다.");
-	         return null;
-	      }
-	      
-	      if(!regex.isValue(userName)){
-	         sqlSession.close();
-	         web.redirect(null, "이름를 입력하세요");
-	         return null;
-	      }
-	      if(!regex.isKor(userName)){
-	         sqlSession.close();
-	         web.redirect(null, "이름은 한글만 입력 가능합니다.");
-	         return null;
-	      }
-	      
-	      if(userName.length()<2 || userName.length()>5){
-	         sqlSession.close();
-	         web.redirect(null, "이름은 2~5글자 까지만 가능합니다.");
 	         return null;
 	      }
 	      
@@ -165,12 +127,12 @@ public class user_informationOk extends BaseController {
 	         web.redirect(null, "성별이 잘못되었습니다.");
 	         return null;
 	      }
-	      
+	      Member loginInfo = (Member) web.getSession("loginInfo");
 	      /**(7) 전달받은 파라미터를 Beans 객체에 담는다.*/
 	      Member member = new Member();
-	      member.setUserId(userId);
+	      member.setUserId(loginInfo.getUserId());
 	      member.setUserPw(userPw);
-	      member.setUserName(userName);
+	      member.setUserName(loginInfo.getUserName());
 	      member.setEmail(email);
 	      member.setTel(tel);
 	      member.setBirthdate(birthdate);

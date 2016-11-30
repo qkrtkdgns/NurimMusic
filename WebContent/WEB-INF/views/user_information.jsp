@@ -25,11 +25,11 @@
 					<tbody>
 						<tr>
 							<th><p>아이디</p></th>
-							<td><input type="text" name="user_id" id="user_id" value="${loginInfo.userId }"/></td>
+							<td><input type="text" name="user_id" id="user_id" value="${loginInfo.userId }" disabled style="border:none; background:none;"/></td>
 						</tr>
 						<tr>
 							<th><p>이름</p></th>
-							<td><input type="text" name="user_name" id="user_name" value="${loginInfo.userName }"/></td>
+							<td><input type="text" name="user_name" id="user_name" value="${loginInfo.userName }" disabled style="border:none; background:none;"/></td>
 						</tr>
 						<tr>
 							<th><p>현재비밀번호</p></th>
