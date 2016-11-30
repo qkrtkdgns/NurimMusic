@@ -24,14 +24,13 @@
 			<div class="find_id">
 				<div class="form-group">
 					<label for="user_name">이름</label> <input type="text"
-						class="form-control" id="user_name" placeholder="이름을 입력하세요.">
+						class="form-control" name="user_name" id="user_name" placeholder="이름을 입력하세요.">
 				</div>
 				<div class="form-group">
 					<label for="email">이메일</label> <input type="email"
-						class="form-control" id="email" placeholder="이메일을 입력하세요.">
+						class="form-control" name="email" id="email" placeholder="이메일을 입력하세요.">
 					<div class="find_id_button">
-						<input type="submit" class="btn btn-default" id="button"
-							value="아이디 찾기">
+						<input type="submit" class="btn btn-default" id="button" value="아이디 찾기" />
 					</div>
 				</div>
 			</div>
@@ -43,17 +42,17 @@
 		<div class="find_pw">
 			<div class="form-group">
 				<label for="user_name">이름</label> <input type="text"
-					class="form-control" id="user_name" placeholder="이름을 입력하세요.">
+					class="form-control" name="user_name" id="user_name" placeholder="이름을 입력하세요.">
 			</div>
 
 			<div class="form-group">
 				<label for="user_id">아이디</label> <input type="text"
-					class="form-control" id="user_id" placeholder="아이디를 입력하세요.">
+					class="form-control" name="user_id" id="user_id" placeholder="아이디를 입력하세요.">
 			</div>
 
 			<div class="form-group">
 				<label for="email">이메일</label> <input type="email"
-					class="form-control" id="email" placeholder="이메일을 입력하세요.">
+					class="form-control" name="email" id="email" placeholder="이메일을 입력하세요.">
 			</div>
 			<div class="find_pw_button">
 				<input type="submit" class="btn btn-default" id="button"

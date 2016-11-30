@@ -106,4 +106,28 @@
 	email=#{email},tel=#{tel},postcode=#{postcode},addr1=#{addr1},addr2=#{addr2},edit_date=now()
 	WHERE user_id =#{userId};
     </update>
+    
+    <!-- 회원 아이디를 검색한다. -->
+    <select id="selectUserId" parameterType="nurim.jsp.model.Member"
+    resultMap="member">
+    SELECT user_id
+    FROM member
+    WHERE user_name=#{userName} AND email=#{email}
+    </select>
+    
+    <!-- 회원 비밀번호를 검색한다. -->
+    <select id="selectUserPw" parameterType="nurim.jsp.model.Member"
+    resultMap="member">
+    SELECT id,user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,
+    addr1,addr2,reg_date,edit_date
+    FROM member
+    WHERE user_id=#{userId} AND user_name=#{userName} AND email=#{email}
+    </select>
+    
+    <!-- 회원 비밀번호를 변경한다. -->
+    <update id="updateUserPw" parameterType="nurim.jsp.model.Member">
+    UPDATE member
+    SET user_pw=password(#{userPw})
+    WHERE user_id=#{userId} AND user_name=#{userName} AND email=#{email}
+    </update>
 </mapper>

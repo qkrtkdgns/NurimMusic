@@ -1,7 +1,5 @@
 package nurim.jsp.service;
 
-import java.util.List;
-
 import nurim.jsp.model.Member;
 
 public interface MemberService {
@@ -57,4 +55,27 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public void updateMemberInformation (Member member) throws Exception;
+	
+	/**
+	 * 회원아이디 찾기
+	 * @param member
+	 * @return Member
+	 * @throws Exception
+	 */
+	public Member selectUserId (Member member) throws Exception;
+	
+	/**
+	 * 회원비밀번호 찾기
+	 * @param member
+	 * @return Member
+	 * @throws Exception
+	 */
+	public Member selectUserPw (Member member) throws Exception;
+	
+	/**
+	 * 회원 비밀번호 변경
+	 * @param member
+	 * @throws Exception
+	 */
+	public void updateUserPw (Member member) throws Exception;
 }
