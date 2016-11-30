@@ -1,34 +1,21 @@
 package nurim.jsp.model;
 
 public class Product {
-	private int id = 0;
-	private int documentId = 0;
-	private int proCategoryId = 0;
-	private String proImg = null;
-	private String proName = null;
-	private int proPrice = 0;
-	private int amount = 0;
-	private int proHit = 0;
-	private String regDate = null;
-	private String editDate = null;
-	private String provider = null;
-	private String content = null;
+	private int id;
+	private int documentId;
+	private int proCategoryId;
+	private String proImg;
+	private String proName;
+	private String proPrice;
+	private String amount ;
+	private int proHit ;
+	private String regDate;
+	private String editDate;
+	private String provider;
+	private String content;
 	
-	private int LimitStart= 0;
-	private int ListCount=0;
-	
-	public int getLimitStart() {
-		return LimitStart;
-	}
-	public void setLimitStart(int limitStart) {
-		LimitStart = limitStart;
-	}
-	public int getListCount() {
-		return ListCount;
-	}
-	public void setListCount(int listCount) {
-		ListCount = listCount;
-	}
+	private int LimitStart;
+	private int ListCount;
 	public int getId() {
 		return id;
 	}
@@ -59,16 +46,16 @@ public class Product {
 	public void setProName(String proName) {
 		this.proName = proName;
 	}
-	public int getProPrice() {
+	public String getProPrice() {
 		return proPrice;
 	}
-	public void setProPrice(int proPrice) {
+	public void setProPrice(String proPrice) {
 		this.proPrice = proPrice;
 	}
-	public int getAmount() {
+	public String getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 	public int getProHit() {
@@ -101,6 +88,18 @@ public class Product {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public int getLimitStart() {
+		return LimitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		LimitStart = limitStart;
+	}
+	public int getListCount() {
+		return ListCount;
+	}
+	public void setListCount(int listCount) {
+		ListCount = listCount;
+	}
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", documentId=" + documentId + ", proCategoryId=" + proCategoryId + ", proImg="
@@ -108,5 +107,6 @@ public class Product {
 				+ proHit + ", regDate=" + regDate + ", editDate=" + editDate + ", provider=" + provider + ", content="
 				+ content + ", LimitStart=" + LimitStart + ", ListCount=" + ListCount + "]";
 	}
+	
 	
 }
