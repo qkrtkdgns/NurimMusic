@@ -96,7 +96,7 @@ public class LoginOk extends BaseController {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		}
-		/**(7) 관리자 계정 확인 */
+		/**(7) 관리자 계정 확인
 		if(loginInfo !=null){
 			int admin = loginInfo.getId();
 			logger.debug("admin >> " + admin);
@@ -104,7 +104,7 @@ public class LoginOk extends BaseController {
 			web.redirect(null, "관리자 계정이 아닙니다.");
 			return null;
 		}
-		}
+		} */
 		/** (8) 조회된 회원 정보를 세션에 저장 */
 		// 로그인 처리는 아이디와 비밀번호를 기반으로 조회된 정보를
 		// 세션에 보관하는 과정을 말한다.

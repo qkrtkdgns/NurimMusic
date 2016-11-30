@@ -188,6 +188,7 @@ Member result = null;
 		try{
 			sqlSession.update("MemberMapper.updateUserPw",member);
 		}catch(Exception e){
+			sqlSession.rollback();
 			logger.debug(e.getLocalizedMessage());
 			throw new Exception("비밀번호 변경에 실패했습니다.");
 		}finally{

@@ -127,7 +127,29 @@
     <!-- 회원 비밀번호를 변경한다. -->
     <update id="updateUserPw" parameterType="nurim.jsp.model.Member">
     UPDATE member
-    SET user_pw=password(#{userPw})
+    SET user_pw=password(#{userPw}),edit_date=now()
     WHERE user_id=#{userId} AND user_name=#{userName} AND email=#{email}
     </update>
+    
+    <!-- 관리자에서 회원정보 변경 -->
+    <update id="updateMember" parameterType="nurim.jsp.model.Member">
+	UPDATE member 
+	SET user_pw =password(#{userPw}),user_name=#{userName},gender=#{gender},birthdate=#{birthdate},
+	email=#{email},tel=#{tel},postcode=#{postcode},addr1=#{addr1},addr2=#{addr2},edit_date=now()
+	WHERE id =#{id};
+    </update>
+    
+    <select id="selectMemberByAdmin" parameterType="nurim.jsp.model.Member"
+    resultMap="member">
+    SELECT id,user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,
+    addr1,addr2,reg_date,edit_date
+    FROM member
+    WHERE id=#{id}
+    </select>
+    
+    <!-- 관리자에서 회원정보 삭제 -->
+    <delete id="deleteMemberByAdmin" parameterType="nurim.jsp.model.Member">
+    DELETE FROM member
+    WHERE id=#{id}
+    </delete>
 </mapper>

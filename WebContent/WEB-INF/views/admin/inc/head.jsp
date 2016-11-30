@@ -12,3 +12,10 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin_assets/assets/css/bootstrap.min.css" />
 		<script src="${pageContext.request.contextPath}/admin_assets/assets/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/admin_assets/assets/js/bootstrap.min.js"></script>
+		<!-- handlebars -->
+<script src="${pageContext.request.contextPath }/assets/plugins/handlebars-v4.0.5.js"></script>
+<!-- ajax -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+<script src="${pageContext.request.contextPath }/assets/plugins/ajax/ajax_helper.js"></script>
+<!-- ajaxForm -->
+<script src="${pageContext.request.contextPath }/assets/plugins/ajax-form/jquery.form.min.js"></script>

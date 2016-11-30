@@ -20,8 +20,8 @@ import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Member;
 
-@WebServlet("/admin/member_add.do")
-public class MemberAdd extends BaseController {
+@WebServlet("/admin/member_delete.do")
+public class MemberDelete extends BaseController {
 	private static final long serialVersionUID = -119449740030506798L;
 
 	/** (1) 사용하고자 하는 Helper + Service 객체 선언 */
@@ -52,11 +52,30 @@ public class MemberAdd extends BaseController {
 			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
 			return null;
 		}
+		int id = web.getInt("checkbox");
+
+		// 전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
+		logger.debug("id >> " + id );
+
+		/** (7) 전달받은 파라미터를 Beans 객체에 담는다. */
+		Member member = new Member();
+		member.setId(id);
+
+		/** (8) Service를 통한 데이터베이스 저장 처리 */
+		try {
+			memberService.deleteMemberByAdmin(member);
+		} catch (Exception e) {
+			sqlSession.close();
+			web.redirect(null, e.getLocalizedMessage());
+			// 예외가 발생한 경우이므로, 더이상 진행하지 않는다.
+			return null;
+		}
+
 		// INSERT,UPDATE, DELETE 처리를 수행하는 action 페이지들은
 		// 자체적으로 View를 갖지 않고 결과를 확인할 수 있는
 		// 다른페이지로 강제 이동시켜야 한다. (중복실행 방지)
 		// 그러므로 View의 경로를 리턴하지 않는다.
-		return "admin/member_insert";
+		return "admin/member";
 	}
 
 }

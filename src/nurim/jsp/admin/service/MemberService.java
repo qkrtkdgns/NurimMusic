@@ -13,4 +13,11 @@ public interface MemberService {
 	public List<Member> selectMemberList (Member member)throws Exception;
 	
 	public void insertMemberByAdmin (Member member)throws Exception;
+
+	public void updateMemberByAdmin(Member member);
+	
+	public Member selectMemberByAdmin(Member member);
+
+	public void deleteMemberByAdmin(Member member);
 }
+

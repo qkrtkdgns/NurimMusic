@@ -96,6 +96,48 @@ public class MemberServiceImpl implements MemberService {
 			sqlSession.commit();
 		}
 	}
+
+	@Override
+	public void updateMemberByAdmin(Member member) {
+		try{
+			int result = sqlSession.insert("MemberMapper.updateMember",member);
+			if(result ==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public Member selectMemberByAdmin(Member member) {
+		Member result = null;
+		
+		try{
+			result = sqlSession.selectOne("MemberMapper.selectMemberByAdmin",member);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+		}
+		return result;
+	}
+
+	@Override
+	public void deleteMemberByAdmin(Member member) {
+		try{
+			sqlSession.delete("MemberMapper.deleteMemberByAdmin",member);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+		}finally{
+			sqlSession.commit();
+		}
+	}
 	
 
 }

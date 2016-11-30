@@ -13,8 +13,8 @@
       <![endif]-->
       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/reset.css">
       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/main.css">
-      <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" />
       <link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath }/css/menu.css" />
+      <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" />
       
       <script src="${pageContext.request.contextPath }/assets/js/jquery.min.js"></script>
       <script src="${pageContext.request.contextPath }/js/filesearch.js"></script>

@@ -1,8 +1,8 @@
 /** 입력, 수정 박스 위치 조절 */
 .control_box{
-	position: relative;
-	padding-top:150px;
-	padding-left:500px;
+	position: absolute;
+	padding-top:5%;
+	padding-left:40%;
 }
 /** 입력, 수정 박스 이외에 터치 불가 위치 지정 */
 .no_touch{
@@ -13,11 +13,10 @@
 	opacity: 0.5;
 	width: 100%;
 	height: 100%;
-	z-index: 0;
 }
 /** 평소에 보이지 않게 설정 */
 #update_box,#insert_box{
-position: absolute;
+position: fixed;
 top:0;
 left:0;
 width: 100%;
@@ -26,10 +25,9 @@ visibility: hidden;
 }
 /** no_touch보다 상위에 보이게 수정 */
 .control_box2{
-	z-index: 1;
 	position: absolute;
 	width:400px;
-	height:400px;
+	height:500px;
 	border-radius: 30px;
 	padding-left: 50px;
 	padding-top: 30px;
