@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- 회원에 대한 CRUD -->
+<mapper namespace="documentAdminMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="document" type="nurim.jsp.model.Document">
+    	<result property="id" 			column="id" />
+    	<result property="memberId" 	column="member_id" />
+    	<result property="category" 	column="category" />
+    	<result property="userNamae"	column="user_name" />
+    	<result property="tel"			column="tel" />
+    	<result property="subject" 		column="subject" />
+    	<result property="content"		column="content" />
+    	<result property="regDate" 		column="reg_date" />
+    	<result property="editDate" 	column="edit_date" />
+    	<result property="hit"	 		column="hit" />
+    	<result property="ipAddress" 	column="ip_address" />
+    	<result property="agree" 		column="agree" />
+    	<result property="disagree" 	column="disagree" />
+    	<result property="qna_type" 	column="qna_type" />
+    </resultMap>
+    
+    <!-- 게시글 정보 저장하기 -->
+    <insert id="insertInfo" parameterType="nurim.jsp.model.Document" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO document (
+    category, subject, hit, reg_date
+    ) VALUES (
+    	#{category}, #{subject}, 0, now()
+    )
+    </insert>
+    
+    <!-- 공지사항 정보 저장하기 -->
+    <insert id="insertNotice" parameterType="nurim.jsp.model.Document" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO document (
+    subject, content, reg_date, hit 
+    ) VALUES (
+    	#{subject}, #{content}, now(), 0, #{ipAddress}
+    )
+    </insert>
+    
+    <!-- 공지사항 하나에 대한 정보를 조회한다. -->
+    <select id="selectNotice" parameterType="nurim.jsp.model.Document" resultMap="document">
+    SELECT id, subject, content, reg_date, hit,
+    	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+    	ip_address, member_id
+    FROM document
+    WHERE id=#{id}
+    </select>
+    
+    <!-- 조회수 증가 (카테고리 없음)-->
+    <update id="updateNoticeHit" parameterType="nurim.jsp.model.Document">
+    UPDATE document SET hit=hit+1 WHERE id=#{id}
+    </update>
+    
+    <!-- 공지사항 목록을 조회한다. -->
+    <select id="selectNoticeList" parameterType="nurim.jsp.model.Document" resultMap="document">
+    SELECT id, subject, content, reg_date, hit,
+    DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+    FROM document
+    ORDER BY id DESC
+    </select>
+     
+</mapper>

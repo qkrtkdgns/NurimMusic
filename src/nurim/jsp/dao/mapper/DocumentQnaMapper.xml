@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- 회원에 대한 CRUD -->
+<mapper namespace="DocumentQnaMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="documentQna" type="nurim.jsp.model.DocumentQna">
+    	<result property="id" 			column="id" />
+    	<result property="memberId" 	column="member_id" />
+    	<result property="email"		column="email" />
+    	<result property="category" 	column="category" />
+    	<result property="userName"		column="user_name" />
+    	<result property="tel"			column="tel" />
+    	<result property="subject" 		column="subject" />
+    	<result property="content"		column="content" />
+    	<result property="regDate" 		column="reg_date" />
+    	<result property="editDate" 	column="edit_date" />
+    	<result property="hit"	 		column="hit" />
+    	<result property="ipAddress" 	column="ip_address" />
+    	<result property="agree" 		column="agree" />
+    	<result property="disagree" 	column="disagree" />
+    	<result property="qnaType" 		column="qna_type" />
+    	
+    </resultMap>
+    
+    <!-- 1:1 문의내역 저장하기 -->
+    <insert id="insertQna" parameterType="nurim.jsp.model.Document" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO documentQna (
+    category, qna_type, user_name, tel, email, subject, content
+    ) VALUES (
+   		#{category}, #{qna_type}, #{user_name}, #{tel}, #{email}, #{subject}, #{content}
+    )
+    </insert>
+    
+    <!-- 게시물 하나에 대한 정보를 조회한다. -->
+	<select id="selectQna"
+	parameterType="nurim.jsp.model.DocumentQna"
+	resultMap="documentQna">
+	SELECT id, category, user_name, tel, email, subject, content,
+				ip_address, member_id
+	FROM 	documentQna
+	WHERE	category=#{category} AND id=#{id}
+	</select>
+	
+	<!-- 자신의 게시물인지 검사한다. -->
+	<select id="selectDocumentQnaCountByMemberId" parameterType="nurim.jsp.model.DocumentQna" resultType="int">
+	SELECT COUNT(id) FROM documentQna
+	WHERE category=#{category} AND id=#{id} AND member_id=#{memberId}
+	</select>
+	
+	<!-- 비밀번호를 검사한다. -->
+	<select id="selectDocumentQnaCountByPw" parameterType="nurim.jsp.model.DocumentQna" resultType="int">
+	SELECT COUNT(id) FROM documentQna
+	WHERE category=#{category} AND id=#{id} AND user_pw=password(#{userPw})
+	</select>
+     
+</mapper>
