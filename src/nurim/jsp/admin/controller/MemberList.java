@@ -100,6 +100,8 @@ public class MemberList extends BaseController{
 				request.setAttribute("memberList", memberList);
 				// 사용자가 입력한 검색어를 View에 되돌려준다. --> 자동완성 구현을 위함
 				request.setAttribute("keyword", keyword);
+				// 사용자가 선택한 드롭다운 값을 되돌려준다.
+				request.setAttribute("dropdown", dropdown);
 				//페이지 번호 계산 결과를 View에 전달
 				request.setAttribute("pageHelper", pageHelper);
 		

@@ -27,7 +27,7 @@
 	<option value="1">아이디</option>
 	<option value="2">이름</option>
 	</select>
-	<input type="text" name="search_item" id="search_item" placeholder="검색어를 입력하세요." />
+	<input type="text" name="search_item" id="search_item" placeholder="검색어를 입력하세요." value="${keyword }"/>
 	<button type="submit" id="submit_bt">검색</button>
 	</form>
 	</div>
@@ -131,8 +131,7 @@
 				  selectMonths:true,
 				  selectYears:200,
 			});
-			
-			$("#sample6_execDaumPostcode").click(function(){
+			$(document).on("click","#sample6_execDaumPostcode",function(){
 	      		 new daum.Postcode({
 	           oncomplete: function(data) {
 	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.

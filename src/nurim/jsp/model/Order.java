@@ -1,23 +1,54 @@
 package nurim.jsp.model;
 
 public class Order {
-	private int id = 0;
-	private int productId = 0;
-	private int memberId = 0;
-	private String recName = null;
-	private String recTel = null;
-	private String recPostcode = null;
-	private String recAddr1 = null;
-	private String recAddr2 = null;
-	private String recState = null;
-	private int oAmount = 0;
-	private String regDate = null;
-	private String editDate = null;
-	private String proImg = null;
-	private String proName = null;
-	private int proPrice = 0;
-	private int amount = 0;
+	private int id;
+	private int productId;
+	private int memberId;
+	private String recName;
+	private String recTel;
+	private String recPostcode;
+	private String recAddr1;
+	private String recAddr2;
+	private String recState;
+	private int oAmount;
+	private String regDate;
+	private String editDate;
+	private String proImg;
+	private String proName;
+	private int proPrice;
+	private int amount;
+	//조건검색을 위한 멤버변수 추가
+	private String prevDate;
+	private String nextDate;
 	
+	//페이지 넘김 번호 할당
+	private int LimitStart;
+	private int ListCount;
+	
+	public String getPrevDate() {
+		return prevDate;
+	}
+	public void setPrevDate(String prevDate) {
+		this.prevDate = prevDate;
+	}
+	public String getNextDate() {
+		return nextDate;
+	}
+	public void setNextDate(String nextDate) {
+		this.nextDate = nextDate;
+	}
+	public int getLimitStart() {
+		return LimitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		LimitStart = limitStart;
+	}
+	public int getListCount() {
+		return ListCount;
+	}
+	public void setListCount(int listCount) {
+		ListCount = listCount;
+	}
 	public int getId() {
 		return id;
 	}
@@ -114,14 +145,14 @@ public class Order {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", productId=" + productId + ", memberId=" + memberId + ", recName=" + recName
 				+ ", recTel=" + recTel + ", recPostcode=" + recPostcode + ", recAddr1=" + recAddr1 + ", recAddr2="
 				+ recAddr2 + ", recState=" + recState + ", oAmount=" + oAmount + ", regDate=" + regDate + ", editDate="
 				+ editDate + ", proImg=" + proImg + ", proName=" + proName + ", proPrice=" + proPrice + ", amount="
-				+ amount + "]";
+				+ amount + ", prevDate=" + prevDate + ", nextDate=" + nextDate + ", LimitStart=" + LimitStart
+				+ ", ListCount=" + ListCount + "]";
 	}
 	
 }

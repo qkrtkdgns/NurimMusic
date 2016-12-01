@@ -65,8 +65,6 @@
     addr1,addr2,reg_date,edit_date
     FROM member
     <where>
-	<if test="userId == null and userName == null">
-	</if>
 	<if test="userId !=null">
 	user_id like concat("%",#{userId},"%")
 	</if>
@@ -74,6 +72,7 @@
 	user_name like concat("%",#{userName},"%")
 	</if>
 	</where>
+	LIMIT #{limitStart},#{listCount}
     </select>
     
     <!-- 전체 회원의 수를 조회한다. -->
