@@ -1,0 +1,34 @@
+h2,h3{
+			display: inline-block;
+		}
+			#item{
+				vertical-align: middle;
+					text-align: center;
+
+			}
+			.item_tr > td >a{
+			  text-decoration: none;
+				color: black;
+			}
+		.item_tr > td > a > img{
+			position: relative;
+			top: 0;
+			left:0;
+			width:70px;
+			height:70px;
+		}
+
+		.pagination > li > a, .pagination > li > span {
+      color: #000;
+    }
+    .pagination > li > a:hover,.pagination > li > span:hover,
+    .pagination > li > a:focus,.pagination > li > span:focus {
+        color: #af64a9;
+    }
+    .pagination > .active > a,.pagination > .active > span,
+    .pagination > .active > a:hover,.pagination > .active > span:hover,
+    .pagination > .active > a:focus,.pagination > .active > span:focus {
+
+     background-color: #af64a9;
+     border-color: #af64a9;
+    }

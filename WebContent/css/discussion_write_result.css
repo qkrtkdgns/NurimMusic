@@ -1,0 +1,151 @@
+﻿/** 수정본 */
+h2,h3{
+      display: inline-block;
+    }
+
+      .review_board {
+        padding-top:40px;
+      }
+      
+      .album {
+        float:left;
+        display:block;
+      }
+      
+      .album_intro {
+        display:block;
+      }
+      
+      .ab_price {
+        font-weight:bold;
+      }
+
+      .dis_cont {
+        min-height:400px;
+      }
+
+      .dis_btn {
+        display: inline-block;
+        width: 1170px;
+      }
+
+      .list button {
+        float: left;
+        margin-bottom: 40px;
+      }
+
+      .modify button {
+        float: right;
+        margin-bottom: 40px;
+      }
+
+      .list button {
+      background-color: #af64a9;
+      border-color:  #af64a9;
+      }
+
+      .album a {
+        text-decoration:none;
+      }
+
+      .dis_parti {
+        display: block;
+        margin-top: 50px;
+        margin-left: 200px;
+        margin-bottom: 60px;
+      }
+
+      .dis_parti a {
+        text-decoration: none;
+      }
+
+      span.thumb1 {
+        margin-right: 20px;
+      }
+
+      span.thumb2 {
+        margin-right: 40px;
+      }
+      
+       #comment_box {
+        width:1170px;
+        height:140px;
+        background-color: #f8f8f9;
+        border: 1px solid #e5e5e6;
+      }   
+
+      .comment_box1{
+        float:left;
+        margin-left:20px;
+        width:100%;
+        height:120px;
+      }
+
+      .move_page {
+        margin-top: 40px;
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+      }
+
+      .move_page th {
+        text-align: center;
+        font-size: 15px;
+      }
+
+      .move_page tr {
+        border-bottom: 1px solid #000;
+        height: 28px;
+
+      }
+
+      .comment_txt {
+        resize:none;
+        width: 980px;
+        margin-left: 15px;
+        height:100px;
+        display: inline-block;
+        margin-top: 20px;
+      }
+      
+     .comment_id {
+        display: inline-block;
+        float: left;
+        margin-top: 20px;
+        font-weight: bold;
+      }
+
+      .res_btn {
+        float: right;
+        margin-right: 32px;
+        margin-top: 19px;
+      }
+
+      .res_btn button {
+        width: 70px;
+        height: 100px;
+      }
+
+      .write_comm {
+        display: inline-block;
+        resize: none;
+        width: 935px;
+        height: 85px;
+        margin-top: 18px;
+        margin-left: 70px;
+      }
+      
+
+ .pagination > li > a, .pagination > li > span {
+        color: #000;
+      }
+      .pagination > li > a:hover,.pagination > li > span:hover,
+      .pagination > li > a:focus,.pagination > li > span:focus {
+           color: #af64a9;
+      }
+      .pagination > .active > a,.pagination > .active > span,
+      .pagination > .active > a:hover,.pagination > .active > span:hover,
+      .pagination > .active > a:focus,.pagination > .active > span:focus {
+    
+        background-color: #af64a9;
+        border-color: #af64a9;
+      }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.og/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
+
+<!--회원에 대한 CRUD -->
+<mapper namespace="ProductMapper">
+
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="product" type="nurim.jsp.model.Product">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="id" column="id" />
+		<result property="documentId" column="document_id" />
+		<result property="proImg" column="pro_img" />
+		<result property="proName" column="pro_name" />
+		<result property="category" column="category" />
+		<result property="proPrice" column="pro_price" />
+		<result property="amount" column="amount" />
+		<result property="proHit" column="pro_hit" />
+		<result property="regDate" column="reg_date" />
+		<result property="editDate" column="edit_date"/>
+		<result property="provider" column="provider" />
+		<result property="content" column="content" />
+	</resultMap>
+	
+	<select id="selectProductCount" parameterType="nurim.jsp.model.Product"
+	resultType="int">
+	SELECT
+	COUNT(id) FROM Product
+	</select>
+	
+	<select id="selectProductList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT
+	id,pro_img,pro_name,pro_price,amount,pro_hit,reg_date,
+	edit_date,provider,document_id,content
+	FROM product
+	ORDER BY id DESC
+	<!--  LIMIT #{limitStart},#{listCount}-->	
+	</select>
+	
+	<insert id="insertProduct" parameterType="nurim.jsp.model.Product"
+	useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO product(
+	pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content)
+	VALUES(
+	#{proImg},#{proName},#{proPrice},#{amount},0,
+	now(),now(),#{provider},#{content}
+	)
+	</insert>
+</mapper>

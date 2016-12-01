@@ -1,0 +1,196 @@
+﻿@charset "utf-8";
+h2,h3{
+			display: inline-block;
+		}
+p{
+			margin: 0;
+		}
+
+		#content{
+			height: auto;
+
+		}
+
+		#content:after{
+			content:"";
+			display:block;
+			clear: both;
+
+		}
+
+		.side_area{
+			
+			width: 200px;
+			height: 500px;
+			float: left;
+		}
+		.side_area > a{
+			padding: 5px 0 5px 10px;
+			margin-bottom: 10px;
+			background-color: #fafafa;
+			display: block;
+			font-size: 18px;
+			color: #000;
+			border-top: 1px solid #aaa;
+			border-bottom: 1px solid #aaa;
+			text-decoration: none;
+		}
+
+		.side_area ul > li > a{
+			margin-left: 20px;
+			color: #000;
+			text-decoration: none;
+		}
+		.goods_list{
+			width: 950px;
+			height: auto;
+			float: right;
+
+		}
+
+		.goods_list a{
+			text-decoration: none;
+			color: #000;
+
+		}
+
+		.list-topbar{
+			width: 950px;
+			height: 38px;
+			border-bottom: 2px solid #000;
+			float: left;
+			background-color: #fafafa;
+			border-top: 1px solid #000;
+		}
+		.check_list{
+			float: left;
+			width: 300px;
+			height: 38px;
+
+		}
+
+
+		.check_list > .btn-default{
+			margin-top: 5px;
+			width: auto;
+			line-height: 0.9;
+            font-size: 13px;
+		}
+		.search_list{
+			float: right;
+			width: 190px;
+			height: 38px;
+			margin-top: 7px;
+			text-align: center;
+
+		}
+
+		.search_list > a{
+			color: #000;
+		}
+
+		.list_lineup{
+			margin-top: 38px;
+			margin-left: 10px;
+			margin-right: 10px;
+			height: auto;
+		}
+
+		
+		.list_lineup > ul > li{
+			height: 155px;
+			padding-top: 15px;
+			padding-bottom: 15px;
+			border-bottom: 1px solid #aaa;
+
+		}
+
+		.list_lineup > ul > li img{
+			margin-left: 14px;
+			width: 121px;
+			height: 121px;
+			
+		}
+		.list_lineup td{
+			position: relative;
+		}
+		.list_lineup .title{
+		display: block;
+		position: absolute;
+		top:20px;
+		word-break: normal;
+		font-weight: bold;
+		}
+
+		.list_lineup .substance{
+		position: absolute;
+		top: 70px;
+		font-size: 13px;
+		}
+
+table{
+	position:relative;
+
+}
+	
+		.price1{
+			display: block;
+			position: absolute;
+			top:40px;
+			text-decoration: line-through;
+			font-weight: bold;
+			text-align: left;
+			clear: both;
+		}
+
+		.price2{
+			display: block;
+			position: absolute;
+			top:55px;
+			color: red;
+			font-weight: bold;
+			text-align: left;
+			clear: both;
+		}
+		.list_lineup .item_button{
+			display: block;
+			position: absolute;
+			top: 30px;
+		}
+		.btn-default{
+			width: 74.89px;
+			height: 26px;
+			text-align: center;
+			margin-bottom:10px;
+			line-height: 0.9;
+			font-size: 13px;
+		}
+
+
+
+		#A{
+			background: #f44336;
+			color: #fff;
+		}
+
+
+		.page_num{
+		 margin-bottom: 20px;
+         margin-left: 250px;
+         margin-top:30px;
+		}
+
+		.pagination > li > a, .pagination > li > span {
+  		color: #000;
+		}
+		.pagination > li > a:hover,.pagination > li > span:hover,
+		.pagination > li > a:focus,.pagination > li > span:focus {
+  			color: #af64a9;
+		}
+		.pagination > .active > a,.pagination > .active > span,
+		.pagination > .active > a:hover,.pagination > .active > span:hover,
+		.pagination > .active > a:focus,.pagination > .active > span:focus {
+ 	
+ 		 background-color: #af64a9;
+ 		 border-color: #af64a9;
+		}

@@ -1,0 +1,71 @@
+#Mypage_title{
+         width:100%;
+         height:180px;
+         background: url(../img/mypage.png);
+         background-size:contain;
+         background-position: left;
+         background-repeat: no-repeat;
+      }
+      #Mypage_content{
+         width:90%;
+         margin: auto;
+         height:320px;
+         background: #ebd8f5;
+         border-radius: 20px;
+         
+      }
+      #Mypage_content > span{
+         color: white;
+         font-size: 50px;
+         font-weight: bold;
+         display: block;
+      }
+      #Mypage_content >div{
+         display: inline-block;
+         width:18%;
+         height:200px;
+         border-radius: 10px;
+         background: white;
+         margin-right: 3px;
+         margin-left: 15px;
+         margin-bottom: 10px;
+         float: left;
+         cursor: pointer;
+      }
+      .img_size{
+         width:100%;
+         height:120px;
+         float: left;
+         border-bottom:1px solid gray;
+         padding-top: 10px;
+      }
+      .img_size > img{
+         display: block;
+         margin: auto;
+
+      }
+      .img_size > span{
+         display: block;
+         text-align: center;
+         width:100%;
+         line-height: 50px;
+         font-size: 14px;
+         font-weight: bold;
+      }
+      .text_size{
+         width:100%;
+         float: left;
+         height:80px;
+          margin-top: 30px;
+      }
+      .text_size > span{
+         display: block;
+         width:100%;
+         padding: 7px;
+         text-align: left;
+         font-size: 11px;
+         font-weight: bold;
+         color: black;
+      }
+      .content_bottom{
+      }

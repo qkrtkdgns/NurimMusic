@@ -1,0 +1,59 @@
+h2,h3{
+      display: inline-block;
+    }
+
+#button{
+	width:610px;
+	margin-left: 245px;
+	height:80px;
+}
+.form-group > .control-label{
+	width:200px;
+	margin-left: 260px;
+	margin-right: 10px;
+	text-align: left !important;
+	float: left;
+}
+#qna_type, #name, #tel, #email, #title{
+	width:400px;
+	float: left;
+}
+#information{
+	width:400px;
+	height:200px;
+}
+.form-horizontal{
+	margin-top: 15px;
+}
+
+h3 {
+				margin-top: 30px;
+				margin-bottom: 35px;
+			}
+
+			.pagination > li > a, .pagination > li > span {
+				color: #000;
+			}
+			.pagination > li > a:hover,.pagination > li > span:hover,
+			.pagination > li > a:focus,.pagination > li > span:focus {
+					 color: #af64a9;
+			}
+			.pagination > .active > a,.pagination > .active > span,
+			.pagination > .active > a:hover,.pagination > .active > span:hover,
+			.pagination > .active > a:focus,.pagination > .active > span:focus {
+
+				background-color: #af64a9;
+				border-color: #af64a9;
+			}
+			.nav > li > a{
+				 color: black;
+			}
+			.nav > li > a:hover{
+					background-color: #af64a9;
+					color:white;
+			}
+
+			#button {
+				background: #af64a9;
+				border-color: #af64a9;
+			}

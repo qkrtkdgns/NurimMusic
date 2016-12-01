@@ -1,0 +1,44 @@
+/** 타이틀 위치 및 사이즈 조절 */
+.content_title{
+	margin:auto;
+	margin-top: 70px;
+	width:600px;
+	height:100px;
+	background: url(../img/title.png);
+	background-size: 100%;
+	text-indent: -10000px;
+}
+.stats{
+	margin:auto;
+	width:600px;
+	height:300px;
+}
+/** 내용 위치 및 크기 조절 */
+.visit_today, .sal, .profit{
+	margin-top: 20px;
+	width:170px;
+	height:280px;
+	margin-left: 20px;
+	float: left;
+	text-align: center;
+}
+.stats > div > b{
+	font-size: 40px;
+	line-height: 210px;
+}
+/** 이미지 삽입 */
+.visit_today{
+	background:url(../img/visit_today.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+.sal{
+	background:url(../img/sal.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+.profit{
+	background:url(../img/profit.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}

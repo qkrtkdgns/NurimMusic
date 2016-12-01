@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css?family=Droid+Serif');
+html,body, table, div, p {font-family: 'Droid Serif', serif;}
+
+/** 링크 색상 및 데코 없애기 */
+a{
+	text-decoration: none;
+	color: white;
+}
+a:hover{
+	text-decoration: none;
+	color: white;
+	opacity: 0.8;
+}
+a:visited{
+	text-decoration: none;
+	color: white;
+}
+a:link{
+	text-decoration: none;
+	color:white;
+}
+a:action{
+	text-decoration: none;
+	color:white;
+}
+html,body{
+	width:100%;
+	height:100%;
+}
+body{
+	padding-left: 150px;
+}
+ul,li{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+/** 탑 바 디자인 */
+#top{
+	width:100%;
+	height:50px;
+	background: rgba(60,141,188,0.8);
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1;
+	font-size: 20px;
+	color: white;
+	line-height: 50px;
+	padding-left: 40px;
+}
+/** 왼쪽 카테고리 디자인 */
+#category{
+	width:150px;
+	height:100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(30,30,30,0.8);
+	padding-top: 50px;
+}
+.category{
+	width:100%;
+	color: white;
+}
+/** 카테고리 글 디자인 */
+.category > b{
+	background:rgba(60,60,60,1);
+	height:40px;
+	padding-left: 5px;
+	line-height: 40px;
+	font-size: 16px;
+	display: block;
+}
+/** 카테고리 리스트 사이즈 조절 */
+.category > ul {
+	padding-left: 5px;
+	line-height: 25px;
+	margin-top: 10px;
+	font-size: 14px;
+	display: block;
+}
+.category > ul > li {
+	display: block;
+	width: 100%;
+	height:100%;
+}
+.category > ul > li > a >  span{
+	display: inline-block;
+	height:25px;
+}
+/** 2depth 리스트 디자인 */
+.category > ul > li >ul {
+	background: rgba(40,40,40,1);
+	display: block;
+	width:103%;
+	margin-left: -5px;
+}
+/** 2depth 리스트 위치 조절 */
+.category > ul > li >ul > li{
+	padding-left: 30px;
+	line-height: 20px;
+	height:25px;
+	font-size: 12px;
+}
+/** 내용영역 위치 조절 */
+#content{
+	width:80%;
+}
+/** 검색창 위치 조절 */
+#search{
+	width:800px;
+	height:100px;
+	margin-left: 150px;
+	margin-top: 150px;
+}
+/** 검색창 디자인 */
+#dropdown, #search_item, #submit_bt{
+	margin-top: 20px;
+	height:30px;
+	display: block;
+	float: left;
+}
+#dropdown{
+	border: 1px solid gray;
+	border-right: none;
+	margin-left: 200px;
+}
+#search_item{
+	width:250px;
+	border: 1px solid gray;
+	border-left: none;
+}
+#submit_bt{
+	background: black;
+	border: none;
+	color: white;
+	width: 60px;
+}
+/** 내용영역 크기 조절 */
+#items{
+	width:800px;
+	height:100%;
+	margin-left:150px;
+}
+#items > table{
+	font-size: 12px;
+}
+/** table 디자인 */
+#items > table > thead{
+	background: rgba(220,230,242,1);
+	border-top: 2px solid rgba(85,142,213,1);
+	border-bottom: 2px solid rgba(85,142,213,1);
+}
+#items > table > thead > tr > th{
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+}
+#items > table > tbody > tr > td{
+	text-align: center;
+	white-space:normal;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	height: 40px;
+	border-bottom: 1px solid rgba(198,217,241,1);
+	vertical-align: middle;
+}
+/** 버튼 위치 조절 */
+#bt_box{
+	margin-left: 150px;
+	width: 800px;
+}
+#update, #insert{
+	float: right;
+}
+#update{
+	margin-right: 30px;
+}
+/** 버튼 디자인 */
+#delete, #update, #insert{
+	margin-top: 20px;
+	border: none;
+	background: rgba(96,74,123,1);
+	color: white;
+	width: 50px;
+	height:20px;
+	font-size: 12px;
+}
+/** 검색조건 위치 조절 */
+#filter_box, #state_box, #quality_box,#date_box{
+	display: block;
+	float: left;
+	width:33%;
+	height:30px;
+	line-height: 30px;
+	margin-top: -20px;
+	margin-bottom: 10px;
+}
+#date_box{
+	width:66%;
+}
+#date_box > b{
+	float: left;
+	margin-right: 20px;
+}
+#search_form:before{
+	display: block;
+	content:"";
+	clear: both;
+	float: none;
+}
+#date_prev, #date_next{
+	width:20%;
+	margin-right: 20px;
+	display:block;
+	float: left;
+	height:30px;
+	padding: 0px;
+	font-size: 8px;
+}

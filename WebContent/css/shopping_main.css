@@ -1,0 +1,125 @@
+﻿h2,h3{
+      display: inline-block;
+    }
+
+      #content{
+         height: auto;
+      }
+
+      #content hr {
+         margin: 0px;
+      }
+
+      .side_area{
+         margin-top: 20px;
+         width: 200px;
+         height: 500px;
+
+         float: left;
+      }
+      .side_area > a {
+         padding: 5px 0 5px 10px;
+         margin-bottom: 10px;
+         background-color: #fafafa;
+         display: block;
+         font-size: 18px;
+         color: #000;
+         border-top: 1px solid #aaa;
+         border-bottom: 1px solid #aaa;
+         text-decoration: none;
+      }
+
+      .side_area ul > li > a{
+         margin-left: 20px;
+         color: #000;
+         text-decoration: none;
+      }
+
+      .shop_content {
+        width: 930px;
+        float: right;
+      }
+
+      .carousel {
+        height: 300px;
+        margin-bottom: 30px;
+        width: 930px;
+        float: right;
+        margin-top: 20px;
+      }
+      
+      /** 캐러셀 내부의 이미지에 대한 높이와 넓이 확보 */
+      .carousel-inner > .item > img {
+        min-width: 930px;
+        height: 300px;
+      }
+      
+      .shopping_main {
+        width: 930px;
+      }
+
+      .shop_im img {
+        margin-top: 50px;
+        margin-bottom:20px;
+      }
+
+      .shop_items a {
+        text-decoration: none;
+      }
+    
+      .shop_items li {
+       width: 165px;
+       height:200px;
+        float: left;
+        margin-bottom: 30px;
+
+      }
+
+     .shop_items li span {
+        display: block;
+
+      }
+      .new_item_ul1{
+       float: left;
+       margin-bottom: 30px;
+       border-top: 1px solid #000;
+       border-bottom: 1px solid #000;
+       padding-top: 20px;
+       padding-bottom: 20px;
+
+      }
+
+      .new_item_ul1 img {
+        width: 128px;
+        height: 128px;
+      }
+
+      .new_item_ul1 > li >a>.ab_name{
+       width:100px;
+       text-align: center;
+       margin: auto;
+      }
+      .new_item_ul1 > li >a> span{
+        text-align: center;
+        color: black;
+      }
+
+      .new_item_ul1 > li > span{
+        text-align: center;
+      }
+
+      .price {
+        color: red;
+        font-weight: bold;
+      }
+
+      span.thumb {
+         border: 1px solid #ccc;
+         padding-top: 10px;
+         padding-bottom: 10px;
+      }
+
+      .shop_li1, .shop_li2, .shop_li3, .shop_li4 {
+        margin-right: 20px;
+      }
+

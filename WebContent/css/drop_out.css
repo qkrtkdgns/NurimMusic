@@ -1,0 +1,34 @@
+#content {
+height: auto;
+}
+
+h2, h3 {
+      display: inline-block;
+    }
+
+.drop_cont {
+width:1000px;
+margin:auto;
+padding-bottom: 50px;
+}
+
+#drop_out{
+  border: 0px;
+  display: block;
+  margin: auto;
+  width: 100px;
+  height:30px;
+  background: #af64a9;
+  color:white;
+}
+
+.drop_cont h3 {
+padding-top: 50px;
+padding-bottom:10px;
+}
+
+.cont_sub h3 {
+        color: gray;
+      }
+
+
