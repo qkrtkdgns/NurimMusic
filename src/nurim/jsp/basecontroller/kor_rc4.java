@@ -1,4 +1,4 @@
-package nurim.jsp.admin.controller;
+package nurim.jsp.basecontroller;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,27 +12,28 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nurim.jsp.admin.service.ProductAdmin;
-import nurim.jsp.admin.service.impl.ProductAdminImpl;
+import nurim.jsp.admin.service.ProductService;
+import nurim.jsp.admin.service.impl.ProductServiceImpl;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.PageHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
-import nurim.jsp.model.Category;
-import nurim.jsp.model.ProCategory;
 import nurim.jsp.model.Product;
 
-@WebServlet("/admin/new_item.do")
-public class NewItem extends BaseController{
-	private static final long serialVersionUID = -6769667557571667255L;
-	/**(1) 사용하고자 하는 Helper 객체 선언 */
+@WebServlet("/kor_rc4.do")
+public class kor_rc4 extends BaseController {
+
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
-	ProductAdmin productAdmin;
+	ProductService productService;
 	PageHelper pageHelper;
 	UploadHelper upload;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4738187063662565891L;
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +42,7 @@ public class NewItem extends BaseController{
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
-		productAdmin = new ProductAdminImpl(sqlSession, logger);
+		productService = new ProductServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
 		/** (3) 로그인 여부 검사 */
@@ -57,7 +58,7 @@ public class NewItem extends BaseController{
 		
 		/** (3) 조회할 정보에 대한 Beans 생성 */
 		Product product = new Product();
-	
+		
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		//int page = web.getInt("page",1);
 		//검색어
@@ -70,21 +71,21 @@ public class NewItem extends BaseController{
 				/** (6) 게시글 목록 조회 */
 				int totalCount = 0;
 				List<Product> productList = null;
-			
 				
 				try {
 					//전체 게시물 수
-					totalCount = productAdmin.selectProductCount(product);
+					totalCount = productService.selectProductCount(product);
 					//나머지 페이지 번호 계산하기
 					//--> 현재 페이지, 전체 게시물 수, 한 페이지의 목록 수, 그룹갯수
 					
 					//pageHelper.pageProcess(page, totalCount, 3, 7);
 					
 					//페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
+					
 					//prod.setLimitStart(pageHelper.getLimitStart());
 					//prod.setListCount(pageHelper.getListCount());
-					productList = productAdmin.selectProductList(product);
-					logger.debug("productList > " +productList);
+					productList = productService.selectProductList(product);
+					//logger.debug("prodList >> " + prodList);
 				} catch (Exception e) {
 					web.redirect(null, e.getLocalizedMessage());
 					return null;
@@ -113,9 +114,7 @@ public class NewItem extends BaseController{
 				//페이지 번호 계산 결과를 View에 전달
 				//request.setAttribute("pageHelper", pageHelper);
 		
-		
-		// "/WEB-INF/views/view/index.jsp"파일을 View로 사용한다.
-		return "admin/new_item";
+		return "kor_rc4";
 	}
 
 }

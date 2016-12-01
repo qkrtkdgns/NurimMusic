@@ -1,8 +1,8 @@
 package nurim.jsp.model;
 
 public class Category {
-	private int id = 0;
-	private String proCategory = null;
+	private int id;
+	private String proCategoryName;
 	
 	public int getId() {
 		return id;
@@ -10,16 +10,16 @@ public class Category {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getPro_category() {
-		return proCategory;
+	public String getProCategoryName() {
+		return proCategoryName;
 	}
-	public void setPro_category(String pro_category) {
-		this.proCategory = pro_category;
+	public void setProCategoryName(String proCategoryName) {
+		this.proCategoryName = proCategoryName;
 	}
-	
 	@Override
 	public String toString() {
-		return "category [id=" + id + ", proCategory=" + proCategory + "]";
+		return "Category [id=" + id + ", proCategoryName=" + proCategoryName + "]";
 	}
 	
+
 }

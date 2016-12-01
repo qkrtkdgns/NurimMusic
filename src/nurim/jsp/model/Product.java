@@ -1,9 +1,8 @@
 package nurim.jsp.model;
 
-public class Product {
+public class Product extends Category {
 	private int id;
 	private int documentId;
-	private int proCategoryId;
 	private String proImg;
 	private String proName;
 	private String proPrice;
@@ -27,12 +26,6 @@ public class Product {
 	}
 	public void setDocumentId(int documentId) {
 		this.documentId = documentId;
-	}
-	public int getProCategoryId() {
-		return proCategoryId;
-	}
-	public void setProCategoryId(int proCategoryId) {
-		this.proCategoryId = proCategoryId;
 	}
 	public String getProImg() {
 		return proImg;
@@ -102,11 +95,12 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", documentId=" + documentId + ", proCategoryId=" + proCategoryId + ", proImg="
-				+ proImg + ", proName=" + proName + ", proPrice=" + proPrice + ", amount=" + amount + ", proHit="
-				+ proHit + ", regDate=" + regDate + ", editDate=" + editDate + ", provider=" + provider + ", content="
-				+ content + ", LimitStart=" + LimitStart + ", ListCount=" + ListCount + "]";
+		return "Product [id=" + id + ", documentId=" + documentId + ", proImg=" + proImg + ", proName=" + proName
+				+ ", proPrice=" + proPrice + ", amount=" + amount + ", proHit=" + proHit + ", regDate=" + regDate
+				+ ", editDate=" + editDate + ", provider=" + provider + ", content=" + content + ", LimitStart="
+				+ LimitStart + ", ListCount=" + ListCount + ", getProCategoryName()=" + getProCategoryName() + "]";
 	}
 	
+
 	
 }

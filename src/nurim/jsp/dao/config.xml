@@ -27,5 +27,7 @@
 	<mapper resource="nurim/jsp/dao/mapper/MemberMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/OrderMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/ProductMapper.xml" />
+	<mapper resource="nurim/jsp/dao/mapper/ProCategoryMapper.xml" />
+	<mapper resource="nurim/jsp/dao/mapper/CategoryMapper.xml" />
 	</mappers>
 </configuration>

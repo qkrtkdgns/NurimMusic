@@ -21,6 +21,7 @@ import nurim.jsp.helper.FileInfo;
 import nurim.jsp.helper.RegexHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
+import nurim.jsp.model.ProCategory;
 import nurim.jsp.model.Product;
 
 @WebServlet("/admin/edit_ok.do")
@@ -62,14 +63,16 @@ public class EditOk extends BaseController {
 		String proName = paramMap.get("title");
 		String proPrice = paramMap.get("price");
 		String amount= paramMap.get("no");
-		String provide = paramMap.get("provide");
+		String provider = paramMap.get("provider");
 		String content = paramMap.get("content");
-
+		String category = paramMap.get("category");
+		
 		logger.debug("proName=" + proName);
 		logger.debug("proPrice=" + proPrice);
 		logger.debug("amount=" + amount);
-		logger.debug("provide=" + provide);
+		logger.debug("provider=" + provider);
 		logger.debug("content=" + content);
+		logger.debug("category=" + category);
 
 	
 		
@@ -115,19 +118,34 @@ public class EditOk extends BaseController {
 		product.setProName(proName);
 		product.setProPrice(proPrice);
 		product.setAmount(amount);
-		product.setProvider(provide);
+		product.setProvider(provider);
 		product.setContent(content);
 		product.setProImg(profileImg);
+		
 		/** (8) Service를 통한 데이터베이스 저장 처리 */
 		try {
+			productAdmin.insertProduct(product);
+			ProCategory proCategory = new ProCategory();
+			int categoryid = Integer.parseInt(category);
+			proCategory.setCategoryId(categoryid);
+			proCategory.setProductId(product.getId());
+			productAdmin.insertProCategory(proCategory);
+		}catch (Exception e) {
+			sqlSession.close();
+			web.redirect(null, e.getLocalizedMessage());
+			// 예외가 발생한 경우이므로, 더이상 진행하지 않는다.
+			return null;
+		}
+		
+		/** (8) Service를 통한 카테고리 저장 처리 */
+		try {
+			
 			productAdmin.insertProduct(product);
 		}catch (Exception e) {
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
 			// 예외가 발생한 경우이므로, 더이상 진행하지 않는다.
 			return null;
-		}finally {
-			sqlSession.close();
 		}
 
 		/** (9)상품등록이 완료되었으므로 상품 페이지로 이동 */

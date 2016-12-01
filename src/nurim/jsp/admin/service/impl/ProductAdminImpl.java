@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.admin.service.ProductAdmin;
+import nurim.jsp.model.Category;
+import nurim.jsp.model.ProCategory;
 import nurim.jsp.model.Product;
 
 public class ProductAdminImpl implements ProductAdmin {
@@ -67,6 +69,64 @@ public class ProductAdminImpl implements ProductAdmin {
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("상품 수 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	@Override
+	public void insertProCategory(ProCategory proCategory) throws Exception {
+		try {
+			int result = sqlSession.insert("ProCategoryMapper.insertProCategory", proCategory);
+			if (result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("등록된 카테고리가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("카테고리 등록에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		
+	}
+
+	@Override
+	public List<Category> selectCategoryList(Category category) throws Exception {
+		List<Category> result = null;
+		try {
+			
+			result = sqlSession.selectList("CategoryMapper.selectCategoryList", category);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 카테고리 목록이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("카테고리 목록 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<ProCategory> selectProCategoryList(ProCategory proCategory) throws Exception {
+		List<ProCategory> result = null;
+		try {
+			
+			result = sqlSession.selectList("ProCategoryMapper.selectProCategoryList", proCategory);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 카테고리 검색 목록이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("카테고리 검색 목록 조회에 실패했습니다.");
 		}
 
 		return result;

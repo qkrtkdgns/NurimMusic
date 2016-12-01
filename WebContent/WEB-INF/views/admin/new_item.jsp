@@ -34,14 +34,7 @@
 					<!--검색 start -->
 					<div id="search">
 						<form>
-							<div id="filter_box">
-								<b>분류검색&nbsp;</b> <select id="filter">
-									<option value="검색조건">검색조건</option>
-									<option value="국내음반">국내음반</option>
-									<option value="해외음반">해외음반</option>
-									<option value="쇼핑">쇼핑</option>
-								</select>
-							</div>
+							
 							<div id="state_box">
 								<b>상품상태&nbsp;</b> <input type="radio" name="state" id="state"
 									value="1" checked />전체 <input type="radio" name="state"
@@ -51,8 +44,9 @@
 							<div id="search_form">
 								<select id="dropdown">
 									<option value="검색조건">검색조건</option>
-									<option value="제목">제목</option>
-									<option value="내용">내용</option>
+									<option value="국내음반">국내음반</option>
+									<option value="해외음반">해외음반</option>
+									<option value="쇼핑">쇼핑</option>
 								</select> <input type="text" name="search_item" id="search_item"
 									placeholder="검색어를 입력하세요." />
 								<button type="submit" id="submit_bt">검색</button>
@@ -79,11 +73,11 @@
 								<tr>
 									<th><input type="checkbox" id="all_check" /></th>
 									<th>이미지</th>
+									<th>카테고리</th>
 									<th>상품명(상품번호)</th>
 									<th>가격</th>
 									<th>수량</th>
 									<th>조회</th>
-									<th>리뷰</th>
 									<th>등록일</th>
 									<th>진열여부</th>
 								</tr>
@@ -110,12 +104,13 @@
 														</c:otherwise>
 													</c:choose>
 												</td>
-												
+												<td>
+												${product.proCategoryName}
+												</td>
 												<td>${product.proName}(${product.id})</td>
 												<td>${product.proPrice}</td>
 												<td>${product.amount}</td>
 												<td>${product.proHit}</td>
-												<td>null</td>
 												<td>${product.regDate}</td>
 												<td>null</td>
 											</tr>

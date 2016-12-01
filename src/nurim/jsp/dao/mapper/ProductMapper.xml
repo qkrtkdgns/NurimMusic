@@ -22,6 +22,7 @@
 		<result property="editDate" column="edit_date"/>
 		<result property="provider" column="provider" />
 		<result property="content" column="content" />
+		<result property="proCategoryName" column="pro_category_name" />
 	</resultMap>
 	
 	<select id="selectProductCount" parameterType="nurim.jsp.model.Product"
@@ -32,10 +33,11 @@
 	
 	<select id="selectProductList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
-	SELECT
-	id,pro_img,pro_name,pro_price,amount,pro_hit,reg_date,
-	edit_date,provider,document_id,content
-	FROM product
+	SELECT c.pro_category_name, b.pro_name, a.id, a.product_id, a.category_id,
+	b.pro_img, b.pro_price, b.amount, b.reg_date
+	FROM product b
+	INNER JOIN pro_category a ON b.id=a.product_id
+	INNER JOIN category c ON a.category_id=c.id
 	ORDER BY id DESC
 	<!--  LIMIT #{limitStart},#{listCount}-->	
 	</select>
@@ -50,4 +52,5 @@
 	now(),now(),#{provider},#{content}
 	)
 	</insert>
+	
 </mapper>

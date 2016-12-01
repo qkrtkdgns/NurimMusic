@@ -13,10 +13,14 @@
       <![endif]-->
       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/reset.css">
       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/main.css">
-      <link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath }/css/menu.css" />
       <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" />
+      <link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath }/css/menu.css" />
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/ajax/ajax_helper.css"/>
       
       <script src="${pageContext.request.contextPath }/assets/js/jquery.min.js"></script>
       <script src="${pageContext.request.contextPath }/js/filesearch.js"></script>
       <script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
+      <script src="${pageContext.request.contextPath}/plugins/jquery.form.min.js"></script>
+      <script src="${pageContext.request.contextPath}/plugins/handlebars-v4.0.5.js"></script>
+      <script src="${pageContext.request.contextPath}/plugins/ajax/ajax_helper.js"></script>
       
