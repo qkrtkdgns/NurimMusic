@@ -11,8 +11,12 @@
 	<resultMap id="basket" type="nurim.jsp.model.Basket">
 		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="id" column="id" />
-		<result property="member_id" column="member_id" />
-		<result property="product_id" column="product_id" />
+		<result property="memberId" column="member_id" />
+		<result property="productId" column="product_id" />
+		<result property="proImg" column="pro_img" />
+		<result property="proName" column="pro_name" />
+		<result property="proPrice" column="pro_price" />
+		<result property="amount" column="amount" />
 	</resultMap>
 	
 </mapper>

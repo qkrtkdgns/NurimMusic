@@ -68,6 +68,7 @@ public class delivery extends BaseController {
 		member.setRecState(RecState);
 		member.setProName(ProName);
 		logger.debug("order >> " + member);
+		
 		/**(5) 로그인정보로 주문정보 확인하기 */
 		//배송상황별 카운트 갯수 가져올 변수 선언
 		int prevPay = 0;

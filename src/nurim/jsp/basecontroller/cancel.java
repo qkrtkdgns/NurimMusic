@@ -78,7 +78,7 @@ public class cancel extends BaseController {
 		int totalCount = 0;
 		List<Order> orderList = null;
 		try{
-			totalCount = orderService.selectOrderCount(member);
+			totalCount = orderService.selectOrderCount2(member);
 			logger.debug("totalCount >> " + totalCount);
 			//나머지 페이지 번호 계산하기
 			//--> 현재 페이지, 전체 게시물 수, 한 페이지의 목록 수, 그룹갯수

@@ -26,4 +26,12 @@ public interface OrderService {
 
 	int selectOrderReaper(Order member) throws Exception;
 
+	int selectOrderCount2(Order member) throws Exception;
+
+	int selectOrderCountAll(Order order) throws Exception;
+
+	List<Order> selectOrderListAll(Order order) throws Exception;
+
+	void deleteOrder(Order order) throws Exception;
+
 }

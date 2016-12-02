@@ -95,10 +95,38 @@
 						<input type="text" name="search_item" id="search_item" value="${order.proName }"/>
 						<select name="category">
   					<option value="">전체</option>
-  					<option value="입금대기">입금대기</option>
-  					<option value="결제완료">결제완료</option>
-  					<option value="배송준비중">배송준비중</option>
+  					<c:choose>
+						<c:when test="${order.recState =='입금대기' }">
+						<option value="입금대기" selected>입금대기</option>
+						</c:when>
+						<c:otherwise>
+						<option value="입금대기">입금대기</option>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${order.recState =='결제완료' }">
+						<option value="결제완료" selected>결제완료</option>
+						</c:when>
+						<c:otherwise>
+						<option value="결제완료">결제완료</option>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${order.recState =='배송준비중' }">
+						<option value="배송준비중" selected>배송준비중</option>
+						</c:when>
+						<c:otherwise>
+						<option value="배송준비중">배송준비중</option>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${order.recState =='배송완료' }">
+						<option value="배송완료" selected>배송완료</option>
+						</c:when>
+						<c:otherwise>
 						<option value="배송완료">배송완료</option>
+						</c:otherwise>
+						</c:choose>
 						</select>
 						<button type="submit">검색</button><br/>
 						

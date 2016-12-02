@@ -94,17 +94,39 @@
 					<button id="today">오늘</button>
 					<button id="week">1주일</button>
 					<button id="month">1개월</button>
-					<input type="text" name="date_prev" id="date_prev" /> ~ <input
-						type="text" name="date_next" id="date_next" />
+					<input type="text" name="date_prev" id="date_prev" value="${order.prevDate }" /> ~ 
+					<input type="text" name="date_next" id="date_next" value="${order.nextDate }" />
 					<button>검색</button>
 					<br />
 					<h4>주문 상품</h4>
-					<input type="text" name="search_item" id="search_item" /> <select
+					<input type="text" name="search_item" id="search_item" value="${order.proName }" /> 
+					<select
 						name="category">
 						<option value="">전체</option>
+						<c:choose>
+						<c:when test="${order.recState =='주문취소' }">
+						<option value="주문취소" selected>주문취소</option>
+						</c:when>
+						<c:otherwise>
 						<option value="주문취소">주문취소</option>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${order.recState =='교환' }">
+						<option value="교환" selected>교환</option>
+						</c:when>
+						<c:otherwise>
 						<option value="교환">교환</option>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${order.recState =='반품' }">
+						<option value="반품" selected>반품</option>
+						</c:when>
+						<c:otherwise>
 						<option value="반품">반품</option>
+						</c:otherwise>
+						</c:choose>
 					</select>
 				</div>
 			</form>
@@ -168,14 +190,7 @@
 				</tbody>
 			</table>
 			<!--게시판 이동 버튼 start -->
-			<div class="text-center">
-				<ul class="pagination pagination-mf">
-					<li class="disabled"><a href="#">&laquo;</a></li>
-					<li class="active"><span>1<span class="sr-only">(current)</span></span></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">&raquo;</a></li>
-				</ul>
-			</div>
+			<%@include file="inc/order_page2.jsp" %>
 			<!--게시판 이동 버튼 end -->
 		</div>
 		<!--주문 내역 테이블 end -->

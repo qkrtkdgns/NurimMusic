@@ -23,9 +23,23 @@
 	<div id="search">
 	<form method="get" action="${pageContext.request.contextPath }/admin/member.do">
 	<select name="dropdown" id="dropdown">
-	<option value="0">검색조건</option>
+	<option value="">검색조건</option>
+	<c:choose>
+	<c:when test="${dropdown =='1' }">
+	<option value="1" selected>아이디</option>
+	</c:when>
+	<c:otherwise>
 	<option value="1">아이디</option>
+	</c:otherwise>
+	</c:choose>
+	<c:choose>
+	<c:when test="${dropdown =='2' }">
+	<option value="2" selected>이름</option>
+	</c:when>
+	<c:otherwise>
 	<option value="2">이름</option>
+	</c:otherwise>
+	</c:choose>
 	</select>
 	<input type="text" name="search_item" id="search_item" placeholder="검색어를 입력하세요." value="${keyword }"/>
 	<button type="submit" id="submit_bt">검색</button>

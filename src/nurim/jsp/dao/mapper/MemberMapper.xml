@@ -80,6 +80,14 @@
     resultType="int">
     SELECT count(id)
     FROM member
+    <where>
+    <if test="userId != null">
+    user_id LIKE concat("%",#{userId},"%")
+    </if>
+    <if test="userName != null">
+    user_name LIKE concat("%",#{userName},"%")    
+    </if>
+    </where>
     </select>
     
     <!-- 정보수정페이지 접근을 위해 비밀번호를 조회한다. -->
@@ -148,6 +156,12 @@
     
     <!-- 관리자에서 회원정보 삭제 -->
     <delete id="deleteMemberByAdmin" parameterType="nurim.jsp.model.Member">
+    DELETE FROM member
+    WHERE id=#{id}
+    </delete>
+    
+    <!-- 유저게 회원정보 삭제 -->
+    <delete id="deleteMember" parameterType="nurim.jsp.model.Member">
     DELETE FROM member
     WHERE id=#{id}
     </delete>

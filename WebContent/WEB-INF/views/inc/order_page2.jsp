@@ -11,8 +11,8 @@
 			<c:when test="${pageHelper.prevPage > 0 }">
 				<!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
 				<!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
-				<c:url var="prevUrl" value="/delivery.do">
-				<c:param name="date_prev" value="${order.prevDate}"></c:param>
+				<c:url var="prevUrl" value="/cancel.do">
+					<c:param name="date_prev" value="${order.prevDate}"></c:param>
 				<c:param name="date_next" value="${order.nextDate }"></c:param>
 				<c:param name="category" value="${order.recState }"></c:param>
 				<c:param name="keyword" value="${order.proName }"></c:param>
@@ -32,7 +32,7 @@
 			end="${pageHelper.endPage }" step="1">
 
 			<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
-			<c:url var="pageUrl" value="/delivery.do">
+			<c:url var="pageUrl" value="/cancel.do">
 				<c:param name="date_prev" value="${order.prevDate}"></c:param>
 				<c:param name="date_next" value="${order.nextDate }"></c:param>
 				<c:param name="category" value="${order.recState }"></c:param>
@@ -55,7 +55,7 @@
 			<c:when test="${pageHelper.nextPage > 0 }">
 				<!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
 				<!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
-				<c:url var="nextUrl" value="/delivery.do">
+				<c:url var="nextUrl" value="/cancel.do">
 					<c:param name="date_prev" value="${order.prevDate}"></c:param>
 				<c:param name="date_next" value="${order.nextDate }"></c:param>
 				<c:param name="category" value="${order.recState }"></c:param>

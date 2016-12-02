@@ -196,4 +196,25 @@ Member result = null;
 		}
 	}
 
+	@Override
+	public void deleteMember(Member member) throws Exception {
+		
+		try{
+			int result = sqlSession.delete("MemberMapper.deleteMember",member);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("등록된 회원정보가 존재하지 않습니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("회원정보 삭제를 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
 }

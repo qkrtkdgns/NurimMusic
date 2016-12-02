@@ -20,8 +20,8 @@ import nurim.jsp.model.Order;
 import nurim.jsp.service.OrderService;
 import nurim.jsp.service.impl.OrderServiceImpl;
 
-@WebServlet("/admin/order_management.do")
-public class OrderManagement extends BaseController {
+@WebServlet("/admin/order_management_delete.do")
+public class OrderManagementDelete extends BaseController {
 	private static final long serialVersionUID = 6122655773879779129L;
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	// --> import org.apache.logging.log4j.Logger;
@@ -55,19 +55,14 @@ public class OrderManagement extends BaseController {
 			return null;
 		}
 		/** (4) 검색할 값 받아오기 */
-		String PrevDate = web.getString("date_prev");
-		String NextDate = web.getString("date_next");
-		String RecState = web.getString("category");
-		String ProName = web.getString("search_item");
-		if (ProName == null) {
-			ProName = web.getString("keyword");
+		int count = web.getInt("count");
+		String[] checkbox = web.getStringArray("checkbox");
+		for(int i =0; i<count; i++){
+			logger.debug("checkbox >> " + checkbox[i]);
 		}
+		logger.debug("count >> " + count);
 
 		Order order = new Order();
-		order.setPrevDate(PrevDate);
-		order.setNextDate(NextDate);
-		order.setRecState(RecState);
-		order.setProName(ProName);
 		logger.debug("order >> " + order);
 
 		// 현재 페이지 수 --> 기본 값은 1페이지로 설정함
@@ -77,6 +72,13 @@ public class OrderManagement extends BaseController {
 		int totalCount = 0;
 		List<Order> orderList = null;
 		try {
+			for(int i =0; i<count; i++){
+				
+				int temp= Integer.parseInt(checkbox[i]);
+				order.setId(temp);
+				logger.debug("temp+order >>" + order);
+				orderService.deleteOrder(order);
+			}
 			// 전체 게시물 수
 			totalCount = orderService.selectOrderCountAll(order);
 			logger.debug("totalCount >> " + totalCount);

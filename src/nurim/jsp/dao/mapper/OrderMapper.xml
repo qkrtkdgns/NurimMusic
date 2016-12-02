@@ -30,20 +30,25 @@
 		<result property="nextDate" column="next_date" />
 	</resultMap>
 	
-	<!-- 주문정보 리스트 조회 -->
+	<!-- 주문정보 리스트 조회(배송완료) -->
 	<select id="selectOrderList" parameterType="nurim.jsp.model.Order"
 	resultMap="order">
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
 			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
 	FROM nurimmusic.order
 	<where>
-	member_id = #{memberId} AND rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료"
+	member_id = #{memberId} 
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
-	<if test="recState != null">
+	<choose>
+	<when test="recState != null">
 	AND rec_state = #{recState}
-	</if>
+	</when>
+	<otherwise>
+	AND rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료"
+	</otherwise>
+	</choose>
 	<if test="proName != null">
 	AND pro_name LIKE concat("%",#{proName},"%")
 	</if>
@@ -51,28 +56,7 @@
 	
 	LIMIT #{limitStart},#{listCount}
 	</select>
-	
-	<!-- 주문정보 리스트 조회 -->
-	<select id="selectOrderList2" parameterType="nurim.jsp.model.Order"
-	resultMap="order">
-	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
-			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
-	FROM nurimmusic.order
-	<where>
-	member_id = #{memberId} AND rec_state="주문취소" OR rec_state="교환" OR rec_state="반품"
-	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
-	</if>
-	<if test="recState != null">
-	AND rec_state = #{recState}
-	</if>
-	<if test="proName != null">
-	AND pro_name LIKE concat("%",#{proName},"%")
-	</if>
-	</where>
-	
-	LIMIT #{limitStart},#{listCount}
-	</select>
+
 	<!-- 입금대기 건수 확인 -->
 	<select id="selectOrderPrevPay" parameterType="nurim.jsp.model.Order"
 	resultType="int">
@@ -81,7 +65,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="입금대기"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -100,7 +84,7 @@
 	<where>
 	member_id = #{memberId}  AND rec_state="입금완료"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -118,7 +102,7 @@
 	<where>
 	member_id = #{memberId}  AND rec_state="배송준비중"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -136,7 +120,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="배송완료"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -146,7 +130,7 @@
 	</if>
 	</where>
 	</select>
-	<!-- 주문상품 전체 상품 리스트 카운트 -->
+	<!-- 주문상품 전체 상품 리스트 카운트 (배송완료)-->
 	<select id="selectOrderCount" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
@@ -154,15 +138,46 @@
 	<where>
 	member_id = #{memberId} 
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
-	<if test="recState != null">
+	<choose>
+	<when test="recState != null">
 	AND rec_state = #{recState}
-	</if>
+	</when>
+	<otherwise>
+	AND rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료"
+	</otherwise>
+	</choose>
 	<if test="proName != null">
 	AND pro_name LIKE concat("%",#{proName},"%")
 	</if>
 	</where>
+	</select>
+	
+	<!-- 주문정보 리스트 조회(취소) -->
+	<select id="selectOrderList2" parameterType="nurim.jsp.model.Order"
+	resultMap="order">
+	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
+			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
+	FROM nurimmusic.order
+	<where>
+	member_id = #{memberId}
+	<if test="prevDate !=null and nextDate !=null">
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	</if>
+	<choose>
+	<when test="recState != null">
+	AND rec_state = #{recState}
+	</when>
+	<otherwise>
+	 AND rec_state="주문취소" OR rec_state="교환" OR rec_state="반품"
+	</otherwise>
+	</choose>
+	<if test="proName != null">
+	AND pro_name LIKE concat("%",#{proName},"%")
+	</if>
+	</where>
+	LIMIT #{limitStart},#{listCount}
 	</select>
 	
 	<!-- 취소 건수 확인 -->
@@ -173,7 +188,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="주문취소"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -191,7 +206,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="교환"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -210,7 +225,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="반품"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -220,5 +235,73 @@
 	</if>
 	</where>
 	</select>
+	
+	<!-- 주문상품 전체 상품 리스트 카운트 (취소)-->
+	<select id="selectOrderCount2" parameterType="nurim.jsp.model.Order"
+	resultType="int">
+	SELECT count(id)
+	FROM nurimmusic.order
+	<where>
+	member_id = #{memberId}
+	<if test="prevDate !=null and nextDate !=null">
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	</if>
+	<choose>
+	<when test="recState != null">
+	AND rec_state = #{recState}
+	</when>
+	<otherwise>
+	 AND rec_state="주문취소" OR rec_state="교환" OR rec_state="반품"
+	</otherwise>
+	</choose>
+	<if test="proName != null">
+	AND pro_name LIKE concat("%",#{proName},"%")
+	</if>
+	</where>
+	</select>
+	
+	<!-- 주문정보 리스트 조회(전체) -->
+	<select id="selectOrderListAll" parameterType="nurim.jsp.model.Order"
+	resultMap="order">
+	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
+			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
+	FROM nurimmusic.order
+	<where>
+	<if test="prevDate !=null and nextDate !=null">
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	</if>
+	<if test="recState != null">
+	AND rec_state = #{recState}
+	</if>
+	<if test="proName != null">
+	AND pro_name LIKE concat("%",#{proName},"%")
+	</if>
+	</where>
+	LIMIT #{limitStart},#{listCount}
+	</select>
+	
+	<!-- 주문상품 전체 상품 리스트 카운트 (전체)-->
+	<select id="selectOrderCountAll" parameterType="nurim.jsp.model.Order"
+	resultType="int">
+	SELECT count(id)
+	FROM nurimmusic.order
+	<where>
+	<if test="prevDate !=null and nextDate !=null">
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	</if>
+	<if test="recState != null">
+	AND rec_state = #{recState}
+	</if>
+	<if test="proName != null">
+	AND pro_name LIKE concat("%",#{proName},"%")
+	</if>
+	</where>
+	</select>
+	
+	<!-- 주문내역 삭제 -->
+	<delete id="deleteOrder" parameterType="nurim.jsp.model.Order">
+	DELETE FROM nurimmusic.order
+	WHERE id=#{id}	
+	</delete>
 </mapper>
 

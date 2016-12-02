@@ -78,4 +78,6 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public void updateUserPw (Member member) throws Exception;
+
+	public void deleteMember(Member member) throws Exception;
 }

@@ -11,7 +11,7 @@
 	$(function(){
 		$("#drop_out").click(function(){
 		    if(confirm("정말로 탈퇴하시겠습니까?")==true){
-		      alert("탈퇴 되었습니다.");
+		    	$(location).attr("href","${pageContext.request.contextPath}/drop_out_ok.do");
 		    }else{
 		      alert("취소되었습니다.");
 		    }
