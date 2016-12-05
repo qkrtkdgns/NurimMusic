@@ -1,8 +1,6 @@
 package nurim.jsp.basecontroller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,13 +14,12 @@ import org.apache.logging.log4j.Logger;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.WebHelper;
-import nurim.jsp.model.Basket;
-import nurim.jsp.model.Member;
+import nurim.jsp.model.Order;
 import nurim.jsp.service.BasketService;
 import nurim.jsp.service.impl.BasketServiceImpl;
 
-@WebServlet("/pay.do")
-public class pay extends BaseController {
+@WebServlet("/pay_ok.do")
+public class payOk extends BaseController {
 	private static final long serialVersionUID = -6408632236277685919L;
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	// --> import org.apache.logging.log4j.Logger;
@@ -54,67 +51,50 @@ public class pay extends BaseController {
 		logger.debug("loginInfo >> " + web.getSession("loginInfo"));
 		
 		/** (4) 검색할 값 받아오기 */
-		int count = web.getInt("count");
-		String[] checkbox = web.getStringArray("checkbox");
-		for(int i =0; i<count; i++){
-			logger.debug("checkbox >> " + checkbox[i]);
+		String[] id = web.getStringArray("id");
+		String[] price = web.getStringArray("price");
+		for(int i =0; i<id.length; i++){
+			logger.debug("price >> " + price[i]);
+			logger.debug("id >> " + id[i]);
 		}
+		String recName = web.getString("name");
+		String recPostcode = web.getString("postcode");
+		String recAddr1 = web.getString("addr1");
+		String recAddr2 = web.getString("addr2");
+		String recTel = web.getString("tel");
 		
-		/**(5)회원정보 세팅 */
-		//세션에서 회원정보 받아오기
-		Member loginInfo = (Member) web.getSession("loginInfo");
-		//장바구니에 멤버아이디 셋팅
-		Basket basket = new Basket();
-		basket.setMemberId(loginInfo.getId());
-		int id= web.getInt("id");
-		basket.setId(id);
-		logger.debug("basket >> " + basket);
-		//값을 받을 장바구니 객체 선언 */
-		List<Basket> BasketList = new ArrayList<Basket>();
-		//총 주문금액 변수
-		int price=0;
+		logger.debug("recName >> " + recName);
+		logger.debug("recPostcode >> " + recPostcode);
+		logger.debug("recAddr1 >> " + recAddr1);
+		logger.debug("recAddr2 >> " + recAddr2);
+		logger.debug("recTel >> " + recTel);
 		
-		/**(6) 선택 수문, 전체 주문 분기처리 */
+		//중복사용될 배송 정보 등록
+		Order order = new Order();
+		order.setRecName(recName);
+		order.setRecPostcode(recPostcode);
+		order.setRecAddr1(recAddr1);
+		order.setRecAddr2(recAddr2);
+		order.setRecTel(recTel);
+		/** (5) 결제 처리 하기 */
 		try{
-		if(count > 0){
-		for(int i=0; i<count; i++){
-			id = Integer.parseInt(checkbox[i]);
-			basket.setId(id);
+			//상품 수량 확인 (basket Id를 통해서 구한 amount값을 가지고 product 재고 수량과 비교 한다.)
 			
-			//옮겨담기위한 장바구니 객체 선언
-			Basket temp = new Basket();
-			temp = basketService.selectItem(basket);
-			BasketList.add(temp);
-			logger.debug(BasketList.toString());
-			//총 주문 금액
-			price+=temp.getProPrice()*temp.getAmount();
-			logger.debug("price >> " + price);
-		}
-		}else if(basket.getId()!=0){
-			BasketList.add(basketService.selectItem(basket));
-			logger.debug(BasketList.toString());
-			//총 주문 금액
-			price=BasketList.get(0).getProPrice()*BasketList.get(0).getAmount();
-			logger.debug("price >> " + price);
+			//상품 등록 ( basket Id를 통해서 구한 product_id값을 가지고 product 내용물을 가져와 order에 셋팅한다.)
 			
-		}else{
-			BasketList = basketService.selectList(basket);
-			//총 주문 금액
-			for(int i=0; i<BasketList.size(); i++){
-				price+=BasketList.get(i).getProPrice()*BasketList.get(i).getAmount();
-				logger.debug("price >> " + price);
-			}
-		}
-		logger.debug("BasketList >> "+BasketList);
+			//상품 수량 수정( basket Id를 통해서 구한 amount 값을 가지고 product 재고 수량을 변경한다.)
+			
+			//등록된 상품 제거 (사용이 완료된 basket Id를 삭제한다.)
+			
 		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());
-			return null;
 		}finally{
 			sqlSession.close();
 		}
-		request.setAttribute("price", price);
-		request.setAttribute("BasketList", BasketList);
-		return "pay";
+		
+		web.redirect(web.getRootPath()+"/index.do", "주문이 완료되었습니다. 입금을 해주세요.");
+		
+		return null;
 	}
 	
 

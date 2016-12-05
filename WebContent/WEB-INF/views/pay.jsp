@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,7 +18,7 @@
          <div id="content">
             <h2>주문/결제</h2>
             <hr/>
-            <form name="barket" action="${pageContext.request.contextPath }/index.do">
+            <form name="barket" method="post" action="${pageContext.request.contextPath }/pay_ok.do">
             <div class="barket">
                <div class="board">
                <table class="table table-striped table-hover" style="margin-top:50px;">
@@ -37,16 +39,30 @@
                </tr>
                </thead>
                <tbody>
-               <tr>
-               <td id="item"><a href="#"><img src="${pageContext.request.contextPath }/img/1.jpg" alt="상품">이런 상품입니다.</a></td>
-               <td class="text-center" id="item">3000</td>
-               <td class="text-center" id="item">2</td>
-               <td class="text-center" id="item">0원</td>
-               <td class="text-center" id="item">6000</td>
-               </tr>
+               <c:choose>
+						<c:when test="${fn:length(BasketList) > 0}">
+							<c:forEach var="b" items="${BasketList }">
+								<input type="hidden" name="id" value="${b.id }" />
+								<input type="hidden" name="price" value="${b.proPrice }" />
+								<tr>
+								<td id="item"><a><img src="${b.proImg }" /> ${b.proName }</a></td>
+									<td class="text-center" id="item">${b.proPrice }원</td>
+									<td class="text-center" id="item">${b.amount } 개</td>
+									<td class="text-center" id="item">0원</td>
+									<td class="text-center" id="item">${b.proPrice * b.amount }원</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="10" class="text-center" style="line-height: 100px;">
+									조회된 글이 없습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
                <tr>
                   <td colspan="6" class="text-right" style="border-bottom:1px solid #bbb; border-top:1px solid #bbb; background:#ddd">
-                     주문금액: <b>6,000원</b> + 배송비: <b>0원</b> = <b>6000원</b></td>
+                     주문금액: <b>${price }원</b> + 배송비: <b>0원</b> = <b>${price }원</b></td>
                </tr>
                </tbody>
                </table>
@@ -57,23 +73,24 @@
                <tbody>
                <tr>
                   <th>받으시는 분</th>
-                  <td><input type="text" id="sample6_postcode"
-								placeholder="우편번호"></td>
+                  <td><input type="text" name="name" /></td>
                </tr>
                <tr>
                   <th rowspan="3">배송지 주소</th>
-                  <td><input type="button"
+                  <td><input type="text" name="postcode" id="sample6_postcode"
+								placeholder="우편번호">
+								<input type="button"
 								onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
                </tr>
                <tr>
-                  <td><input type="text" id="sample6_address" placeholder="주소"></td>
+                  <td><input type="text" name="addr1" id="sample6_address" placeholder="주소"></td>
                </tr>
                <tr>
-                  <td><input type="text" id="sample6_address2" placeholder="주소"></td>
+                  <td><input type="text" name="addr2" id="sample6_address2" placeholder="주소"></td>
                </tr>
                <tr>
                   <th>휴대폰번호</th>
-                  <td><input type="tel" /></td>
+                  <td><input type="tel" name="tel" /></td>
                </tr>
             </tbody>
             </table></div>
@@ -96,7 +113,7 @@
                      </tr>
                      <tr>
                         <td>
-                           6,000원
+                           ${price }원
                         </td>
                         <td>
                            0원
@@ -105,12 +122,13 @@
                            0원
                         </td>
                         <td>
-                           6,000원
+                           ${price }원
                         </td>
                      </tr>
                   </tbody>
                </table>
             </div>
+            <input type="hidden" name="price" value="${price }" />
             <button type="submit" id="pay" class="ruby">결제하기</button>
          </form>
          </div>
@@ -119,11 +137,7 @@
 <%@include file="inc/footer.jsp" %>
       <script src="js/basket.js"></script>
       <script>
-      $(function(){
-         $("#pay").click(function(){
-            alert("주문이 완료되었습니다.");
-         });
-      });
+     
       function sample6_execDaumPostcode() {
 
 			new daum.Postcode(

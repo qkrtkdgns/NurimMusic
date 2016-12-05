@@ -1,7 +1,6 @@
 package nurim.jsp.basecontroller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +19,8 @@ import nurim.jsp.model.Member;
 import nurim.jsp.service.BasketService;
 import nurim.jsp.service.impl.BasketServiceImpl;
 
-@WebServlet("/basket.do")
-public class basket extends BaseController {
+@WebServlet("/basket_delete.do")
+public class basketDelete extends BaseController {
 	private static final long serialVersionUID = 7468989066003412212L;
 
 	Logger logger;
@@ -47,27 +46,27 @@ public class basket extends BaseController {
 			web.redirect(web.getRootPath() + "/index.do", "로그인 중이 아닙니다.");
 			return null;
 		}
+		//파라미터 받기
+		int id = web.getInt("id");
 		
-		//장바구니에 멤버아이디 셋팅해주기
+		//삭제할 아이디 셋팅해주기
 		Basket bas = new Basket();
-		bas.setMemberId(loginInfo.getId());
+		bas.setId(id);
 		
-		/**(4) 장바구니에 리스트 담기 */
-		//장바구니에 담을 리스트 객체 생성
-		List<Basket> basket = null;
+		/**(4) 장바구니에 상품 삭제 */
 		
 		try{
-			basket = basketService.selectList(bas);
+			basketService.deleteitem(bas);
 		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());
 			return null;
 		}finally{
 			sqlSession.close();
 		}
-		logger.debug("basket >> " + basket);
-		request.setAttribute("basket", basket);
+		logger.debug("basket >> " + bas);
+		web.redirect(web.getRootPath()+"/basket.do", "삭제되었습니다.");
 		
-		return "basket";
+		return null;
 	}
        
     

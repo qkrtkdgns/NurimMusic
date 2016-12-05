@@ -19,5 +19,33 @@
 		<result property="amount" column="amount" />
 	</resultMap>
 	
+	<!-- 장바구니 리스트 검색 -->
+	<select id="selectList" parameterType="nurim.jsp.model.Basket"
+	resultMap="basket">
+	SELECT id, member_id, product_id, pro_img,pro_name, pro_price, amount
+	FROM basket
+	WHERE member_id =#{memberId}
+	</select>
+	
+	<!-- 장바구니 아이템 삭제 -->
+	<delete id="deleteitem" parameterType="nurim.jsp.model.Basket">
+	DELETE FROM basket
+	WHERE id = #{id}
+	</delete>
+	
+	<!-- 장바구니 아이템  수량 수정 -->
+	<update id="updateItem" parameterType="nurim.jsp.model.Basket">
+	UPDATE basket
+	SET amount = #{amount}
+	where id=#{id}
+	</update>
+	
+	<!-- 장바구니 선택 조회 -->
+	<select id="selectItem" parameterType="nurim.jsp.model.Basket"
+	resultMap="basket">
+	SELECT id, member_id, product_id, pro_img,pro_name, pro_price, amount
+	FROM basket
+	WHERE member_id =#{memberId} AND id=#{id}
+	</select>
 </mapper>
 

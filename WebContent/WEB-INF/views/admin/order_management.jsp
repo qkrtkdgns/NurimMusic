@@ -186,7 +186,6 @@
 	<!-- jquery start -->
 	<script type="text/javascript">
 	$(function(){
-		
 		$("input[name=checkbox]:checkbox").click(function(){
 			var cnt = $("input[name=checkbox]:checkbox:checked").length;
 			$("#count").val(cnt);

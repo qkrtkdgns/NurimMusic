@@ -36,24 +36,23 @@
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
 			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
 	FROM nurimmusic.order
-	<where>
-	member_id = #{memberId} 
+	<where> 
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} AND
 	</if>
 	<choose>
 	<when test="recState != null">
-	AND rec_state = #{recState}
+	rec_state = #{recState} AND
 	</when>
 	<otherwise>
-	AND rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료"
+	rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료") AND
 	</otherwise>
 	</choose>
 	<if test="proName != null">
-	AND pro_name LIKE concat("%",#{proName},"%")
+	pro_name LIKE concat("%",#{proName},"%") AND
 	</if>
+	member_id = #{memberId}
 	</where>
-	
 	LIMIT #{limitStart},#{listCount}
 	</select>
 
@@ -136,21 +135,21 @@
 	SELECT count(id)
 	FROM nurimmusic.order
 	<where>
-	member_id = #{memberId} 
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} AND
 	</if>
 	<choose>
 	<when test="recState != null">
-	AND rec_state = #{recState}
+	rec_state = #{recState} AND
 	</when>
 	<otherwise>
-	AND rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료"
+	rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료") AND
 	</otherwise>
 	</choose>
 	<if test="proName != null">
-	AND pro_name LIKE concat("%",#{proName},"%")
+	pro_name LIKE concat("%",#{proName},"%") AND
 	</if>
+	member_id = #{memberId} 
 	</where>
 	</select>
 	
@@ -170,7 +169,7 @@
 	AND rec_state = #{recState}
 	</when>
 	<otherwise>
-	 AND rec_state="주문취소" OR rec_state="교환" OR rec_state="반품"
+	AND rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="주문취소" OR rec_state="교환" OR rec_state="반품")
 	</otherwise>
 	</choose>
 	<if test="proName != null">
@@ -251,7 +250,7 @@
 	AND rec_state = #{recState}
 	</when>
 	<otherwise>
-	 AND rec_state="주문취소" OR rec_state="교환" OR rec_state="반품"
+	AND rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="주문취소" OR rec_state="교환" OR rec_state="반품")
 	</otherwise>
 	</choose>
 	<if test="proName != null">
