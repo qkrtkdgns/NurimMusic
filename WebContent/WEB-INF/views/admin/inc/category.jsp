@@ -25,8 +25,8 @@
 	</li>
 	<li class="glyphicon glyphicon-cog">&nbsp;<a href="#" class=" bt_on"><span>상품관리</span></a>
 	<ul>
-	<li><a href="${pageContext.request.contextPath}/admin/new_item.do">신규상품등록</a></li>
-	<li><a href="${pageContext.request.contextPath}/admin/edit.do">상품등록/수정</a></li>
+	<li><a href="${pageContext.request.contextPath}/admin/item_list.do">신규상품등록</a></li>
+	<li><a href="${pageContext.request.contextPath}/admin/insert_item.do">상품등록/수정</a></li>
 	</ul>
 	</li>
 	<li class="glyphicon glyphicon-cog">&nbsp;<a href="${pageContext.request.contextPath}/admin/order_management.do"><span>주문관리</span></a>

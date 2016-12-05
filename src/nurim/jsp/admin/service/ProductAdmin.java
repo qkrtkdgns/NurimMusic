@@ -49,4 +49,22 @@ public interface ProductAdmin {
 	 * @throws Exception
 	 */
 	public int selectProductCount(Product product) throws Exception;
+	
+	/**
+	 * 선택된 상품 삭제
+	 * @param  product - 상품 데이터
+	 * @param  proCategory - 상품 카테고리 데이터
+	 * @throws Exception
+	 */
+	public void deleteProduct(Product product) throws Exception;
+	public void deleteProCategory(ProCategory proCategory) throws Exception;
+	
+	
+	/**
+	 * 단일 상품을 조회한다.
+	 * @param product - 상품 데이터
+	 * @throws Exception
+	 */
+	public Product selectProduct(Product product) throws Exception;
+	
 }

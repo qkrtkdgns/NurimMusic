@@ -132,8 +132,62 @@ public class ProductAdminImpl implements ProductAdmin {
 		return result;
 	}
 
+	@Override
+	public void deleteProduct(Product product) throws Exception {
+		try{
+			int result = sqlSession.delete("ProductMapper.deleteProduct", product ); 
+			if(result  == 0) {
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 상품에 대한 요청입니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+
+	@Override
+	public void deleteProCategory(ProCategory proCategory) throws Exception {
+		try{
+			int result = sqlSession.delete("ProCategoryMapper.deleteProCategory", proCategory ); 
+			if(result  == 0) {
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 카테고리에 대한 요청입니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 카테고리 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+
 	
-
-
+	@Override
+	public Product selectProduct(Product product) throws Exception {
+		Product result = null;
+		
+		try{
+			result = sqlSession.selectOne("ProductMapper", product);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 상품에 대한 요청입니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 검색에 실패했습니다.");
+		}
+		return result;
+	}
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -31,298 +32,131 @@
         </div>
 
         <div class="list_lineup">
-          <ul>
-            <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list01.jpg"></a>
-                </td>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">코비 IP6 아이폰 이어폰 [화이트]</span></a>
-                <span class="substance">COBY | 2016.07.19 | Etc</span>
-                </td>
-                <td width="183"><p class="price1">6,500원</p>
-                <p class="price2">5,900원</p>
-                </td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-          <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list02.jpg">
-                </td></a>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">EVA 에바 I-205 프리미엄 스마트폰 이어마이크폰 [블랙]</span></a>
-                <span class="substance">ANAM | 2016.07.01 | Etc</span>
-                </td>
-                <td width="183"><p class="price1">8,900원</p>
-                <p class="price2">8,790원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_02"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_02" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_02" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_02" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-            <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list03.jpg">
-                </td></a>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">EVA 에바 I-204 커널형, 무통증 이어폰 [블랙]</span></a>
-                <span class="substance">ANAM | 2016.07.01 | Etc</span>
-                </td>
-                <td width="183"><p class="price1">7,500원</p>
-                <p class="price2">7,400원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_03"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_03" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_03" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_03" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-              <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list02.jpg"></a>
-                </td>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">EVA 에바 I-205 프리미엄 스마트폰 이어마이크폰 [화이트]</span></a>
-                <span class="substance">ANAM | 2016.07.01 | Etc</span>
-                </td>
-                <td width="183"><p class="price1">9,000원</p>
-                <p class="price2">8,790원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_04"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_04" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_04" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_04" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-            <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-               <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list03.jpg"></a>
-                </td>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">내가 너에게 배우는 것들 O.S.T - J N JOY 20
-                </span></a>
-                <span class="substance">워너뮤직코리아(주) | 2016.08.12 | CD</span>
-                </td>
-                <td width="183"><p class="price1">15,500원</p>
-                <p class="price2">13,400원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_05"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_05" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_05" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_05" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
+         			<ul>
+		<c:choose>
+			<c:when test="${fn:length(productList) > 0}">
+				<c:forEach var="product" items="${productList }">
+							<li>
+							<table >
+								<tr>
+								<td style="width:10;"><input type="checkbox" name="basket"></td>
+								<td width="145">
+								<a href="${pageContext.request.contextPath }/item.do">
+								<c:choose>
+									<c:when test="${product.proImg != null}">
+											<c:url var="downloadUrl" value="/download.do">
+												<c:param name="file" value="${product.proImg}" />
+											</c:url>
+												<img src="${downloadUrl}" />
+											</c:when>
+										<c:otherwise>
+												<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+										</c:otherwise>
+								</c:choose>			
+								</a>
+								</td>
+								<td width="493">
+								<a href="${pageContext.request.contextPath }/item.do">
+								<span class="title">${product.proName}</span></a>
+								<span class="substance">${product.provider}</span>
+								</td>
+								<th width="183">
+									<p class="price1">${product.proPrice}원</p>
+									<p class="price2">${product.proPrice}원</p>
+								</th>
+								<th class="item_button">
+									<a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
+									<a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
+									<a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
+									<a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
+								</th>
+								</tr>
+					</table>
+						</li>
+				</c:forEach>
+				</c:when>		
 
-              <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list03.jpg">
-                </td></a>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">동주 O.S.T - 모그 (DONGJU; THE PORTRAIT OF A POET O.S.T - MOWG)
-                </span></a>
-                <span class="substance">(주)윈드밀이엔티 | 2016.05.11 | CD</span>
-                </td>
-                <td width="183"><p class="price1">15,500원</p>
-                <p class="price2">13,400원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_06"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_06" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_06" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_06" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-
-              <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list02.jpg">
-                </td></a>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">일사각오 O.S.T - 류형욱 (일사각오 O.S.T - 류형욱)
-                </span></a>
-                <span class="substance">(주)윈드밀이엔티 | 2016.05.02 | CD</span>
-                </td>
-                <td width="183"><p class="price1">14,500원</p>
-                <p class="price2">12,500원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_07"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_07" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_07" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_07" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-
-              <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list03.jpg">
-                </td></a>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">블레이드 & 소울 O.S.T [위대한 여정] (3CD)
-                </span></a>
-                <span class="substance">SONY MUSIC | 2016.03.23 | CD</span>
-                </td>
-                <td width="183"><p class="price1">36,000원</p>
-                <p class="price2">31,200원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_08"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_08" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_08" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_08" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-
-              <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list04.jpg">
-                </td></a>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">챔프 O.S.T (재발매) (CHAMP O.S.T)
-                </span></a>
-                <span class="substance">(주)윈드밀이엔티 | 2016.03.10 | CD</span>
-                </td>
-                <td width="183"><p class="price1">14,000원</p>
-                <p class="price2">11,900원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_09"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_09" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_09" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_09" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-
-              <li>
-              <table>
-                <tr>
-                <td style="width:10;"><input type="checkbox" name="basket"></td>
-                <td width="145">
-                <a href="${pageContext.request.contextPath }/item.do"><img src="img/earphone_list05.jpg">
-                </td></a>
-                <td width="493">
-                <a href="${pageContext.request.contextPath }/item.do"><span class="title">더 파이브 O.S.T (재발매) (THE FIVES O.S.T)
-                </span></a>
-                <span class="substance">(주)윈드밀이엔티 | 2016.03.10 | CD</span>
-                </td>
-                <td width="183"><p class="price1">14,000원</p>
-                <p class="price2">11,900원</p></td>
-                
-                <td class="item_button">
-                <a href="#" class="btn btn-default" id="A1" name="list_10"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_10" />장바구니</a>
-                <a href="#" class="btn btn-default" id="B1" name="list_10" />입고알림</a>
-                <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_10" />바로구매</a>
-                </td>
-                
-                </tr>
-                
-              </table>
-            </li>
-            <br/>
-                
-
-
-          </ul>
-          </div>
-          <div class="page_num">
-      <ul class="pagination pagination-mg">
-      <li class="disabled"><a href="#">&laquo;</a></li>
-      <li class="active"><span>1<span class="sr-only">(current)</span></span></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li><a href="#">&raquo;</a></li>
-      </ul>
-        
-      </div>
-      </div>
-  
+				<c:otherwise>
+							<p class="text-center"style="line-height: 100px;">조회된 글이 없습니다.</p>			
+				</c:otherwise>
+			</c:choose>	
+					</ul>
+					</div>
+					
+					<!-- 페이지 번호 -->
+	<div class="page_num">
+		<ul class="pagination pagination-mg">
+			<c:choose>
+			<c:when test="${pageHelper.prevPage > 0}">
+				<!-- 이전 그룹에 대한 페이지 번호가 존재할 경우, 이전 그룹으로 이동하기 위한
+				URL을 생성해서 prevUrl에 저장 -->
+				<c:url var="prevUrl" value="/kor_rc1.do">
+					<c:param name="category" value="${category}" />
+					<c:param name="keyword" value="${keyword}" />
+					<c:param name="page" value="${pageHelper.prevPage}" />
+				</c:url>
+				<li><a href="${prevUrl}">&laquo;</a></li>
+			</c:when>
+			
+			<c:otherwise>
+			<!-- 이전 그룹에 대한 페이지 번호가 없을 경우 -->
+			<li class="disabled"><a href="#">&laquo;</a></li>
+			</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i"  begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
+			<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
+			<c:url var="pageUrl" value="/kor_rc1.do">
+					<c:param name="category" value="${category}" />
+					<c:param name="keyword" value="${keyword}" />
+					<c:param name="page" value="${i}" />
+				</c:url>
+				
+			<c:choose>
+				<c:when test="${pageHelper.page==i}">
+					<li class="active"><a href="#">${i}</a></li>
+				</c:when>
+				
+				<c:otherwise>
+					<li><a href="${pageUrl}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+			</c:forEach>
+			
+			<c:choose>
+			<c:when test="${pageHelper.nextPage > 0}">
+				<!-- 다음 그룹에 대한 페이지 번호가 존재할 경우, 다음 그룹으로 이동하기 위한
+				URL을 생성해서 nextUrl에 저장 -->
+				<c:url var="nextUrl" value="/kor_rc1.do">
+					<c:param name="category" value="${category}" />
+				 	<c:param name="keyword" value="${keyword}" />
+					<c:param name="page" value="${pageHelper.nextPage}" />
+				</c:url>
+				<li><a href="${nextUrl}">&raquo;</a></li>
+			</c:when>
+			
+			<c:otherwise>
+			<!-- 다음 그룹에 대한 페이지 번호가 없을 경우 -->
+			<li class="disabled"><a href="#">&raquo;</a></li>
+			</c:otherwise>
+			
+			</c:choose>
+		</ul>	
+	</div>
+			<!-- 검색 영역 -->
+		<form action="${pageContext.request.contextPath}/shopping_earphone.do" method="get">
+					<div class="result_search">
+						<select class="input_form" id="keyword_type" name="keyword_type">
+							<option value="null">선택</option>
+							<option value="pro_name">상품명</option>
+							<option value="provider">공급업체</option>
+						</select>
+						<input type="text" class="input_txt" id="keyword" name="keyword"  value="${keyword}"/>
+						<button type="submit" class="btn btn-default">검색</button>
+					</div>
+		</form>
+		<!-- //검색 영역 끝 -->
+</div>
 </div>
 
 <!--본문내용 작성 end -->

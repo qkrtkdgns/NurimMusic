@@ -20,23 +20,16 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int selectProductCount(Product product) throws Exception {
+	public int selectProductCategoryCount(Product product) throws Exception {
 		int result = 0;
 		
 		try{
-			result = sqlSession.selectOne("ProductMapper.selectProductCount",product);
-			if(result == 0){
-				throw new NullPointerException();
-			}
+			result = sqlSession.selectOne("ProductMapper.selectProductCategoryCount",product);
+			
 			logger.debug("selectProductCount >> " + result);
-		}catch (NullPointerException e){
-			sqlSession.rollback();
-			logger.debug(e.getLocalizedMessage());
 		}catch(Exception e){
-			sqlSession.rollback();
-			logger.debug(e.getLocalizedMessage());
-		}finally{
-			sqlSession.commit();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 수 조회에 실패했습니다.");
 		}
 		return result;
 	}
@@ -82,6 +75,27 @@ public class ProductServiceImpl implements ProductService{
 		}
 		
 		
+	}
+
+	@Override
+	public List<Product> selectProductCategoryList(Product product) throws Exception {
+		List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductCategoryList",product);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+		}finally{
+			sqlSession.commit();
+		}
+		return result;
 	}
 
 }

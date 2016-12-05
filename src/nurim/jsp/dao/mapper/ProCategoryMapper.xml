@@ -22,5 +22,9 @@
 	INSERT INTO pro_category(product_id, category_id)
 	VALUES(#{productId}, #{categoryId})
 	</insert>
+	
+	<delete id="deleteProCategory" parameterType="nurim.jsp.model.ProCategory">
+	DELETE FROM pro_category WHERE product_id=#{productId}
+	</delete>
 
 </mapper>

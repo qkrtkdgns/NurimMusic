@@ -1,4 +1,4 @@
-package nurim.jsp.basecontroller;
+package nurim.jsp.admin.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,75 +12,88 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nurim.jsp.admin.service.ProductService;
-import nurim.jsp.admin.service.impl.ProductServiceImpl;
+import nurim.jsp.admin.service.ProductAdmin;
+import nurim.jsp.admin.service.impl.ProductAdminImpl;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.PageHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
+import nurim.jsp.model.ProCategory;
 import nurim.jsp.model.Product;
 
-@WebServlet("/kor_rc3.do")
-public class kor_rc3 extends BaseController {
-	private static final long serialVersionUID = -6065660656266908222L;
-	
+@WebServlet("/admin/item_list.do")
+public class ItemList extends BaseController{
+	private static final long serialVersionUID = -6769667557571667255L;
+	/**(1) 사용하고자 하는 Helper 객체 선언 */
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
-	ProductService productService;
+	ProductAdmin productAdmin;
 	PageHelper pageHelper;
 	UploadHelper upload;
-	
+
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		
 		/** (2) 사용하고자 하는 Helper+Service 객체 생성 */
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
-		productService = new ProductServiceImpl(sqlSession, logger);
+		productAdmin = new ProductAdminImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
+		/** (3) 로그인 여부 검사 */
 		
-	
+		/**로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		if (web.getSession("loginInfo") == null) {
+			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
+			sqlSession.close();
+			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
+			return null;
+		}
+		*/ 
 		
 		/** (3) 조회할 정보에 대한 Beans 생성 */
-		String CategoryName = "ost";
-		String keyword = web.getString("keyword");
-		Product product = new Product();
-		
 	
-			product.setProName(keyword);	
-			product.setProvider(keyword);
-			
-		if(web.getString("keyword_type")==null){
-			web.redirect(null, "검색 조건을 선택하세요.");
-		}
-		
-		product.setProCategoryName(CategoryName);
-		logger.debug("ProCategoryName> " + CategoryName);
-		logger.debug("keyword> " + keyword);
-		
+		Product product = new Product();
+		ProCategory proCategory = new ProCategory();
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page",1);
+		//검색어
+		//String keyword = web.getString("search_item");
+		//logger.debug("keyword >> " + keyword);
+				
+				//제목과 내용에 대한 검색으로 활용하기 위해서 입력값을 설정한다.
+				//prod.setProName(keyword);
 
-				/** (6) 게시글 목록 조회 */
+				/** (4) 게시글 목록 조회 */
 				int totalCount = 0;
 				List<Product> productList = null;
+				String[] checkbox = web.getStringArray("check");
 				
 				try {
 					//전체 게시물 수
-					totalCount = productService.selectProductCategoryCount(product);
+					totalCount = productAdmin.selectProductCount(product);
+					//나머지 페이지 번호 계산하기
 					//--> 현재 페이지, 전체 게시물 수, 한 페이지의 목록 수, 그룹갯수
+					
 					pageHelper.pageProcess(page, totalCount, 10, 5);
 					
 					//페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
 					product.setLimitStart(pageHelper.getLimitStart());
 					product.setListCount(pageHelper.getListCount());
-					productList = productService.selectProductCategoryList(product);
-					//logger.debug("prodList >> " + prodList);
+					productList = productAdmin.selectProductList(product);
+					logger.debug("productList > " +productList);
+					if(checkbox != null){
+						for(int i = 0 ; i < checkbox.length; i++){
+							logger.debug("dddd >>"+checkbox);
+							proCategory.setProductId(Integer.parseInt(checkbox[i]));
+							product.setId(Integer.parseInt(checkbox[i]));
+							productAdmin.deleteProCategory(proCategory);
+							productAdmin.deleteProduct(product);
+						}
+					}
 				} catch (Exception e) {
 					web.redirect(null, e.getLocalizedMessage());
 					return null;
@@ -102,14 +115,18 @@ public class kor_rc3 extends BaseController {
 					}
 				}
 				
+			
+				
 				/** (7) 조회 결과를 View에 전달 */
 				request.setAttribute("productList", productList);
+				// 사용자가 입력한 검색어를 View에 되돌려준다. --> 자동완성 구현을 위함
+				//request.setAttribute("keyword", keyword);
+				
 				//페이지 번호 계산 결과를 View에 전달
 				request.setAttribute("pageHelper", pageHelper);
-				//사용자가 입력한 검색어를 View에 전달
-				request.setAttribute("keyword", keyword);
-				
-		return "kor_rc3";
+		
+
+		return "admin/item_list";
 	}
 
 }

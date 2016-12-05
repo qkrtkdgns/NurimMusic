@@ -25,23 +25,71 @@
 		<result property="proCategoryName" column="pro_category_name" />
 	</resultMap>
 	
+	<!-- 관리자용 상품 리스트 수 검색 -->
 	<select id="selectProductCount" parameterType="nurim.jsp.model.Product"
 	resultType="int">
-	SELECT
-	COUNT(id) FROM Product
+	SELECT COUNT(id) FROM Product
 	</select>
 	
+	<!-- 서비스용 상품 리스트 수 검색 -->
+	<select id="selectProductCategoryCount" parameterType="nurim.jsp.model.Product"
+	resultType="int">
+	SELECT COUNT(b.id) FROM Product b
+	INNER JOIN pro_category a ON b.id=a.product_id
+	INNER JOIN category c ON a.category_id=c.id
+	<where>
+	c.pro_category_name=#{proCategoryName}
+		<if test="proName != null or provider != null">
+			AND(
+			<if test="proName !=null">
+				pro_name LIKE concat('%',#{proName},'%')
+			</if>
+			<if test="provider !=null">
+				OR provider LIKE concat('%',#{provider},'%')
+			</if>
+					)
+		</if>
+	</where>
+	</select>
+	
+	<!-- 관리자용 상품 리스트 출력 -->
 	<select id="selectProductList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
-	SELECT c.pro_category_name, b.pro_name, a.id, a.product_id, a.category_id,
+	SELECT b.id, c.pro_category_name, b.pro_name, a.id, a.product_id, a.category_id,
 	b.pro_img, b.pro_price, b.amount, b.reg_date
 	FROM product b
 	INNER JOIN pro_category a ON b.id=a.product_id
 	INNER JOIN category c ON a.category_id=c.id
-	ORDER BY id DESC
-	<!--  LIMIT #{limitStart},#{listCount}-->	
+	ORDER BY b.id DESC
+	LIMIT #{limitStart},#{listCount}
 	</select>
 	
+	<!--사용자용 상품 리스트 출력 -->
+	<select id="selectProductCategoryList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT c.pro_category_name, b.pro_name, a.id, a.product_id, a.category_id,
+	b.pro_img, b.pro_price, b.amount, b.reg_date, b.provider
+	FROM product b
+	INNER JOIN pro_category a ON b.id=a.product_id
+	INNER JOIN category c ON a.category_id=c.id
+	<where>
+	c.pro_category_name=#{proCategoryName}
+		<if test="proName != null or provider != null">
+			AND(
+			<if test="proName !=null">
+				b.pro_name LIKE concat('%',#{proName},'%')
+			</if>
+			<if test="provider !=null">
+				OR provider LIKE concat('%',#{provider},'%')
+			</if>
+					)
+		</if>
+	</where>
+	ORDER BY b.reg_date DESC
+	LIMIT #{limitStart},#{listCount}
+	</select>
+	
+	<!-- 상품 등록 -->
 	<insert id="insertProduct" parameterType="nurim.jsp.model.Product"
 	useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO product(
@@ -53,4 +101,18 @@
 	)
 	</insert>
 	
+		<!-- 상품 선택 -->
+	<select id="selectProduct" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT b.id, c.pro_category_name, b.pro_name, a.id, a.product_id, a.category_id,
+	b.pro_img, b.pro_price, b.amount, b.reg_date
+	FROM product b
+	INNER JOIN pro_category a ON b.id=a.product_id
+	INNER JOIN category c ON a.category_id=c.id
+	</select>
+	
+	
+	<delete id="deleteProduct"  parameterType="nurim.jsp.model.Product">
+	DELETE FROM product WHERE id=#{id}
+	</delete>
 </mapper>
