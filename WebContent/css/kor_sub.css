@@ -176,7 +176,7 @@ table{
 
 		.page_num{
 		 margin-bottom: 20px;
-         margin-left: 250px;
+         margin-left: 400px;
          margin-top:30px;
 		}
 
@@ -194,3 +194,24 @@ table{
  		 background-color: #af64a9;
  		 border-color: #af64a9;
 		}
+
+div.result_search .input_form {
+			width: 100px;
+			height: 30px;
+		}
+
+div.result_search .input_txt {
+			width: 200px;
+			height:30px;
+		}
+		
+div.result_search > button {
+			margin-bottom: 3px;
+			background-color: #555;
+			color: white;
+		}
+
+div.result_search {
+				margin-left: 300px;
+				margin-top: 20px;
+			}
