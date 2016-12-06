@@ -1,7 +1,8 @@
 <!-- 수정본 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,14 +11,16 @@
 		<link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath }/css/grid.css" />
 		<link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath }/css/discussion_write_result.css" />
 
-		
-		<style type="text/css">
-		h3 {
-			color: gray;
-		}
-		</style>
+	<!-- handlebars -->
+	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.0.5.js"></script>
+
+	<!-- ajax -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+
+	<!-- ajaxForm -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/ajax-form/jquery.form.min.js"></script>
 	</head>
-	
 
 <body>
  <%@include file="inc/top_nav.jsp" %>
@@ -39,7 +42,7 @@
 								<tr>
 								<th class="active">제목</th>
 									<td colspan="4">
-										<p class="dboard_sub">음반 발매 기념 팬싸인회 중복응모에 대해</p>
+										<p class="dboard_sub" name="subject">${readDocument.subject }</p>
 									
 									</td>
 									
@@ -47,16 +50,16 @@
 								
 								<tr>
 									<th class="active">작성자</th>
-									<td>송하준</td>
+									<td>${readDocument.memberId }</td>
 									<th class="active">작성일</th>
-									<td>2016.08.07 22:31:21</td>
+									<td>${readDocument.regDate }</td>
 								</tr>
 								
 								<tr>
 									<th class="active">토론기간</th>
 									<td>2016.08.07 ~ 2016.08.14</td>
 									<th class="active">조회수</th>
-									<td>94</td>
+									<td>${readDocument.hit }</td>
 									
 								</tr>
 															
@@ -66,12 +69,7 @@
 					</div>
 					
 					<div class="dis_cont">
-						<p>가수들이 앨범이 발매되면 팬싸인회를 하는데 이때 앨범을 구매하는것으로 응모가 이루어집니다.</p>
-
-						<p>이때 중복응모가 가능하여 많이 살수록 당첨확률이 높아져서 대량으로 구매하는일이 많이 벌어지는데</p>
-
-						<p>중복응모가 가능한것에 대해 찬성vs반대 투표해주세요!</p>
-
+						${readDocument.content }
 					</div>
 					
 
@@ -94,16 +92,18 @@
 					<!-- 목록 버튼 -->
 					<div class="dis_btn">
 					<div class="list">
-						<button type="button" onclick="location.href='${pageContext.request.contextPath }/discussion.do'" class="btn btn-primary btn-md">목록</button>
+						<a href="${pageContext.request.contextPath }/discussion.do?category=${category}">
+						<button type="button" class="btn btn-primary btn-md">목록</button></a>
 					<!-- 수정 버튼 -->
 					<div class="modify">	
-						<button type="button" onclick="location.href='${pageContext.request.contextPath }/discussion_write.do'" class="btn btn-primary btn-md">수정</button>
+						<a href="${pageContext.request.contextPath }/discussion_edit.do?category=${category}&document_id=${readDocument.id }">
+						<button type="button" class="btn btn-primary btn-md">수정</button></a>
 					</div>
 					</div>
 					</div>
 					<hr>
 					
-					<!-- 댓글 영역 -->
+					<!-- 댓글이 표시되는 영역 -->
 					<div class="comment">
 						<div class="comment_c">
 							<font size="3">댓글</font>
@@ -114,9 +114,13 @@
 							<hr>
 						</div>
 					</div>
-					<!-- //댓글 영역 끝 -->
+					<!-- //댓글이 표시되는 영역 끝 -->
 					
-
+					<!-- 댓글 리스트 -->
+					<ul class="media-list" id="comment_list">
+					
+					</ul>
+					
 					<!-- 페이지 이동 -->
 						<div class="page_num">
 						<center>
@@ -128,19 +132,25 @@
 						</center>
 						</div>
 		
+					<!-- 댓글 영역 -->
+					<form id="comment_form" method="post" action="${pageContext.request.contextPath }/bbs/comment_insert.do">
+					<!-- 글 번호 상태 유지 -->
+					<input type='hidden' name='document_id' value='${readDocument.id }' />
 					<div id="comment_box">
 						<div class="comment_box1">
 						<div class="comment_id">
-							ggzzzzzz
+							${document.userId }
 						</div>
-						<textarea name="comment_txt" class="comment_txt">
+						<textarea class="comment_txt" name='content'>
 						</textarea>
 					
 						<div class="res_btn">
-							<button type="button" class="btn btn-default btn-md">등록</button>
+							<button type="submit" class="btn btn-default btn-md">등록</button>
 						</div>
 						</div>
 					</div>
+					</form>
+					<!-- //댓글 영역 끝 -->
 					
 					<!-- 이전글, 다음글 -->
 					<table class="move_page">
@@ -151,22 +161,60 @@
 						<tbody>
 							<tr>
 								<th class="active">이전글</th>
-								<td>엘로 넘 좋아여</td>
+								<td>
+								<c:choose>
+						<c:when test="${prevDocument != null }">
+							<c:url var="prevUrl" value="/discussion_write_result.do">
+								<c:param name="category" value="${category }" />
+								<c:param name="document_id" value="${prevDocument.id }" />
+							</c:url>
+							<a href="${prevUrl }">${prevDocument.subject }</a>
+						</c:when>
+						<c:otherwise>
+							이전글이 없습니다.
+						</c:otherwise>
+					</c:choose>
+								</td>
 							</tr>
 
 							<tr>
 								<th class="active">다음글</th>
-								<td>역시 엑소</td>
+								<td>
+								<c:choose>
+						<c:when test="${nextDocument != null }">
+							<c:url var="nextUrl" value="/discussion_write_result.do">
+								<c:param name="category" value="${category }" />
+								<c:param name="document_id" value="${nextDocument.id }" />
+							</c:url>
+							<a href="${nextUrl }">${nextDocument.subject }</a>
+						</c:when>
+						<c:otherwise>
+							다음글이 없습니다.
+						</c:otherwise>
+					</c:choose>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 					<!--//이전글, 다음글 끝  -->
-					
 			</div>
-
-
 <%@include file="inc/footer.jsp" %>
 
-
+<script type="text/javascript">
+	$(function() {
+		/** 덧글 작성 폼의 submit 이벤트 Ajax 구현 */
+		//<form>요소의 method, action 속성과 <input>태그를
+		//Ajax 요청으로 자동 구성한다.
+		$("#comment_form").ajaxForm(function(json) {
+			//json은 API에서 표시하는 전체 데이터
+			if (json.rt != "OK") {
+				alert(json.rt);
+				return false;
+			}
+			
+			alert("댓글이 등록되었습니다.");
+		});
+	});
+</script>
 	</body>
 </html>

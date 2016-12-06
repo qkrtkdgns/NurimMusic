@@ -1,4 +1,4 @@
-package nurim.jsp.basecontroller;
+package nurim.jsp.admin.controller.bbs;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,39 +10,38 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nurim.jsp.admin.service.DocumentNoticeService;
+import nurim.jsp.admin.service.impl.DocumentNoticeServiceImpl;
 import nurim.jsp.controller.bbs.BBSCommon;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Document;
-import nurim.jsp.service.DiscussionService;
-import nurim.jsp.service.impl.DiscussionServiceImpl;
+import nurim.jsp.model.Member;
 
-@WebServlet("/discussion_write_result.do")
-public class discussion_write_result extends BaseController {
-	private static final long serialVersionUID = 3704839556398912591L;
-
+@WebServlet("/admin/info_delete.do")
+public class infoDelete extends BaseController {
+	private static final long serialVersionUID = -8741953463757714757L;
+	
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
 	BBSCommon bbs;
-	DiscussionService discussionService;
+	DocumentNoticeService documentNoticeService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		/** (2) 사용하고자 하는 Helper + Service 객체 생성 */
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		bbs = BBSCommon.getInstance();
-		discussionService = new DiscussionServiceImpl(sqlSession, logger);
+		documentNoticeService = new DocumentNoticeServiceImpl(sqlSession, logger);
 		
 		/** (3) 게시판 카테고리 값을 받아서 View에 전달 */
 		String category = web.getString("category");
 		request.setAttribute("category", category);
-		logger.debug("category = " + category);
 		
 		/** (4) 존재하는 게시판인지 판별하기 */
 		try {
@@ -54,37 +53,30 @@ public class discussion_write_result extends BaseController {
 			return null;
 		}
 		
-		/** (5) 글 번호 파라미터 받기 */
+		/** (5) 게시글 번호 받기 */
 		int documentId = web.getInt("document_id");
-		logger.debug("documentId = " + documentId);
-		
 		if (documentId == 0) {
-			web.redirect(null, "글 번호가 지정되지 않았습니다.");
 			sqlSession.close();
+			web.redirect(null, "글 번호가 없습니다.");
 			return null;
 		}
+		
 		//파라미터를 Beans로 묶기
 		Document document = new Document();
 		document.setId(documentId);
 		document.setCategory(category);
 		
-		/** (6) 게시물 일련번호를 사용한 데이터 조회 */
-		//지금 읽고 있는 게시물이 저장될 객체
-		Document readDocument = null;
+		//로그인 한 경우 현재 회원의 일련번호를 추가한다. (비로그인 시 0으로 설정됨)
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		if (loginInfo != null) {
+			document.setMemberId(loginInfo.getId());
+		}
 		
-		/** 조회수 중복 갱신 방지 처리 */
-		//카테고리와 게시물 일련번호를 조합한 문자열을 생성
-		//ex) document_notice_15
-		String cookieKey = "document" + category + "_" + documentId;
-		//준비한 문자열에 대응되는 쿠키값 조회
-		String cookieVar = web.getCookie(cookieKey);
+		/** (6) 게시물 일련번호를 사용한 데이터 조회 */
+		//회원번호가 일치하는 게시물 수 조회하기
+		int documentCount = 0;
 		try {
-			//쿠키값이 없다면 토론종료일 갱신
-			if (cookieVar == null) {
-				discussionService.updateDiscussionEndDate(document);
-				web.setCookie(cookieKey, "Y", 60*60*24);
-			}
-			readDocument = discussionService.selectDiscussion(document);
+			documentCount = documentNoticeService.selectNoticeCountByMemberId(document);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -92,10 +84,13 @@ public class discussion_write_result extends BaseController {
 			sqlSession.close();
 		}
 		
-		/** (7) 읽은 데이터를 View에게 전달한다. */
-		request.setAttribute("readDocument", readDocument);
+		/** (7) 자신의 글에 대한 요청인지에 대한 여부를 view에 전달 */
+		boolean myDocument = documentCount > 0;
+		request.setAttribute("myDocument", myDocument);
+	
+		//상태 유지를 위하여 게시글 일련번호를 View에 저장한다.
+		request.setAttribute("documentId", documentId);
 		
-		return "discussion_write_result";
+		return "admin/info_delete";
 	}
-
 }

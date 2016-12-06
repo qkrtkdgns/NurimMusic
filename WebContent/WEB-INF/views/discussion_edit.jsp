@@ -14,11 +14,13 @@
 <body>
  <%@include file="inc/top_nav.jsp" %>
 		
-			<!-- 회원 리뷰 전체 영역 싲각 -->
+			<!-- 회원 리뷰 전체 영역 시작 -->
 			<div id="content">
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/discussion_write_ok.do">
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/discussion_edit_ok.do">
 				<!-- 게시판 카테고리에 대한 상태 유지 -->
 				<input type="hidden" name="category" value="${category }" />
+				<!-- 수정 대상에 대한 상태유지 -->
+				<input type="hidden" name="document_id" value="${readDocument.id }" />
 				
 				<h2>커뮤니티 |</h2><h3>&nbsp;토론광장</h3>
 				<hr>
@@ -33,16 +35,14 @@
 							<tbody>
 								<tr>
 								<th class="active">제목</th>
-									<td><input type="text" class="input_text" name="subject"></td>
-									
-								</tr>
-													
+									<td><input type="text" class="input_text" name="subject" value="${readDocument.subject }"></td>
+								</tr>			
 							</tbody>
 					</table>
 
 					<!--내용 작성 영역 -->
 					<div class="textarea">
-						<textarea id="cont" class="ckeditor" name="content"></textarea>
+						<textarea id="cont" class="ckeditor" name="content">${readDocument.content }</textarea>
 					</div>
 					<!--//내용 작성 영역 끝 -->
 				</div>

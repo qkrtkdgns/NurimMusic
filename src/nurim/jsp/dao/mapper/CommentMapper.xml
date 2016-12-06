@@ -3,17 +3,42 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <!-- 회원에 대한 CRUD -->
-<mapper namespace="CommentMapper">
+<mapper namespace="commentMapper">
     
     <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
     <resultMap id="comment" type="nurim.jsp.model.Comment">
-    	<result property="id" 			column="id" />
-    	<result property="memberId" 	column="member_id" />
-    	<result property="documentId" 	column="document_id" />
+    	<result property="id" 				column="id" />
+    	<result property="userId" 			column="user_id" />
     	<result property="content"		column="content" />
     	<result property="regDate" 		column="reg_date" />
-    	<result property="editDate" 	column="edit_date" />
-    	<result property="ipAddress" 	column="ip_address" />
+    	<result property="editDate" 		column="edit_date" />
+    	<result property="ipAddress" 		column="ip_address" />
+    	<result property="memberId" 	column="member_id" />
+    	<result property="documentId" 	column="document_id" />
     </resultMap>
     
+    <!-- 댓글 정보 저장하기 -->
+    <insert id="insertComment" parameterType="nurim.jsp.model.Comment" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO comment (
+		content, user_id, reg_date, edit_date, ip_address, document_id, member_id)
+		VALUES (
+		#{content}, #{userId}, now(), now(), #{ipAddress}, #{documentId}, #{memberId}
+		)
+	</insert>
+	
+	<!-- 덧글 하나에 대한 정보를 조회한다. -->
+	<select id="selectComment" parameterType="nurim.jsp.model.Comment" resultMap="comment">
+	SELECT id, user_id, content,
+				DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+				DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+				ip_address, member_id, document_id
+	FROM		comment
+	WHERE	id=#{id}
+	</select>
+    
 </mapper>
+
+
+
+
+

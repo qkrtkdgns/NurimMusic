@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- 회원에 대한 CRUD -->
+<mapper namespace="NoticeFileMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="file" type="nurim.jsp.model.File">
+    	<result property="id" 				column="id" />
+    	<result property="documentId" 	column="document_id" />
+    	<result property="originName" 	column="origin_name" />
+    	<result property="fileDir"			column="file_dir" />
+    	<result property="fileName" 		column="file_name" />
+    	<result property="fileSize"	 		column="file_size" />
+    	<result property="regDate"	 	column="reg_date" />
+    	<result property="editDate" 		column="edit_date" />
+    	<result property="contentType" 	column="content_type" />
+     </resultMap>
+    
+    <!-- 게시글에 속한 첨부파일의 정보를 저장한다. -->
+    <insert id="insertFile" parameterType="nurim.jsp.model.File"  useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO file (
+    	origin_name, file_dir, file_name, content_type, file_size, reg_date, edit_date
+    ) VALUES (
+    	#{originName}, #{fileDir}, #{fileName}, #{contentType}, #{fileSize}, now(), now()
+    )
+    </insert>
+    
+    <!-- 공지사항에 속한 파일목록을 조회한다. -->
+    <select id="selectNoticeFileList" parameterType="nurim.jsp.model.File" resultMap="file">
+    SELECT id, origin_name, file_dir, file_name, content_type, file_size, reg_date, edit_date, document_id
+    FROM file
+    WHERE document_id=#{documentId}
+    </select> 
+    
+    <!-- 게시글에 속한 파일 전체 삭제 하기 -->
+	<delete id="deleteFileAll" parameterType="nurim.jsp.model.File">
+	DELETE FROM file WHERE document_id=#{documentId}
+	</delete>
+	
+	<!-- 하나의 파일을 조회한다. -->
+	<select id="selectFile" parameterType="nurim.jsp.model.File" resultMap="file">
+	SELECT file_dir, file_name FROM file WHERE id=#{id}
+	</select>
+	
+	<!-- 하나의 파일을 삭제한다. -->
+	<delete id="deleteFile" parameterType="nurim.jsp.model.File">
+	DELETE FROM file WHERE id=#{id}
+	</delete>
+    
+    <!-- 내가 업로드 한 파일의 목록들을 조회한다. -->
+	<select id="selectMemberFileList" parameterType="nurim.jsp.model.Member" resultMap="file">
+	SELECT id, orgin_name, file_dir, file_name, content_type, file_size, reg_date, edit_date, document_id FROM file WHERE document_id=any(select id from document where member_id=#{id})	
+	</select>
+</mapper>
