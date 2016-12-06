@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
    <head>
@@ -22,15 +23,13 @@
          <!-- end 사이드 메뉴-->
 
          	<!-- foreign_rc 시작  -->
-         	<div class="foreign_rc">
-            <!-- list-topbar 시작 -->
+        <div class="foreign_rc">
+            <!-- list-topbar 시작 -->     
             <div class="list-topbar">
-            
          	   <!-- 체크한 음반 -->
                <div class="check_list">
                   체크한 음반
                   <button type="button" class="btn btn-default btn-sm" />장바구니 담기</button>
-                  <button type="button" class="btn btn-default btn-sm"/>관심상품</button>
                </div>
                <!-- //체크한 음반 끝 -->
                
@@ -45,24 +44,37 @@
             <!-- 해외음반 리스트 시작 -->
             <div class="list_lineup">
                <ul>
-               
+           <c:choose>
+			<c:when test="${fn:length(productList) > 0}">
+				<c:forEach var="product" items="${productList }">      
                	<!-- 항목(1) --> 
                   <li class="goods_li">
                   <input type="checkbox" id="check">
                   <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/jazz1.png"></a>
+                     <c:choose>
+									<c:when test="${product.proImg != null}">
+											<c:url var="downloadUrl" value="/download.do">
+												<c:param name="file" value="${product.proImg}" />
+											</c:url>
+												<img src="${downloadUrl}" />
+											</c:when>
+										<c:otherwise>
+												<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+										</c:otherwise>
+								</c:choose>
+                     </a>
                    </span>
                      <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">ADELE - 25 (아델 - 25)</a>
+                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">${product.proName}</a>
                      </span>
-                     <span class="desc">BEGGARS BANQUET | 2015.11.26 | CD</span>
+                     <span class="desc">${product.provider}</span>
                      </span>
                         
                     <!-- 가격 -->
                     <div class="prices">
-                    <span class="price">20,000원</span>
+                    <span class="price">${product.proPrice}원</span>
                     <span class="price_dc">
-                     18,500원</span>
+                     ${product.proPrice}원</span>
                      </div>
                      <!-- //가격 끝 -->
 
@@ -85,374 +97,151 @@
                       <!--// 버튼들 끝 -->
                   </li>
                   <!-- //항목(1) 끝 -->
-        
-        		<!-- 항목(2) -->
-                 <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/TROYE SIVAN - BLUE NEIGHBOURHOOD (DELUXE).png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">TROYE SIVAN - BLUE NEIGHBOURHOOD (DELUXE)</a>
-                     </span>
-                     <span class="desc">UNIVERSAL | 2016.01.22 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
+                  	</c:forEach>
+				</c:when>		
 
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-  
-  				<!-- 항목(3) -->
-                 <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/CHARLIE PUTH - NINE TRACK MIND.png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">CHARLIE PUTH - NINE TRACK MIND</a>
-                     </span>
-                     <span class="desc">WARNER MUSIC | 2016.02.01 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-                  <!-- //항목(3) 끝 -->
-                  
-      			<!-- 항목(4) -->
-                 <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/SAM SMITH - IN THE LONELY HOUR (DROWNING SHADOWS EDITION).png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">SAM SMITH - IN THE LONELY HOUR (DROWNING SHADOWS EDITION)</a>
-                     </span>
-                     <span class="desc">UNIVERSAL | 2015.11.09 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                    
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-                  <!-- //항목(4) 끝 -->
-                 
-                 <!-- 항목(5) -->
-                 <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/JUSTIN BIEBER - PURPOSE (DELUXE).png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">JUSTIN BIEBER - PURPOSE (DELUXE)</a>
-                     </span>
-                     <span class="desc">BUNIVERSAL | 2015.11.16 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-				<!-- //항목(5) 끝 -->
-
-				<!-- 항목(6) -->
-                   <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/BEATLES - THE BEATLES 1.png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">BEATLES - THE BEATLES 1</a>
-                     </span>
-                     <span class="desc">UNIVERSAL | 2015.11.16 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-                  <!-- //항목(6) 끝 -->
-            
-            	<!-- 항목(7) -->
-                  <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/ONE DIRECTION - MADE IN THE A.M. (ULTIMATE FAN EDITION).png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">ONE DIRECTION - MADE IN THE A.M. (ULTIMATE FAN EDITION)</a>
-                     </span>
-                     <span class="desc">SONY MUSIC | 2015.11.16 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-                  <!-- //항목(7) 끝 -->
-
-				<!-- 항목 (8) -->
-                  <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/ANDRA DAY - CHEERS TO THE FALL.png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">ANDRA DAY - CHEERS TO THE FALL</a>
-                     </span>
-                     <span class="desc">WARNER MUSIC | 2016.02.01 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-				<!-- //항목(8) 끝 -->
-
-				<!-- 항목 (9) -->
-                  <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/ARIANA GRANDE - DANGEROUS WOMAN (DELUXE).png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">ARIANA GRANDE - DANGEROUS WOMAN (DELUXE)</a>
-                     </span>
-                     <span class="desc">UNIVERSAL | 2016.05.20 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                      </div>
-                  </li>
-                  <!-- //항목(9) -->
-        
-        		<!-- 항목 (10) -->
-                  <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
-                     <img src="${pageContext.request.contextPath }/img/BIRDY - BEAUTIFUL LIES (DELUXE EDITION).png"></a>
-                   </span>
-                     <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">BIRDY - BEAUTIFUL LIES (DELUXE EDITION)</a>
-                     </span>
-                     <span class="desc">WARNER MUSIC | 2016.03.28 | CD</span>
-                     </span>
-                        
-                    <div class="prices">
-                    <span class="price">20,000원</span>
-                    <span class="price_dc">
-                     18,500원</span>
-                     </div>
-
-
-                     <div class="button">
-                     <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-                     </div>
-                     <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
-                     </div>
-                     
-                     <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-                      </div>
-                      <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-                      </div>
-                    
-                  </li>
-                  <!-- //항목 (10) -->
+				<c:otherwise>
+							<p class="text-center"style="line-height: 100px;">조회된 글이 없습니다.</p>			
+				</c:otherwise>
+			</c:choose>	
                 </ul>
                 
-                <!-- 페이지 번호 영역 -->
-                <div class="page_num">
-				          <ul class="pagination pagination-md">
-					         	<li><a href="#">&laquo;</a></li>
-						        <li class="active"><span>1<span class="sr-only">(current)</span></span></li>
-					         	<li><a href="#">2</a></li>
-						        <li><a href="#">3</a></li>
-						        <li><a href="#">4</a></li>
-						        <li><a href="#">5</a></li>
-						        <li><a href="#">&raquo;</a></li>
-					       </ul>
-			       	 </div>
-			       	<!-- //페이지 번호 끝 -->
-				</div>
-				<!-- foreign_rc 끝 -->
-				</div>
-				<!-- foreign_rc 끝 -->
-			</div>
+              				<!-- 페이지 번호 -->
+	<div class="page_num">
+		<ul class="pagination pagination-mg">
+			<c:choose>
+			<c:when test="${pageHelper.prevPage > 0}">
+				<!-- 이전 그룹에 대한 페이지 번호가 존재할 경우, 이전 그룹으로 이동하기 위한
+				URL을 생성해서 prevUrl에 저장 -->
+				<c:url var="prevUrl" value="/kor_rc1.do">
+					<c:param name="category" value="${category}" />
+					<c:param name="keyword" value="${keyword}" />
+					<c:param name="page" value="${pageHelper.prevPage}" />
+				</c:url>
+				<li><a href="${prevUrl}">&laquo;</a></li>
+			</c:when>
+			
+			<c:otherwise>
+			<!-- 이전 그룹에 대한 페이지 번호가 없을 경우 -->
+			<li class="disabled"><a href="#">&laquo;</a></li>
+			</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i"  begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
+			<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
+			<c:url var="pageUrl" value="/kor_rc1.do">
+					<c:param name="category" value="${category}" />
+					<c:param name="keyword" value="${keyword}" />
+					<c:param name="page" value="${i}" />
+				</c:url>
+				
+			<c:choose>
+				<c:when test="${pageHelper.page==i}">
+					<li class="active"><a href="#">${i}</a></li>
+				</c:when>
+				
+				<c:otherwise>
+					<li><a href="${pageUrl}">${i}</a></li>
+				</c:otherwise>
+			</c:choose>
+			</c:forEach>
+			
+			<c:choose>
+			<c:when test="${pageHelper.nextPage > 0}">
+				<!-- 다음 그룹에 대한 페이지 번호가 존재할 경우, 다음 그룹으로 이동하기 위한
+				URL을 생성해서 nextUrl에 저장 -->
+				<c:url var="nextUrl" value="/kor_rc1.do">
+					<c:param name="category" value="${category}" />
+					<c:param name="keyword" value="${keyword}" />
+					<c:param name="page" value="${pageHelper.nextPage}" />
+				</c:url>
+				<li><a href="${nextUrl}">&raquo;</a></li>
+			</c:when>
+			
+			<c:otherwise>
+			<!-- 다음 그룹에 대한 페이지 번호가 없을 경우 -->
+			<li class="disabled"><a href="#">&raquo;</a></li>
+			</c:otherwise>
+			
+			</c:choose>
+		</ul>	
+	</div>
+	
+		<!-- 검색 영역 -->
+		<form action="${pageContext.request.contextPath}/foregin_rc1.do" method="get">
+					<div class="result_search">
+						<select class="input_form" id="keyword_type" name="keyword_type">
+							<option value="null"  selected>선택</option>
+							<option value="pro_name">가수명</option>
+							<option value="provider">공급업체</option>
+						</select>
+						<input type="text" class="input_txt" id="keyword1" name="keyword1"  value="${keyword1}"/>
+						<input type="hidden" class="input_txt" id="keyword2" name="keyword2"  value="${keyword2}"/>
+						<button type="submit" class="btn btn-default" id="keyword_btn">검색</button>
+					</div>
+				
+		</form>
+		<!-- //검색 영역 끝 -->
+</div>
+</div>
 
+	
+
+
+<!--본문내용 작성 end -->
+<!-- 템플릿 참조 -->
+<script id="tmpl_comment_item" type="text/x-handlebars-template">				
+</script>
 <%@include file="inc/footer.jsp" %>
-       <script type="text/javascript">
-          $(function(){
-             var sell= false;
+		 <script type="text/javascript">
+    	
+	$(function(){
+		 var sell= false;
 
-             if(sell==false){
-             $("#A1.btn").hide();
-             $("#B1.btn").hide();
-             }else{            
-             $("#A.btn").hide();
-             $("#B.btn").hide();
-             }
+         if(sell==false){
+         $("#A1.btn").hide();
+         $("#B1.btn").hide();
+         }else{            
+         $("#A.btn").hide();
+         $("#B.btn").hide();
+         }
+    			
+    			
+    			//검색 관리
+    
+   $("#keyword_type").change(function(){
+	   var keyword_type = this.value;
+		$('#keyword1').empty();
+		 $('#keyword2').empty();
+		
+			if(keyword_type == "provider"){
+				
+				$('#keyword1').empty();
+				$('#keyword2').empty();
+				$('#keyword1').hide();
+				$('#keyword2').attr("type", "text"); 
+				$('#keyword2').attr("disabled",false); 
 
-          });
+		    }else if(keyword_type == "pro_name"){
+    				$('#keyword1').empty();
+   					$('#keyword2').empty();
+   					$('#keyword2').attr("type", "hidden"); 
+    				$('#keyword1').show();
+    				$('#keyword1').attr("disabled",false);
+    				
+    	}else if(keyword_type == "null"){
+    				$('#keyword1').empty();
+     				 $('#keyword2').empty();
+     				$('#keyword1').attr("disabled",true);
+     				$('#keyword2').attr("disabled",true);
+     			
+   			}
+		
+		    });
+		
+    });
 
-       </script>
-       </body>
+		</script>
+
+	</body>
 </html>

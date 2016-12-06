@@ -117,6 +117,7 @@ color:#249;
 												<td>
 												<c:url var="readUrl" value="/admin/edit_item.do">
 													<c:param name="id" value="${product.id}"/>
+													<c:param name="category" value="${product.proCategoryName}"/>
 												</c:url>
 												<a href="${readUrl}">${product.proName}(${product.id})</a>
 												</td>

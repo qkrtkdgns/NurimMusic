@@ -176,7 +176,7 @@ public class ProductAdminImpl implements ProductAdmin {
 		Product result = null;
 		
 		try{
-			result = sqlSession.selectOne("ProductMapper", product);
+			result = sqlSession.selectOne("ProductMapper.selectProduct", product);
 			if(result == null){
 				throw new NullPointerException();
 			}

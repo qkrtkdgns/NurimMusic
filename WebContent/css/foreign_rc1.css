@@ -221,12 +221,11 @@
            border: 0;
            border-top: 1px solid #fff;
          }
-      .page_num{
-         margin-bottom: 20px;
-         margin-left: 250px;
+  	.page_num{
+		 margin-bottom: 20px;
+         margin-left: 400px;
          margin-top:30px;
-      }
-
+		}
       .pagination > li > a, .pagination > li > span {
         color: #000;
       }
@@ -242,3 +241,28 @@
         border-color: #af64a9;
       }
    
+   
+   div.result_search .input_form {
+			width: 100px;
+			height: 30px;
+		}
+
+div.result_search .input_txt {
+			width: 200px;
+			height:30px;
+		}
+		
+div.result_search > button {
+			margin-bottom: 3px;
+			background-color: #555;
+			color: white;
+		}
+
+div.result_search {
+				margin-left: 300px;
+				margin-top: 20px;
+			}
+			
+.list_lineup a{
+	color: #000;
+			}

@@ -24,7 +24,6 @@
           <div class="check_list">
             체크한 음반
             <a href="#" class="btn btn-default">장바구니 담기</a>
-            <a href="#" class="btn btn-default">관심상품</a>
           </div>
           <div class="search_list">
             <a href="#">발매일</a>&nbsp;|&nbsp;<a href="#">높은가격</a>&nbsp;|&nbsp;<a href="#">낮은가격</a>
@@ -143,42 +142,81 @@
 			</c:choose>
 		</ul>	
 	</div>
-		<!-- 검색 영역 -->
-		<form action="${pageContext.request.contextPath}/shopping_earphone.do" method="get">
+				<!-- 검색 영역 -->
+		<form action="${pageContext.request.contextPath}/shopping_headphone.do" method="get">
 					<div class="result_search">
 						<select class="input_form" id="keyword_type" name="keyword_type">
-							<option value="null">선택</option>
+							<option value="null"  selected>선택</option>
 							<option value="pro_name">상품명</option>
 							<option value="provider">공급업체</option>
 						</select>
-						<input type="text" class="input_txt" id="keyword" name="keyword"  value="${keyword}"/>
-						<button type="submit" class="btn btn-default">검색</button>
+						<input type="text" class="input_txt" id="keyword1" name="keyword1"  value="${keyword1}"/>
+						<input type="hidden" class="input_txt" id="keyword2" name="keyword2"  value="${keyword2}"/>
+						<button type="submit" class="btn btn-default" id="keyword_btn">검색</button>
 					</div>
+				
 		</form>
 		<!-- //검색 영역 끝 -->
 </div>
 </div>
 
+	
+
+
 <!--본문내용 작성 end -->
-
+<!-- 템플릿 참조 -->
+<script id="tmpl_comment_item" type="text/x-handlebars-template">				
+</script>
 <%@include file="inc/footer.jsp" %>
-     <script type="text/javascript">
-        $(function(){
-          var sell= true;
+		 <script type="text/javascript">
+    	
+	$(function(){
+    			var sell= false;
 
-          if(sell==false){
-          $(".list_lineup > ul > li > table #A1").hide();
-          $(".list_lineup > ul > li > table #B1").hide();
-          }else{
-          $(".list_lineup > ul > li > table #A").hide();
-          $(".list_lineup > ul > li > table #B").hide();
-          }
+    			if(sell==false){
+    			$(".list_lineup > ul > li > table #A1").hide();
+    			$(".list_lineup > ul > li > table #B1").hide();
+    			}else{
+    			$(".list_lineup > ul > li > table #A").hide();
+    			$(".list_lineup > ul > li > table #B").hide();
+    			}
+    			
+    			
+    			//검색 관리
+    
+   $("#keyword_type").change(function(){
+	   var keyword_type = this.value;
+		$('#keyword1').empty();
+		 $('#keyword2').empty();
+		
+			if(keyword_type == "provider"){
+				
+				$('#keyword1').empty();
+				$('#keyword2').empty();
+				$('#keyword1').hide();
+				$('#keyword2').attr("type", "text"); 
+				$('#keyword2').attr("disabled",false); 
 
-        });
+		    }else if(keyword_type == "pro_name"){
+    				$('#keyword1').empty();
+   					$('#keyword2').empty();
+   					$('#keyword2').attr("type", "hidden"); 
+    				$('#keyword1').show();
+    				$('#keyword1').attr("disabled",false);
+    				
+    	}else if(keyword_type == "null"){
+    				$('#keyword1').empty();
+     				 $('#keyword2').empty();
+     				$('#keyword1').attr("disabled",true);
+     				$('#keyword2').attr("disabled",true);
+     			
+   			}
+		
+		    });
+		
+    });
 
+		</script>
 
-      
-    </script>
-
-  </body>
+	</body>
 </html>

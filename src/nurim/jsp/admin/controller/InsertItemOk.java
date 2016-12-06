@@ -139,7 +139,7 @@ public class InsertItemOk extends BaseController {
 		
 
 		/** (9)상품등록이 완료되었으므로 상품 페이지로 이동 */
-		web.redirect(web.getRootPath() + "/admin/new_item.do", "상품이 등록되었습니다. 상품을 해 주세요.");
+		web.redirect(web.getRootPath() + "/admin/item_list.do", "상품이 등록되었습니다. 상품을 해 주세요.");
 
 		return null;
 	}

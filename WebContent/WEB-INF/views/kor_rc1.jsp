@@ -23,10 +23,9 @@
 				<div class="list-topbar">
 					<div class="check_list">
 						체크한 음반
-						<a href="#" class="btn btn-default btn-sm">장바구니 담기</a>
+						<button class="btn btn-default btn-sm">장바구니 담기</button>
 					</div>
 					<div class="search_list">
-					<form action="${pageContext.request.contextPath}/kor_rc1.do" method="get">
 						<a href="#">발매일</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">높은가격</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">낮은가격</a>
 					</div>
 				</div>
@@ -147,15 +146,16 @@
 		<form action="${pageContext.request.contextPath}/kor_rc1.do" method="get">
 					<div class="result_search">
 						<select class="input_form" id="keyword_type" name="keyword_type">
-							<option value="null">선택</option>
+							<option value="null"  selected>선택</option>
 							<option value="pro_name">가수명</option>
 							<option value="provider">공급업체</option>
 						</select>
-						<input type="text" class="input_txt" id="keyword" name="keyword"  value="${keyword}"/>
-						<button type="submit" class="btn btn-default">검색</button>
+						<input type="text" class="input_txt" id="keyword1" name="keyword1" />
+						<input type="hidden" class="input_txt" id="keyword2" name="keyword2" />
+						<button type="submit" class="btn btn-default" id="keyword_btn">검색</button>
 					</div>
+				
 		</form>
-			</form>
 		<!-- //검색 영역 끝 -->
 </div>
 </div>
@@ -180,15 +180,35 @@
     			$(".list_lineup > ul > li > table #A").hide();
     			$(".list_lineup > ul > li > table #B").hide();
     			}
-    			
-    			$(".result_search > button").submit(function(){
-    				if(!$(".result_search #keyword").val()){
-    					alert("검색할 단어를 입력해주세요.");
-    					$(".result_search #keyword").focus();
-    					return false;
-    				}
-    			});
-    	});
+	
+//검색 관리
+   $("#keyword_type").change(function(){
+	   var keyword_type = this.value;
+		$('#keyword1').empty();
+		 $('#keyword2').empty();
+		
+			if(keyword_type == "provider"){
+				$('#keyword1').empty();
+				$('#keyword2').empty();
+				$('#keyword1').hide();
+				$('#keyword2').attr("type", "text"); 
+				$('#keyword2').attr("disabled",false); 
+		    }else if(keyword_type == "pro_name"){
+    				$('#keyword1').empty();
+   					$('#keyword2').empty();
+   					$('#keyword2').attr("type", "hidden"); 
+    				$('#keyword1').show();
+    				$('#keyword1').attr("disabled",false);
+    				
+    		}else if(keyword_type == "null"){
+    				$('#keyword1').empty();
+     				 $('#keyword2').empty();
+     				$('#keyword1').attr("disabled",true);
+     				$('#keyword2').attr("disabled",true);
+   			}
+	});
+		
+    });
 
 		</script>
 

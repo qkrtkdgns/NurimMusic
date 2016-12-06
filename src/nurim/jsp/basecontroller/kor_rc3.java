@@ -17,6 +17,7 @@ import nurim.jsp.admin.service.impl.ProductServiceImpl;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.PageHelper;
+import nurim.jsp.helper.RegexHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Product;
@@ -31,7 +32,7 @@ public class kor_rc3 extends BaseController {
 	ProductService productService;
 	PageHelper pageHelper;
 	UploadHelper upload;
-	
+	RegexHelper regex;
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -43,25 +44,35 @@ public class kor_rc3 extends BaseController {
 		productService = new ProductServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
-		
+		regex = RegexHelper.getInstance();
 	
 		
 		/** (3) 조회할 정보에 대한 Beans 생성 */
 		String CategoryName = "ost";
-		String keyword = web.getString("keyword");
+		String keyword1 = web.getString("keyword1");
+		String keyword2 = web.getString("keyword2");
 		Product product = new Product();
 		
-	
-			product.setProName(keyword);	
-			product.setProvider(keyword);
-			
-		if(web.getString("keyword_type")==null){
-			web.redirect(null, "검색 조건을 선택하세요.");
+		if (regex.isValue(keyword1)) {
+			product.setProName(keyword1);
+			logger.debug("keyword1> " + keyword1);
+		}else if(regex.isValue(keyword2)){
+			product.setProvider(keyword2);
+			logger.debug("keyword2> " + keyword2);
 		}
 		
+		String key = web.getString("keyword_type");
+		
+		
+		if(key != null){
+			if (!regex.isValue(keyword1) && !regex.isValue(keyword2)){
+				sqlSession.close();
+				web.redirect(null, "검색어를 입력하세요.");
+				return null;
+			}
+		}
 		product.setProCategoryName(CategoryName);
 		logger.debug("ProCategoryName> " + CategoryName);
-		logger.debug("keyword> " + keyword);
 		
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page",1);
@@ -107,7 +118,8 @@ public class kor_rc3 extends BaseController {
 				//페이지 번호 계산 결과를 View에 전달
 				request.setAttribute("pageHelper", pageHelper);
 				//사용자가 입력한 검색어를 View에 전달
-				request.setAttribute("keyword", keyword);
+				request.setAttribute("keyword1", keyword1);
+				request.setAttribute("keyword2", keyword2);
 				
 		return "kor_rc3";
 	}
