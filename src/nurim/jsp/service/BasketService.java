@@ -14,4 +14,6 @@ public interface BasketService {
 
 	public Basket selectItem(Basket basket) throws Exception;
 
+	public void compareItem(Basket basket) throws Exception;
+
 }

@@ -1,7 +1,6 @@
 package nurim.jsp.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +19,8 @@ import nurim.jsp.model.Order;
 import nurim.jsp.service.OrderService;
 import nurim.jsp.service.impl.OrderServiceImpl;
 
-@WebServlet("/admin/order_management.do")
-public class OrderManagement extends BaseController {
+@WebServlet("/admin/order_management_update.do")
+public class OrderManagementUpdate extends BaseController {
 	private static final long serialVersionUID = 6122655773879779129L;
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	// --> import org.apache.logging.log4j.Logger;
@@ -54,60 +53,26 @@ public class OrderManagement extends BaseController {
 			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
 			return null;
 		}
-		/** (4) 검색할 값 받아오기 */
-		String PrevDate = web.getString("date_prev");
-		String NextDate = web.getString("date_next");
-		String RecState = web.getString("category");
-		String ProName = web.getString("search_item");
-		if (ProName == null) {
-			ProName = web.getString("keyword");
-		}
-
-		Order order = new Order();
-		order.setPrevDate(PrevDate);
-		order.setNextDate(NextDate);
-		order.setRecState(RecState);
-		order.setProName(ProName);
-		logger.debug("order >> " + order);
-
-		// 현재 페이지 수 --> 기본 값은 1페이지로 설정함
-		int page = web.getInt("page", 1);
-
-		// 총 아이템 수
-		int totalCount = 0;
-		List<Order> orderList = null;
 		
-		try {
-			// 전체 게시물 수
-			totalCount = orderService.selectOrderCountAll(order);
-			logger.debug("totalCount >> " + totalCount);
-			// 나머지 페이지 번호 계산하기
-			// --> 현재 페이지, 전체 게시물 수, 한 페이지의 목록 수, 그룹갯수
-			pageHelper.pageProcess(page, totalCount, 3, 7);
-			// 페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
-			order.setLimitStart(pageHelper.getLimitStart());
-			order.setListCount(pageHelper.getListCount());
-			logger.debug("order >> " + order);
-			orderList = orderService.selectOrderListAll(order);
-		} catch (Exception e) {
+		int id = web.getInt("id");
+		String change = web.getString("change");
+		
+		Order order = new Order();
+		order.setId(id);
+		order.setRecState("'"+change+"'");
+		logger.debug("order >> " + order);
+		
+		try{
+			orderService.updateOrder(order);
+		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());
 			return null;
-		} finally {
+		}finally{
 			sqlSession.close();
 		}
-		String[] state = {"입금대기","결제완료","배송준비중","배송완료","주문취소","교환","반품"};
-		for(int i=0; i<state.length; i++){
-		logger.debug("state >> "+ state[i]);}
-		logger.debug("orderList >> " + orderList);
-		logger.debug("order >> " + order);
-		request.setAttribute("order", order);
-		request.setAttribute("orderList", orderList);
-		// 페이지 번호 계산 결과를 View에 전달
-		request.setAttribute("pageHelper", pageHelper);
-		//셀렉트 리스트 전달
-		request.setAttribute("state", state);
-		// "/WEB-INF/views/view/index.jsp"파일을 View로 사용한다.
-		return "admin/order_management";
+		
+		web.redirect(null, "상태가 수정되었습니다.");
+		return null;
 	}
 
 }

@@ -34,11 +34,11 @@
 	<select id="selectOrderList" parameterType="nurim.jsp.model.Order"
 	resultMap="order">
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
-			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
+			DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
 	FROM nurimmusic.order
 	<where> 
 	<if test="prevDate !=null and nextDate !=null">
-	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} AND
+	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY AND
 	</if>
 	<choose>
 	<when test="recState != null">
@@ -64,7 +64,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="입금대기"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -83,7 +83,7 @@
 	<where>
 	member_id = #{memberId}  AND rec_state="입금완료"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -101,7 +101,7 @@
 	<where>
 	member_id = #{memberId}  AND rec_state="배송준비중"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -119,7 +119,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="배송완료"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -136,7 +136,7 @@
 	FROM nurimmusic.order
 	<where>
 	<if test="prevDate !=null and nextDate !=null">
-	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} AND
+	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY AND
 	</if>
 	<choose>
 	<when test="recState != null">
@@ -157,12 +157,12 @@
 	<select id="selectOrderList2" parameterType="nurim.jsp.model.Order"
 	resultMap="order">
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
-			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
+			DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
 	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId}
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<choose>
 	<when test="recState != null">
@@ -187,7 +187,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="주문취소"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -205,7 +205,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="교환"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -224,7 +224,7 @@
 	<where>
 	member_id = #{memberId} AND rec_state="반품"
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -243,7 +243,7 @@
 	<where>
 	member_id = #{memberId}
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<choose>
 	<when test="recState != null">
@@ -263,11 +263,11 @@
 	<select id="selectOrderListAll" parameterType="nurim.jsp.model.Order"
 	resultMap="order">
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
-			reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
+			DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,DATE_FORMAT(edit_date,'%Y-%m-%d') AS edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
 	FROM nurimmusic.order
 	<where>
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -286,7 +286,7 @@
 	FROM nurimmusic.order
 	<where>
 	<if test="prevDate !=null and nextDate !=null">
-	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate}
+	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
 	</if>
 	<if test="recState != null">
 	AND rec_state = #{recState}
@@ -302,5 +302,33 @@
 	DELETE FROM nurimmusic.order
 	WHERE id=#{id}	
 	</delete>
+	
+	<!-- 주문 저장 -->
+	<insert id="insertOrder" parameterType="nurim.jsp.model.Order"
+	useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO nurimmusic.order(
+	rec_name, rec_tel, rec_postcode, rec_addr1, rec_addr2, rec_state,
+	member_id, product_id, reg_date, edit_date, o_amount, pro_img,
+	pro_name,pro_price,amount
+	) VALUES(
+	#{recName},#{recTel},#{recPostcode},#{recAddr1},#{recAddr2},"입금대기",
+	#{memberId},#{productId},now(),now(),#{oAmount},#{proImg},
+	#{proName},#{proPrice},0
+	)
+	</insert>
+	
+	<!-- 상품 수량 감소 -->
+	<update id="updateProduct" parameterType="nurim.jsp.model.Order">
+	UPDATE product
+	SET amount = amount-#{oAmount}, edit_date = now()
+	WHERE id=#{productId}
+	</update>
+	
+	<!-- 상품 상태 변경 -->
+	<update id="updateOrder" parameterType="nurim.jsp.model.Order">
+	UPDATE nurimmusic.order
+	SET rec_state = ${recState}, edit_date = now()
+	WHERE id=#{id}
+	</update>
 </mapper>
 

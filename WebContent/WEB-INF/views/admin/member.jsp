@@ -189,6 +189,7 @@
 			$(".modal").on("hidden.bs.modal",function(e){
 				//모달창 내의 내용을 강제로 지움.
 				$(this).removeData('bs.modal');
+				
 			});
 			$(document).on("submit","#update_form",function(e) {
 				e.preventDefault();
@@ -201,7 +202,8 @@
 							}
 							//덧글 수정 모달 강제로 닫기
 							$("#update_box_modal").modal('hide');
-						});
+							location.reload(); 
+						});				
 			});
 			$(document).on("submit","#insert_form",function(e) {
 				e.preventDefault();
@@ -214,6 +216,7 @@
 							}
 							//덧글 수정 모달 강제로 닫기
 							$("#insert_box_modal").modal('hide');
+							location.reload(); 
 						});
 			});
 	});

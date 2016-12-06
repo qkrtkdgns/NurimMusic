@@ -87,4 +87,23 @@ public class BasketServiceImpl implements BasketService {
 		return result;
 	}
 
+	@Override
+	public void compareItem(Basket basket) throws Exception {
+		Basket res = null;
+		try{
+			res = sqlSession.selectOne("BasketMapper.compareItem",basket);
+			int result = res.getAmount();
+			logger.debug("ProName >> " + res.getProName());
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception(res.getProName()+"상품의 재고가 충분하지 않습니다.");
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("재고 확인에 실패했습니다.");
+		}
+	}
+
 }

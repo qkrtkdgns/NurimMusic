@@ -17,63 +17,34 @@
 <%@include file='inc/picker.jsp'%>
 <script type="text/javascript">
 	$(function() {
-		var date = new Date();
-		var year = date.getFullYear();
-		var month = date.getMonth() + 1; // 0부터 시작하므로 1더함 더함
-		var day = date.getDate();
-		if (month < 10) {
-			month = "0" + month;
-		}
-		if (day < 10) {
-			day = "0" + day;
-		}
-		$("#today").click(function() {
-			$("#date_prev").val(year + '-' + month + '-' + day);
-			$("#date_next").val(year + '-' + month + '-' + day);
+		 var date = new Date();
+		 var date2 = new Date();
+
+		 //현재
+		 $("#today").click(function(){
+			$("#date_prev").val(pad(date.getFullYear())+'-'+pad((date.getMonth()+1))+'-'+pad(date.getDate()));
+			$("#date_next").val(pad(date.getFullYear())+'-'+pad((date.getMonth()+1))+'-'+pad(date.getDate()));
 			return false;
-		});
-		$("#week").click(function() {
-			week_year = year;
-			week_month = month;
-			week_day = day;
-			$("#date_next").val(year + '-' + month + '-' + day);
-			if (day - 7 < 1) {
-				if (month - 1 < 1) {
-					week_year = year - 1;
-					week_month = month + 11;
-				} else {
-					week_month = month - 1;
-				}
-				if (week_month / 2 == 1) {
-					week_day = 31 - date.getDate() - 7;
-				} else if (week_month == 1) {
-					week_day = 28 - date.getDate() - 7;
-				} else {
-					week_day = 30 - date.getDate() - 7;
-				}
-			} else {
-				week_day = day - 7;
+		 });
+		 $("#week").click(function(){
+			 date2.setDate(date.getDate()-7);
+				$("#date_prev").val(pad(date2.getFullYear())+'-'+pad((date2.getMonth()+1))+'-'+pad(date2.getDate()));
+				$("#date_next").val(pad(date.getFullYear())+'-'+pad((date.getMonth()+1))+'-'+pad(date.getDate()));
+				date2=new Date();
+				return false;
+			 });
+		 $("#month").click(function(){
+			 date2.setMonth(date.getMonth()-1);
+				$("#date_prev").val(pad(date2.getFullYear())+'-'+pad((date2.getMonth()+1))+'-'+pad(date2.getDate()));
+				$("#date_next").val(pad(date.getFullYear())+'-'+pad((date.getMonth()+1))+'-'+pad(date.getDate()));
+				date2=new Date();
+				return false;
+			 });
+		 
+		 function pad(numb) {
+			    return (numb < 10 ? '0' : '') + numb;
 			}
-			$("#date_prev").val(week_year + '-' + week_month + '-' + week_day);
-			return false;
-		});
-		$("#month").click(
-				function() {
-					$("#date_next").val(year + '-' + month + '-' + day);
-					month_year = year;
-					month_month = month;
-					month_day = day;
-					if (month - 1 < 1) {
-						month_year = year - 1;
-						month_month = month + 11;
-					} else {
-						month_month = month - 1;
-					}
-					$("#date_prev").val(
-							month_year + '-' + month_month + '-' + month_day);
-					return false;
-				});
-	});
+		 });
 </script>
 </head>
 <body>

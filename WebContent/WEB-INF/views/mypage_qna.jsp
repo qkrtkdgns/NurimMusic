@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -41,6 +43,25 @@
 		</thead>
 		<tbody>
 			<tr></tr>
+			 <c:choose>
+						<c:when test="${fn:length(documentList) > 0}">
+							<c:forEach var="document" items="${documentList }">
+								<tr>
+								<td>${document.regDate } - ${document.id }</td>
+								<td>${document.regDate }</td>
+								<td>${document.qnaType }</td>
+								<td><a>${document.subject }</a></td>
+								<td>답변여부 확인</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="10" class="text-center" style="line-height: 100px;">
+									조회된 글이 없습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
 			<tr>
 				<td>201609-1</td>
 				<td>20160920</td>
@@ -58,14 +79,7 @@
 		</tbody>
 	</table>
 	<!--게시판 이동 버튼 start -->
-	<div class="text-center">
-	<ul class="pagination pagination-md">
-	<li class="disabled"><a href="#">&laquo;</a></li>
-	<li class="active"><span>1<span class="sr-only">(current)</span></span></li>
-	<li><a href="#">2</a></li>
-	<li><a href="#">&raquo;</a></li>
-	</ul>
-	</div>
+	<%@include file="inc/qna_page.jsp" %>
 	</div>
 	<!--게시판 이동 버튼 end -->
 </div>

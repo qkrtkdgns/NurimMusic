@@ -44,6 +44,11 @@
 							<c:forEach var="b" items="${BasketList }">
 								<input type="hidden" name="id" value="${b.id }" />
 								<input type="hidden" name="price" value="${b.proPrice }" />
+								<input type="hidden" name="pId" value="${b.productId }" />
+								<input type="hidden" name="price" value="${b.proPrice }" />
+								<input type="hidden" name="amount" value="${b.amount }" />
+								<input type="hidden" name="proName" value="${b.proName }" />
+								<input type="hidden" name="proImg" value="${b.proImg }" />
 								<tr>
 								<td id="item"><a><img src="${b.proImg }" /> ${b.proName }</a></td>
 									<td class="text-center" id="item">${b.proPrice }원</td>
@@ -128,7 +133,6 @@
                   </tbody>
                </table>
             </div>
-            <input type="hidden" name="price" value="${price }" />
             <button type="submit" id="pay" class="ruby">결제하기</button>
          </form>
          </div>

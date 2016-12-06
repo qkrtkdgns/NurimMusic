@@ -38,6 +38,19 @@ public class drop_out_ok extends BaseController {
 		logger.debug("member >> " + member);
 		
 		try{
+			//장바구니 삭제
+			//basketService.deleteBasket(basket);
+			
+			//주문정보의 member_id를  null로 수정
+			//orderService.updateOrderByMember(order);
+			
+			//게시글의 member_id를  null로 수정
+			//documentService.updateDocumentByMember(order);
+			
+			//댓글의 member_id를  null로 수정
+			//commentService.updateCommentByMember(comment);
+			
+			//회원 삭제			
 			memberService.deleteMember(member);
 		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());

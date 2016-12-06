@@ -44,25 +44,27 @@ public class pay extends BaseController {
 		basketService = new BasketServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사 */
+		//세션에서 회원정보 받아오기
+				Member loginInfo = (Member) web.getSession("loginInfo");
 		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
-		if (web.getSession("loginInfo") == null) {
+		if (loginInfo == null) {
 			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
 			sqlSession.close();
 			web.redirect(web.getRootPath() + "/index.do", "로그인 중이 아닙니다.");
 			return null;
 		}
-		logger.debug("loginInfo >> " + web.getSession("loginInfo"));
+		logger.debug("loginInfo >> " + loginInfo);
 		
 		/** (4) 검색할 값 받아오기 */
 		int count = web.getInt("count");
 		String[] checkbox = web.getStringArray("checkbox");
+		
 		for(int i =0; i<count; i++){
 			logger.debug("checkbox >> " + checkbox[i]);
 		}
 		
 		/**(5)회원정보 세팅 */
-		//세션에서 회원정보 받아오기
-		Member loginInfo = (Member) web.getSession("loginInfo");
+		
 		//장바구니에 멤버아이디 셋팅
 		Basket basket = new Basket();
 		basket.setMemberId(loginInfo.getId());

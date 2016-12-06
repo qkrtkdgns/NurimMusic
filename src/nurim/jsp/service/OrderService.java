@@ -34,4 +34,10 @@ public interface OrderService {
 
 	void deleteOrder(Order order) throws Exception;
 
+	void insertOrder(Order order) throws Exception;
+
+	void updateProduct(Order order) throws Exception;
+
+	void updateOrder(Order order) throws Exception;
+
 }

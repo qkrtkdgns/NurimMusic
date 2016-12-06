@@ -35,7 +35,7 @@
 	
 	<!-- 장바구니 아이템  수량 수정 -->
 	<update id="updateItem" parameterType="nurim.jsp.model.Basket">
-	UPDATE basket
+	UPDATE basket, edit_date=now()
 	SET amount = #{amount}
 	where id=#{id}
 	</update>
@@ -46,6 +46,14 @@
 	SELECT id, member_id, product_id, pro_img,pro_name, pro_price, amount
 	FROM basket
 	WHERE member_id =#{memberId} AND id=#{id}
+	</select>
+	
+	<!-- 장바구니 상품과 상품테이블의 상품 수량 비교 -->
+	<select id="compareItem" parameterType="nurim.jsp.model.Basket"
+	resultMap="basket">
+	SELECT b.pro_name as pro_name, IF(p.amount > b.amount,IF(p.amount>0,true,false),false)as amount
+	FROM product AS p , basket AS b
+	where p.id = #{productId} AND  b.id=#{id}
 	</select>
 </mapper>
 

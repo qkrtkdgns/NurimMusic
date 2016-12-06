@@ -26,6 +26,7 @@
 						<a href="#" class="btn btn-default btn-sm">장바구니 담기</a>
 					</div>
 					<div class="search_list">
+					<form action="${pageContext.request.contextPath}/kor_rc1.do" method="get">
 						<a href="#">발매일</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">높은가격</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">낮은가격</a>
 					</div>
 				</div>
@@ -154,6 +155,7 @@
 						<button type="submit" class="btn btn-default">검색</button>
 					</div>
 		</form>
+			</form>
 		<!-- //검색 영역 끝 -->
 </div>
 </div>

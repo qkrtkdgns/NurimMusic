@@ -196,4 +196,64 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 
+	@Override
+	public void insertOrder(Order order) throws Exception {
+		try{
+			int result = sqlSession.insert("OrderMapper.insertOrder",order);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("주문을 저장할 수 없습니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("주문저장에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void updateProduct(Order order) throws Exception {
+		try{
+			int result = sqlSession.update("OrderMapper.updateProduct",order);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("상품의 수량 감소를 할 수 없습니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("상품의 수량감소에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void updateOrder(Order order) throws Exception {
+		try{
+			int result = sqlSession.update("OrderMapper.updateOrder",order);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("주문상태를 변경할 수 없습니다..");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("주문상태 변경에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
 }

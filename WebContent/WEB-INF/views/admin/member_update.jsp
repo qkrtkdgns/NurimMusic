@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
 		<form method="post" id="update_form" action="${pageContext.request.contextPath }/admin/member_update_ok.do">
 		<input type="hidden" name="id" id="id" value="${member.id }" />
@@ -20,8 +22,22 @@
 			<label>성별</label>
 			<select name="user_gender" id="user_gender">
 				<option value="">---성별을 선택해 주세요---</option>
+				<c:choose>
+				<c:when test="${member.gender == 'M' }">
+				<option value="M" selected>남자</option>
+				</c:when>
+				<c:otherwise>
 				<option value="M">남자</option>
+				</c:otherwise>
+				</c:choose>
+				<c:choose>
+				<c:when test="${member.gender == 'F' }">
+				<option value="F" selected>여자</option>
+				</c:when>
+				<c:otherwise>
 				<option value="F">여자</option>
+				</c:otherwise>
+				</c:choose>
 			</select>
 			</div>
 			<div class="input_box" style="height:120px;">

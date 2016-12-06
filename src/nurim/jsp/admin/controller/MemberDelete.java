@@ -15,8 +15,6 @@ import nurim.jsp.admin.service.MemberService;
 import nurim.jsp.admin.service.impl.MemberServiceImpl;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
-import nurim.jsp.helper.RegexHelper;
-import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Member;
 
@@ -52,18 +50,36 @@ public class MemberDelete extends BaseController {
 			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
 			return null;
 		}
-		int id = web.getInt("checkbox");
-
-		// 전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
-		logger.debug("id >> " + id );
+		String[] temp = web.getStringArray("checkbox");
+		int[] id=new int[temp.length];
+		for(int i=0; i<temp.length; i++){
+			// 전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
+			id[i] = Integer.parseInt(temp[i]);
+			logger.debug("id >> " + id[i]);
+		}
 
 		/** (7) 전달받은 파라미터를 Beans 객체에 담는다. */
 		Member member = new Member();
-		member.setId(id);
 
 		/** (8) Service를 통한 데이터베이스 저장 처리 */
 		try {
+			//체크한 아이디 갯수만큼 반복
+			for(int i=0; i<id.length; i++){
+			member.setId(id[i]);
+			//장바구니 삭제
+			//basketService.deleteBasket(basket);
+			
+			//주문정보의 member_id를  null로 수정
+			//orderService.updateOrderByMember(order);
+			
+			//게시글의 member_id를  null로 수정
+			//documentService.updateDocumentByMember(order);
+			
+			//댓글의 member_id를  null로 수정
+			//commentService.updateCommentByMember(comment);
+			
 			memberService.deleteMemberByAdmin(member);
+			}
 		} catch (Exception e) {
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());

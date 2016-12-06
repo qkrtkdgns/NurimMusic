@@ -52,7 +52,7 @@
     <!-- 회원 정보를 조회한다. -->
     <select id="selectLoginInfo" parameterType="nurim.jsp.model.Member"
     resultMap="member">
-    SELECT id,user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,
+    SELECT id,user_id,user_pw,user_name,gender,DATE_FORMAT(birthdate,'%Y 년 %m 월 %d 일') AS birthdate,email,tel,postcode,
     addr1,addr2,reg_date,edit_date
     FROM member
     WHERE user_id=#{userId} AND user_pw=password(#{userPw})
@@ -62,7 +62,7 @@
     <select id="selectMemberList" parameterType="nurim.jsp.model.Member"
     resultMap="member">
     SELECT id,user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,
-    addr1,addr2,reg_date,edit_date
+    addr1,addr2,DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,edit_date
     FROM member
     <where>
 	<if test="userId !=null">
