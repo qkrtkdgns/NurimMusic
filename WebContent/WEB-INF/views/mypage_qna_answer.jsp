@@ -28,12 +28,12 @@
 							<tr>
 							<th class="active">제목 </th>
 								<td colspan="3">
-									<p class="review_sub">Re:결제가 되질 않습니다. 도와주세요.</p>
+									<p class="review_sub">${document.subject }</p>
 								</td>
 							</tr>
 							<tr>
 								<th class="active">상담 유형</th>
-								<td>쇼핑/결제</td>
+								<td>${document.qnaType }</td>
 								<th class="active">답변자 이름</th>
 								<td>관리자</td>
 							</tr>
@@ -41,14 +41,12 @@
 					</table>
 					<!-- //회원 리뷰 테이블 끝 -->
 				<div class="review_cont">
-					<p>안녕하세요 고객님 ^^<br/>
-					보내주신 문의 사항은 잘 읽어보았습니다.<br/><br/>
-				  이유는 간 때문입니다.</p>
+					<p>${document.content }</p>
 				</div>
 				<hr>
 				<!-- 목록 버튼 -->
 				<div class="list">
-					<button type="button" class="btn purple btn-sm">목록</button>
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/mypage_qna.do'" class="btn purple btn-sm">목록</button>
 				</div>
 			</div>
 </div>

@@ -45,13 +45,32 @@
 			<tr></tr>
 			 <c:choose>
 						<c:when test="${fn:length(documentList) > 0}">
-							<c:forEach var="document" items="${documentList }">
+							<c:forEach var="document" items="${documentList }" varStatus="a">
 								<tr>
-								<td>${document.regDate } - ${document.id }</td>
-								<td>${document.regDate }</td>
+								
+								<c:choose>
+								<c:when test="${a.index%2 ==0 }">
+								<td style="font-size:12px; font-weight:bold">${document.regDate } - ${document.id }</td>
+								<td>${document.editDate }</td>
 								<td>${document.qnaType }</td>
-								<td><a>${document.subject }</a></td>
-								<td>답변여부 확인</td>
+								<td><a href="${pageContext.request.contextPath }/mypage_qna_question.do?id=${document.id}">${document.subject }</a></td>
+								<td></td>
+								</c:when>
+								<c:otherwise>
+								<td style="font-size:12px; font-weight:bold">${document.regDate } - ${document.id }</td>
+								<td>${document.editDate }</td>
+								<td>${document.qnaType }</td>
+								<td><a href="${pageContext.request.contextPath }/mypage_qna_answer.do?id=${document.id}">${document.subject }</a></td>
+								<td>
+								<c:if test="${document.subject == '답변대기' }">
+								답변대기
+								</c:if>
+								<c:if test="${document.subject != '답변대기' }">
+								답변완료
+								</c:if> 
+								</td>
+								</c:otherwise>
+								</c:choose>
 								</tr>
 							</c:forEach>
 						</c:when>
@@ -62,20 +81,6 @@
 							</tr>
 						</c:otherwise>
 					</c:choose>
-			<tr>
-				<td>201609-1</td>
-				<td>20160920</td>
-				<td>쇼핑/결제</td>
-				<td><a href="${pageContext.request.contextPath }/mypage_qna_question.do">결제가 되질 않습니다. 도와주세요.</a></td>
-				<td>답변 완료</td>
-			</tr>
-			<tr>
-				<td>201609-2</td>
-				<td>20160920</td>
-				<td>쇼핑/결제</td>
-				<td><a href="${pageContext.request.contextPath }/mypage_qna_answer.do">Re:결제가 되질 않습니다. 도와주세요.</a></td>
-				<td></td>
-			</tr>
 		</tbody>
 	</table>
 	<!--게시판 이동 버튼 start -->

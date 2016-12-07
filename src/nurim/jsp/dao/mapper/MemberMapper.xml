@@ -146,6 +146,7 @@
 	WHERE id =#{id};
     </update>
     
+    <!-- 선택된 회원 정보 조회 -->
     <select id="selectMemberByAdmin" parameterType="nurim.jsp.model.Member"
     resultMap="member">
     SELECT id,user_id,user_pw,user_name,gender,birthdate,email,tel,postcode,

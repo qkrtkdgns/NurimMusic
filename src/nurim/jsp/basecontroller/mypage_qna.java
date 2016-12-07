@@ -60,17 +60,17 @@ public class mypage_qna extends BaseController {
 		List<Document> documentlist = null;
 		try {
 			// 회원 번호로 게시글 리스트 검색
-			// totalCount = documentService.selectQnaCount(document);
-			// logger.debug("totalCount >> " + totalCount);
+			 totalCount = documentService.selectQnaCount(document);
+			 logger.debug("totalCount >> " + totalCount);
 			// 나머지 페이지 번호 계산하기
 			// --> 현재 페이지, 전체 게시물 수, 한 페이지의 목록 수, 그룹갯수
-			pageHelper.pageProcess(page, totalCount, 5, 5);
+			pageHelper.pageProcess(page, totalCount, 6, 5);
 			logger.debug("pageHelper >> " + pageHelper);
 			// 페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
-			//document.setLimitStart(pageHelper.getLimitStart());
-			//document.setListCount(pageHelper.getListCount());
+			document.setLimitStart(pageHelper.getLimitStart());
+			document.setListCount(pageHelper.getListCount());
 
-			// documentlist = documentService.selectQnaList(document);
+			 documentlist = documentService.selectQnaList(document);
 		} catch (Exception e) {
 			logger.debug(e.getLocalizedMessage());
 			return null;

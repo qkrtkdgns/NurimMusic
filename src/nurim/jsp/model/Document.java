@@ -14,6 +14,21 @@ public class Document {
 	private int disagree = 0;
 	private String qnaType = null;
 	
+	private int LimitStart= 0;
+	private int ListCount=0;
+	
+	public int getLimitStart() {
+		return LimitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		LimitStart = limitStart;
+	}
+	public int getListCount() {
+		return ListCount;
+	}
+	public void setListCount(int listCount) {
+		ListCount = listCount;
+	}
 	public int getId() {
 		return id;
 	}
@@ -86,13 +101,12 @@ public class Document {
 	public void setQnaType(String qnaType) {
 		this.qnaType = qnaType;
 	}
-	
 	@Override
 	public String toString() {
 		return "Document [id=" + id + ", memberId=" + memberId + ", category=" + category + ", subject=" + subject
 				+ ", content=" + content + ", regDate=" + regDate + ", editDate=" + editDate + ", hit=" + hit
 				+ ", ipAddress=" + ipAddress + ", agree=" + agree + ", disagree=" + disagree + ", qnaType=" + qnaType
-				+ "]";
+				+ ", LimitStart=" + LimitStart + ", ListCount=" + ListCount + "]";
 	}
 	
 }

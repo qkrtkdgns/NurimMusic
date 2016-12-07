@@ -33,5 +33,34 @@
     )
     </insert>
     
+    <!-- 1:1 문의내역 목록 수를 멤버아이디로 검색 -->
+    <select id="selectQnaCount" parameterType="nurim.jsp.model.Document"
+    resultType="int">
+    SELECT count(id) FROM document
+    WHERE member_id=#{memberId}
+    AND qna_type IS NOT null
+    </select>
+    
+    <!-- 1:1 문의내역 목록을 멤버아이디로 검색 -->
+    <select id="selectQnaList" parameterType="nurim.jsp.model.Document"
+    resultMap="document">
+    SELECT id,category,subject,content,DATE_FORMAT(reg_date,'%Y%m%d') AS reg_date,
+    DATE_FORMAT(edit_date,'%Y%m%d') AS edit_date,hit,ip_address,member_id,agree,disagree,
+    qna_type,end_date
+    FROM document
+    WHERE member_id = #{memberId} 
+    AND qna_type IS NOT null
+    LIMIT #{limitStart},#{listCount}
+    </select>
+    
+    <!-- 1:1 문의게시글 내용 확인 -->
+    <select id="selectQnaQuestion" parameterType="nurim.jsp.model.Document"
+    resultMap="document">
+    SELECT id,category,subject,content,DATE_FORMAT(reg_date,'%Y%m%d') AS reg_date,
+    DATE_FORMAT(edit_date,'%Y%m%d') AS edit_date,hit,ip_address,member_id,agree,disagree,
+    qna_type,end_date
+    FROM document
+    WHERE id=#{id}
+    </select>
      
 </mapper>

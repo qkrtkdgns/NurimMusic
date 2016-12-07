@@ -79,5 +79,10 @@ public interface MemberService {
 	 */
 	public void updateUserPw (Member member) throws Exception;
 
+	/**
+	 * 회원 삭제
+	 * @param member
+	 * @throws Exception
+	 */
 	public void deleteMember(Member member) throws Exception;
 }
