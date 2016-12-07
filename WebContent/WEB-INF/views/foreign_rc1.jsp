@@ -29,13 +29,18 @@
          	   <!-- 체크한 음반 -->
                <div class="check_list">
                   체크한 음반
-                  <button type="button" class="btn btn-default btn-sm" />장바구니 담기</button>
+                  <button class="btn btn-default btn-sm" >장바구니 담기</button>
                </div>
                <!-- //체크한 음반 끝 -->
                
                <!-- 원하는 카테고리순 정렬 -->
                <div class="search_list">
-                  <a href="#">발매일</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">높은가격</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">낮은가격</a>
+                 		<a href="${pageContext.request.contextPath}/foregin_rc1.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/foregin_rc1.do?CList=high&keyword1=${keyword1}&keyword2=${keyword2}">높은가격
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/foregin_rc1.do?CList=row&keyword1=${keyword1}&keyword2=${keyword2}">낮은가격
+						</a>
                </div>
                <!-- //원하는 카테고리순 정렬 끝 -->
             </div>
@@ -189,6 +194,7 @@
 
 
 <!--본문내용 작성 end -->
+</div>
 <!-- 템플릿 참조 -->
 <script id="tmpl_comment_item" type="text/x-handlebars-template">				
 </script>

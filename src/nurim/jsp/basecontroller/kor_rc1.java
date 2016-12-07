@@ -52,10 +52,7 @@ public class kor_rc1 extends BaseController {
 		String keyword1 = web.getString("keyword1");
 		String keyword2 = web.getString("keyword2");
 		Product product = new Product();
-		
-		String key = web.getString("keyword_type");
-		
-	
+
 		if (regex.isValue(keyword1)) {
 			product.setProName(keyword1);
 			logger.debug("keyword1> " + keyword1);
@@ -63,6 +60,9 @@ public class kor_rc1 extends BaseController {
 			product.setProvider(keyword2);
 			logger.debug("keyword2> " + keyword2);
 		}
+		
+		String key = web.getString("keyword_type");
+		
 		if(key != null){
 			if (!regex.isValue(keyword1) && !regex.isValue(keyword2)){
 				web.redirect(null, "검색어를 입력하세요.");
@@ -72,6 +72,9 @@ public class kor_rc1 extends BaseController {
 		
 		product.setProCategoryName(CategoryName);
 		logger.debug("ProCategoryName> " + CategoryName);
+		String List = web.getString("CList");
+		product.setCList(List);
+		logger.debug("List> " + List);
 		
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page",1);
@@ -81,6 +84,7 @@ public class kor_rc1 extends BaseController {
 				List<Product> productList = null;
 				
 				try {
+					
 					//전체 게시물 수
 					totalCount = productService.selectProductCategoryCount(product);
 					//--> 현재 페이지, 전체 게시물 수, 한 페이지의 목록 수, 그룹갯수
@@ -89,9 +93,7 @@ public class kor_rc1 extends BaseController {
 					//페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
 					product.setLimitStart(pageHelper.getLimitStart());
 					product.setListCount(pageHelper.getListCount());
-					
 					productList = productService.selectProductCategoryList(product);
-					//logger.debug("prodList >> " + prodList);
 				} catch (Exception e) {
 					web.redirect(null, e.getLocalizedMessage());
 					return null;

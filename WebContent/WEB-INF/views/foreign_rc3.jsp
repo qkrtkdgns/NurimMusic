@@ -29,13 +29,18 @@
          	   <!-- 체크한 음반 -->
                <div class="check_list">
                   체크한 음반
-                  <button type="button" class="btn btn-default btn-sm" />장바구니 담기</button>
+                  <button type="button" class="btn btn-default btn-sm" >장바구니 담기</button>
                </div>
                <!-- //체크한 음반 끝 -->
                
                <!-- 원하는 카테고리순 정렬 -->
                <div class="search_list">
-                  <a href="#">발매일</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">높은가격</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">낮은가격</a>
+                  		<a href="${pageContext.request.contextPath}/foregin_rc3.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/foregin_rc3.do?CList=high&keyword1=${keyword1}&keyword2=${keyword2}">높은가격
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/foregin_rc3.do?CList=row&keyword1=${keyword1}&keyword2=${keyword2}">낮은가격
+						</a>
                </div>
                <!-- //원하는 카테고리순 정렬 끝 -->
             </div>
@@ -81,17 +86,17 @@
                      <!-- 버튼들 -->
                      <div class="button">
                      <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
+                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" >장바구니</a>
                      </div>
                      <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
+                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" >바로구매</a>
                      </div>
                      
                      <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
+                      <a href="#" class="btn btn-default" id="A1" name="list_01"><font color="red">품&nbsp;&nbsp;절</font></a>
                       </div>
                       <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
+                      <a href="#" class="btn btn-default" id="B1" name="list_01" >입고알림</a>
                       </div>
                       </div>
                       <!--// 버튼들 끝 -->

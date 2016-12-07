@@ -26,7 +26,12 @@
 						<button class="btn btn-default btn-sm">장바구니 담기</button>
 					</div>
 					<div class="search_list">
-						<a href="#">발매일</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">높은가격</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">낮은가격</a>
+						<a href="${pageContext.request.contextPath}/kor_rc1.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/kor_rc1.do?CList=high&keyword1=${keyword1}&keyword2=${keyword2}">높은가격
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/kor_rc1.do?CList=row&keyword1=${keyword1}&keyword2=${keyword2}">낮은가격
+						</a>
 					</div>
 				</div>
 
@@ -144,6 +149,7 @@
 	</div>
 		<!-- 검색 영역 -->
 		<form action="${pageContext.request.contextPath}/kor_rc1.do" method="get">
+		
 					<div class="result_search">
 						<select class="input_form" id="keyword_type" name="keyword_type">
 							<option value="null"  selected>선택</option>
@@ -207,7 +213,7 @@
      				$('#keyword2').attr("disabled",true);
    			}
 	});
-		
+   $('#keyword1').attr("disabled",true);	
     });
 
 		</script>

@@ -26,7 +26,12 @@
             <a href="#" class="btn btn-default">장바구니 담기</a>
           </div>
           <div class="search_list">
-            <a href="#">발매일</a>&nbsp;|&nbsp;<a href="#">높은가격</a>&nbsp;|&nbsp;<a href="#">낮은가격</a>
+           		<a href="${pageContext.request.contextPath}/shopping_headphone.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
+				</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="${pageContext.request.contextPath}/shopping_headphone.do?CList=high&keyword1=${keyword1}&keyword2=${keyword2}">높은가격
+				</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="${pageContext.request.contextPath}/shopping_headphone.do?CList=row&keyword1=${keyword1}&keyword2=${keyword2}">낮은가격
+				</a>
           </div>
         </div>
 

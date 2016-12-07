@@ -54,7 +54,9 @@ public class foreign_rc3 extends BaseController {
 		String CategoryName = "jazz";
 		String keyword1 = web.getString("keyword1");
 		String keyword2 = web.getString("keyword2");
+		
 		Product product = new Product();
+		
 		
 		if (regex.isValue(keyword1)) {
 			product.setProName(keyword1);
@@ -64,8 +66,8 @@ public class foreign_rc3 extends BaseController {
 			logger.debug("keyword2> " + keyword2);
 		}
 		
-		String key = web.getString("keyword_type");
 		
+		String key = web.getString("keyword_type");
 		
 		if(key != null){
 			if (!regex.isValue(keyword1) && !regex.isValue(keyword2)){
@@ -77,6 +79,9 @@ public class foreign_rc3 extends BaseController {
 		
 		product.setProCategoryName(CategoryName);
 		logger.debug("ProCategoryName> " + CategoryName);
+		String List = web.getString("CList");
+		product.setCList(List);
+		logger.debug("List> " + List);
 		
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page",1);

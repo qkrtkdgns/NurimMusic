@@ -87,7 +87,7 @@ public class ItemList extends BaseController{
 					logger.debug("productList > " +productList);
 					if(checkbox != null){
 						for(int i = 0 ; i < checkbox.length; i++){
-							logger.debug("dddd >>"+checkbox);
+							logger.debug("checkbox >>"+checkbox);
 							proCategory.setProductId(Integer.parseInt(checkbox[i]));
 							product.setId(Integer.parseInt(checkbox[i]));
 							productAdmin.deleteProCategory(proCategory);

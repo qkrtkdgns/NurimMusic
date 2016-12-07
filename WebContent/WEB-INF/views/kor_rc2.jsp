@@ -26,7 +26,12 @@
 						<a href="#" class="btn btn-default">장바구니 담기</a>
 					</div>
 					<div class="search_list">
-						<a href="#">발매일</a>&nbsp;|&nbsp;<a href="#">높은가격</a>&nbsp;|&nbsp;<a href="#">낮은가격</a>
+						<a href="${pageContext.request.contextPath}/kor_rc2.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/kor_rc2.do?CList=high&keyword1=${keyword1}&keyword2=${keyword2}">높은가격
+						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/kor_rc2.do?CList=row&keyword1=${keyword1}&keyword2=${keyword2}">낮은가격
+						</a>
 					</div>
 				</div>
 
@@ -64,10 +69,10 @@
 									<p class="price2">${product.proPrice}원</p>
 								</th>
 								<th class="item_button">
-									<a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-									<a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-									<a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-									<a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
+									<a href="#" class="btn btn-default" id="A1" name="list_01"><font color="red">품&nbsp;&nbsp;절</font></a>
+									<a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" >장바구니</a>
+									<a href="#" class="btn btn-default" id="B1" name="list_01" >입고알림</a>
+									<a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" >바로구매</a>
 								</th>
 								</tr>
 					</table>

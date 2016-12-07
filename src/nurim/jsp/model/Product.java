@@ -15,6 +15,15 @@ public class Product extends Category {
 	
 	private int LimitStart;
 	private int ListCount;
+	
+	private String CList;
+	
+	public String getCList() {
+		return CList;
+	}
+	public void setCList(String sList) {
+		CList = sList;
+	}
 	public int getId() {
 		return id;
 	}
@@ -98,7 +107,8 @@ public class Product extends Category {
 		return "Product [id=" + id + ", documentId=" + documentId + ", proImg=" + proImg + ", proName=" + proName
 				+ ", proPrice=" + proPrice + ", amount=" + amount + ", proHit=" + proHit + ", regDate=" + regDate
 				+ ", editDate=" + editDate + ", provider=" + provider + ", content=" + content + ", LimitStart="
-				+ LimitStart + ", ListCount=" + ListCount + ", getProCategoryName()=" + getProCategoryName() + "]";
+				+ LimitStart + ", ListCount=" + ListCount + ", CList=" + CList + ", getProCategoryName()="
+				+ getProCategoryName() + "]";
 	}
 	
 

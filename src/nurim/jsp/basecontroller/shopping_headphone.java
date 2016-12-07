@@ -73,6 +73,9 @@ public class shopping_headphone extends BaseController {
 		
 		product.setProCategoryName(CategoryName);
 		logger.debug("ProCategoryName> " + CategoryName);
+		String List = web.getString("CList");
+		product.setCList(List);
+		logger.debug("List> " + List);
 		
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page",1);
