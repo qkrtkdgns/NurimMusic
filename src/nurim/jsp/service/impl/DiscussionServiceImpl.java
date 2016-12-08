@@ -216,7 +216,7 @@ public class DiscussionServiceImpl implements DiscussionService {
 	@Override
 	public void updateDiscussionEndDate(Document document) throws Exception {
 		try {
-			int result = sqlSession.update("DiscussionMapper.updateDiscussionEndDate", document);
+			int result = sqlSession.update("DiscussionMapper.updateDiscussionHit", document);
 			if (result == 0) {
 				throw new NullPointerException();
 			}
@@ -231,7 +231,8 @@ public class DiscussionServiceImpl implements DiscussionService {
 			sqlSession.commit();
 		}
 	}
-
+	
+	
 	@Override
 	public int selectDiscussionCountByPw(Document document) throws Exception {
 		int result = 0;
