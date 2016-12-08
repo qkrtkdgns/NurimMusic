@@ -35,11 +35,11 @@
                
                <!-- 원하는 카테고리순 정렬 -->
                <div class="search_list">
-                  		<a href="${pageContext.request.contextPath}/foregin_rc2.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
+                  		<a href="${pageContext.request.contextPath}/foreign_rc2.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
 						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/foregin_rc2.do?CList=high&keyword1=${keyword1}&keyword2=${keyword2}">높은가격
+						<a href="${pageContext.request.contextPath}/foreign_rc2.do?CList=high&keyword1=${keyword1}&keyword2=${keyword2}">높은가격
 						</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/foregin_rc2.do?CList=row&keyword1=${keyword1}&keyword2=${keyword2}">낮은가격
+						<a href="${pageContext.request.contextPath}/foreign_rc2.do?CList=row&keyword1=${keyword1}&keyword2=${keyword2}">낮은가격
 						</a>
                </div>
                <!-- //원하는 카테고리순 정렬 끝 -->
@@ -55,7 +55,7 @@
                	<!-- 항목(1) --> 
                   <li class="goods_li">
                   <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do">
+                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
                      <c:choose>
 									<c:when test="${product.proImg != null}">
 											<c:url var="downloadUrl" value="/download.do">
@@ -64,13 +64,13 @@
 												<img src="${downloadUrl}" />
 											</c:when>
 										<c:otherwise>
-												<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+												<img src="${pageContext.request.contextPath}/img/noimage.jpg" />
 										</c:otherwise>
 								</c:choose>
                      </a>
                    </span>
                      <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do">${product.proName}</a>
+                     <span class="title"><a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">${product.proName}</a>
                      </span>
                      <span class="desc">${product.provider}</span>
                      </span>
@@ -85,19 +85,24 @@
 
                      <!-- 버튼들 -->
                      <div class="button">
+                     <c:choose>
+						<c:when test="${product.amount != 0}">
                      <div class="basket_btn">
                      <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
                      </div>
                      <div class="buy_btn">
                      <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
                      </div>
-                     
+                     </c:when>
+                     <c:otherwise>
                      <div class="so_btn">
                       <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
                       </div>
                       <div class="al_btn">
-                      <a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
+                   
                       </div>
+                      </c:otherwise>
+                      </c:choose>
                       </div>
                       <!--// 버튼들 끝 -->
                   </li>
@@ -197,19 +202,7 @@
 </script>
 <%@include file="inc/footer.jsp" %>
 		 <script type="text/javascript">
-    	
-	$(function(){
-		 var sell= false;
-
-         if(sell==false){
-         $("#A1.btn").hide();
-         $("#B1.btn").hide();
-         }else{            
-         $("#A.btn").hide();
-         $("#B.btn").hide();
-         }
-    			
-    			
+	
     			//검색 관리
     
    $("#keyword_type").change(function(){

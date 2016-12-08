@@ -62,7 +62,7 @@ h2,h3{
    border-top:1px dotted gray;
    padding:30px;
    width: 100%;
-   margin: 50px auto;
+   margin: 30px auto;
    float: left;
 }
 .review a{
@@ -100,4 +100,37 @@ h2,h3{
 #amount {
   text-align: center;
   line-height:5px;
+}
+
+div#PrevNext{
+   margin-top:0px;
+   border-top: 1px dotted gray;
+   height: 180px;
+   padding: 10px;
+   padding-top: 20px;
+   text-align: center;
+}
+
+div#PrevNext img{
+   width: 120px;
+   height: 120px;
+}
+
+#PrevNext .nextitem{
+   margin-left: 300px;
+   float: left; 
+   height: 122px;
+
+}
+
+
+#PrevNext .previtem{
+   margin-right: 300px;
+   float: right; 
+   height: 122px;
+}
+
+div#PrevNext  a{
+	text-decoration: none;
+	color:#000;
 }

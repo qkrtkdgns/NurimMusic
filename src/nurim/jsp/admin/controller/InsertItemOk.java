@@ -62,10 +62,12 @@ public class InsertItemOk extends BaseController {
 		Map<String, String> paramMap = upload.getParamMap();
 		String proName = paramMap.get("title");
 		String proPrice = paramMap.get("price");
-		String amount= paramMap.get("no");
 		String provider = paramMap.get("provider");
 		String content = paramMap.get("content");
 		String category = paramMap.get("category");
+		String soldout = paramMap.get("sal_no");
+		String amount= paramMap.get("no");
+		
 		
 		logger.debug("proName=" + proName);
 		logger.debug("proPrice=" + proPrice);
@@ -73,10 +75,9 @@ public class InsertItemOk extends BaseController {
 		logger.debug("provider=" + provider);
 		logger.debug("content=" + content);
 		logger.debug("category=" + category);
+		logger.debug("soldout=" + soldout);
 
-	
-		
-		
+
 		/** (4) 입력 받은 파라미터에 대한 유효성 검사 */
 		if (!regex.isValue(proName)) {
 			sqlSession.close();
@@ -89,9 +90,9 @@ public class InsertItemOk extends BaseController {
 			web.redirect(null, "상품 가격을 입력하세요.");
 			return null;
 		}
-
+	
 		// 재고
-		if (!regex.isValue(amount)) {
+		if (!regex.isValue(amount) && soldout.equals("1")) {
 			sqlSession.close();
 			web.redirect(null, "수량을 입력하세요.");
 			return null;
@@ -117,7 +118,13 @@ public class InsertItemOk extends BaseController {
 		Product product= new Product();
 		product.setProName(proName);
 		product.setProPrice(proPrice);
-		product.setAmount(amount);
+		
+		if(soldout.equals("2")){
+			product.setAmount("0");
+		}else{
+			product.setAmount(amount);
+		}
+		
 		product.setProvider(provider);
 		product.setContent(content);
 		product.setProImg(profileImg);
@@ -139,7 +146,7 @@ public class InsertItemOk extends BaseController {
 		
 
 		/** (9)상품등록이 완료되었으므로 상품 페이지로 이동 */
-		web.redirect(web.getRootPath() + "/admin/item_list.do", "상품이 등록되었습니다. 상품을 해 주세요.");
+		web.redirect(web.getRootPath() + "/admin/item_list.do", "상품이 등록되었습니다. 상품을 확인해 주세요.");
 
 		return null;
 	}

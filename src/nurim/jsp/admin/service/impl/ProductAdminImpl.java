@@ -182,7 +182,7 @@ public class ProductAdminImpl implements ProductAdmin {
 			}
 		}catch(NullPointerException e){
 			sqlSession.rollback();
-			throw new Exception("존재하지 않는 상품에 대한 요청입니다.");
+			throw new Exception("존재하지 않는 상품에 대한 요청입니다.1");
 		}catch(Exception e){
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("상품 검색에 실패했습니다.");

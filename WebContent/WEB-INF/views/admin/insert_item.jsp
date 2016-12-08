@@ -133,8 +133,9 @@
 		$("input[name='sal_no']:radio").change(function(){
 		var sal_no = this.value;
 		if(sal_no == "1"){
-			 $('#no').attr('disabled',false); 
+			 $('#no').attr('disabled',false);
 		}else{
+			$('#no').attr("value", "0"); 
 			    $('#no').attr('disabled',true);
 		}
 	});

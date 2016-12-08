@@ -13,12 +13,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.admin.service.ProductAdmin;
-import nurim.jsp.admin.service.ProductService;
 import nurim.jsp.admin.service.impl.ProductAdminImpl;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Product;
+import nurim.jsp.service.ProductService;
 
 /**
  * Servlet implementation class DeleteItem

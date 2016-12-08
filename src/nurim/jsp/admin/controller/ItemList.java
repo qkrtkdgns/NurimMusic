@@ -54,7 +54,7 @@ public class ItemList extends BaseController{
 		}
 		*/ 
 		
-		/** (3) 조회할 정보에 대한 Beans 생성 */
+		/** (4) 조회할 정보에 대한 Beans 생성 */
 	
 		Product product = new Product();
 		ProCategory proCategory = new ProCategory();

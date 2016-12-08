@@ -12,8 +12,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nurim.jsp.admin.service.ProductService;
-import nurim.jsp.admin.service.impl.ProductServiceImpl;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.PageHelper;
@@ -21,6 +19,8 @@ import nurim.jsp.helper.RegexHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Product;
+import nurim.jsp.service.ProductService;
+import nurim.jsp.service.impl.ProductServiceImpl;
 
 @WebServlet("/kor_rc1.do")
 public class kor_rc1 extends BaseController {

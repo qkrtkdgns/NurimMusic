@@ -43,9 +43,9 @@
 							<li>
 							<table >
 								<tr>
-								<td style="width:10;"><input type="checkbox" name="basket"></td>
+								<td style="width:10;"><input type="checkbox" name="basket" value="${product.id}" ></td>
 								<td width="145">
-								<a href="${pageContext.request.contextPath }/item.do">
+								<a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
 								<c:choose>
 									<c:when test="${product.proImg != null}">
 											<c:url var="downloadUrl" value="/download.do">
@@ -54,25 +54,30 @@
 												<img src="${downloadUrl}" />
 											</c:when>
 										<c:otherwise>
-												<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+												<img src="${pageContext.request.contextPath}/img/noimage.png" />
 										</c:otherwise>
 								</c:choose>			
 								</a>
 								</td>
 								<td width="493">
-								<a href="${pageContext.request.contextPath }/item.do">
-								<span class="title">${product.proName}</span></a>
-								<span class="substance">${product.provider}</span>
+								<a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
+								<span class="title" name="pro_name"  value="${product.proName}">${product.proName}</span></a>
+								<span class="substance" >${product.provider}</span>
 								</td>
 								<th width="183">
-									<p class="price1">${product.proPrice}원</p>
+									<p class="price1" name="price" value="${product.proPrice}">${product.proPrice}원</p>
 									<p class="price2">${product.proPrice}원</p>
 								</th>
 								<th class="item_button">
-									<a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
-									<a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-									<a href="#" class="btn btn-default" id="B1" name="list_01" />입고알림</a>
-									<a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
+								<c:choose>
+									<c:when test="${product.amount != 0}">
+											<a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
+											<a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
+											</c:when>
+										<c:otherwise>
+												<a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
+										</c:otherwise>
+								</c:choose>
 								</th>
 								</tr>
 					</table>
@@ -176,17 +181,8 @@
 <%@include file="inc/footer.jsp" %>
 		 <script type="text/javascript">
     	
-	$(function(){
-    			var sell= false;
-
-    			if(sell==false){
-    			$(".list_lineup > ul > li > table #A1").hide();
-    			$(".list_lineup > ul > li > table #B1").hide();
-    			}else{
-    			$(".list_lineup > ul > li > table #A").hide();
-    			$(".list_lineup > ul > li > table #B").hide();
-    			}
-	
+$(function(){
+    		
 //검색 관리
    $("#keyword_type").change(function(){
 	   var keyword_type = this.value;

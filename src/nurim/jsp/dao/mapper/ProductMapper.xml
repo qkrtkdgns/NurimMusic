@@ -100,7 +100,7 @@
 	<!--사용자용 상품 리스트 출력 -->
 	<select id="selectProductCategoryList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
-	SELECT c.pro_category_name, b.pro_name, a.id, a.product_id, a.category_id,
+	SELECT c.pro_category_name, b.pro_name, b.id, a.product_id, a.category_id,
 	b.pro_img, b.pro_price, b.amount, b.reg_date, b.provider
 	FROM product b
 	INNER JOIN pro_category a ON b.id=a.product_id
@@ -172,15 +172,53 @@
 	<select id="selectProduct" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
 	SELECT b.id, c.pro_category_name, b.pro_name, a.id, a.product_id, a.category_id,
-	b.pro_img, b.pro_price, b.amount, b.reg_date, b.provider, b.content
+	b.pro_img, b.pro_price, b.amount, b.reg_date, b.provider, b.content, b.pro_hit, b.reg_date
 	FROM product b
 	INNER JOIN pro_category a ON b.id=a.product_id
 	INNER JOIN category c ON a.category_id=c.id
 	WHERE b.id=#{id}
 	</select>
 	
-	
+	<!--  상품 삭제 -->
 	<delete id="deleteProduct"  parameterType="nurim.jsp.model.Product">
 	DELETE FROM product WHERE id=#{id}
 	</delete>
+	
+	
+	<!-- 이전 상품 -->
+	<select id="selectPrevProduct" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT b.id, c.pro_category_name, b.pro_name, b.id, a.product_id, a.category_id,
+	b.pro_img, b.pro_price, b.amount, b.reg_date, b.provider, b.content, b.pro_hit, b.reg_date
+	FROM product b
+	INNER JOIN pro_category a ON b.id=a.product_id
+	INNER JOIN category c ON a.category_id=c.id
+	WHERE  c.pro_category_name=#{proCategoryName} AND b.id&lt;#{id}
+	ORDER BY b.reg_date DESC
+	LIMIT 0,1
+	</select>
+	
+		<!-- 다음 상품 -->
+	<select id="selectNextProduct" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT b.id, c.pro_category_name, b.pro_name, b.id, a.product_id, a.category_id,
+	b.pro_img, b.pro_price, b.amount, b.reg_date, b.provider, b.content, b.pro_hit, b.reg_date
+	FROM product b
+	INNER JOIN pro_category a ON b.id=a.product_id
+	INNER JOIN category c ON a.category_id=c.id
+	WHERE c.pro_category_name=#{proCategoryName} AND b.id&gt;#{id} 
+	ORDER BY b.reg_date ASC
+	LIMIT 0,1
+	</select>
+	
+
+	
+	<!-- 조회수 증가 -->
+	<update id="updateProduct" parameterType="nurim.jsp.model.Product">
+		UPDATE product SET pro_hit=pro_hit+1 WHERE id=#{id}
+	</update>
+
+	
+
+	
 </mapper>

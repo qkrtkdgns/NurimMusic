@@ -97,8 +97,8 @@ public class EditItem extends BaseController{
 				Product product = new Product();
 				product.setId(productId);
 				
-				/** (4) 덧글 일련번호를 사용한 데이터 조회 */
-				// 지금 읽고 있는 덧글이 저장될 객체
+				/** (4) 상품 일련번호를 사용한 데이터 조회 */
+				// 지금 보고 있는 상품이 저장될 객체
 				Product readproduct= null;
 				
 				
