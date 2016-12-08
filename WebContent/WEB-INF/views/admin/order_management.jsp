@@ -99,7 +99,21 @@
 													class="item_checked" id="id" value="${order.id }" /></td>
 												<td>${order.regDate}-${order.id }</td>
 												<td>${order.recName}</td>
-												<td><img src="${order.proImg}" /></td>
+												<td>
+												<c:choose>
+														<c:when test="${order.proImg != null}">
+															<c:url var="downloadUrl" value="/download.do">
+																<c:param name="file" value="${order.proImg}" />
+															</c:url>
+															<img src="${downloadUrl}" />
+														</c:when>
+														<c:otherwise>
+															<img
+																src="${pageContext.request.contextPath}/assets/img/no_image.jpg"
+																/>
+														</c:otherwise>
+													</c:choose>
+												</td>
 												<td>${order.proName}</td>
 												<td>${order.oAmount}</td>
 												<td>${order.proPrice}</td>

@@ -1,4 +1,4 @@
-package nurim.jsp.admin.service;
+package nurim.jsp.service;
 
 import java.util.List;
 

@@ -55,7 +55,21 @@
 							<c:forEach var="b" items="${basket }">
 								<tr>
 								<td class="text-center" id="item"><input type="checkbox" name="checkbox" class="item_checked id" value="${b.id }"/></td>
-									<td id="item"><a href="${pageContext.request.contextPath }/item.do?productId='${b.productId}'"><img src="${b.proImg }" /> ${b.proName }</a></td>
+									<td id="item"><a href="${pageContext.request.contextPath }/item.do?productId=${b.productId}">
+									<c:choose>
+														<c:when test="${b.proImg != null}">
+															<c:url var="downloadUrl" value="/download.do">
+																<c:param name="file" value="${b.proImg}" />
+															</c:url>
+															<img src="${downloadUrl}" />
+														</c:when>
+														<c:otherwise>
+															<img
+																src="${pageContext.request.contextPath}/assets/img/no_image.jpg"
+																/>
+														</c:otherwise>
+													</c:choose>
+									<!--<img src="${b.proImg }" />  --> ${b.proName }</a></td>
 									<td class="text-center" id="item">${b.proPrice }원</td>
 									<td class="text-center" id="item"><input type="text" class="amount" value="${b.amount }" style="width:20px; float:left; display:inline-block;"/> 개</td>
 									<td class="text-center" id="item">${b.proPrice * b.amount }원</td>

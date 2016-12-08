@@ -24,67 +24,107 @@
         <!-- 내용 탭 end -->
 
             <div class="board">
-              <form style="margin-bottom:10px;">
-              <input type="text" name="user_id" id="user_id" value="qkrtkdqkrtkd" disabled style="width:10%; padding-left:10px; border:none; background:none;"/>
-              <input type="text" name="pay_check" id="pay_check" style="width:80%;" />
-              <button style="float:right; width:6%;">확인</button>
-            </form>
-   <table class="table table-striped table-hover">
-      <!-- 게시판 컬럼 주기 (분류) start -->
-      <colgroup>
-         <col style="width:5%;"></col>
-         <col style="width:50%;"></col>
-         <col style="width:5%;"></col>
-         <col style="width:5%;"></col>
-         </colgroup>
-   <thead>
-   </thead>
-   <!-- 게시판 컬럼 주기 (분류) end -->
+             <form style="margin-bottom: 10px;" id="check" method="post" action="${pageContext.request.contextPath }/pay_check_insert.do">
+				<input type="text" name="user_id" id="user_id" value="${loginInfo.userId }"
+					disabled
+					style="width: 10%; padding-left: 10px; border: none; background: none;" />
+				<input type="text" name="pay_check" id="pay_check"
+					style="width: 80%;" />
+				<button style="float: right; width: 6%;">확인</button>
+			</form>
+			<table class="table table-striped table-hover">
+				<!-- 게시판 컬럼 주기 (분류) start -->
+				<colgroup>
+					<col style="width: 5%;"></col>
+					<col style="width: 50%;"></col>
+					<col style="width: 5%;"></col>
+					<col style="width: 5%;"></col>
+				</colgroup>
+				<thead>
+				</thead>
+				<!-- 게시판 컬럼 주기 (분류) end -->
 
-   <!-- 게시물 내용 start -->
-   <tbody>
-   <tr>
-     <td>qkrtkdqkrtkd</td>
-     <td>입금확인 해주세요.</td>
-     <td>000.000.0</td>
-     <td>확인완료</td>
-   </tr>
-   <tr>
-     <td>qkrtkdqkrtkd</td>
-     <td>입금확인 해주세요.</td>
-     <td>000.000.0</td>
-     <td></td>
-   </tr>
-   <tr>
-     <td>qkrtkdqkrtkd</td>
-     <td>입금확인 해주세요.</td>
-     <td>000.000.0</td>
-     <td>확인완료</td>
-   </tr>
-   <tr>
-     <td>qkrtkdqkrtkd</td>
-     <td>입금확인 해주세요.</td>
-     <td>000.000.0</td>
-     <td></td>
-   </tr>
-   </tbody>
-   <!-- 게시물 내용 start -->
-   </table>
+				<!-- 게시물 내용 start -->
+				<tbody id="result">
+					
+				</tbody>
+				<!-- 게시물 내용 start -->
+			</table>
 
    <!--게시판 이동 버튼 start -->
-   <div class="text-center">
-   <ul class="pagination pagination-md">
-   <li class="disabled"><a href="#">&laquo;</a></li>
-   <li class="active"><span class="purple">1<span class="sr-only">(current)</span></span></li>
-   <li><a href="#">2</a></li>
-   <li><a href="#">&raquo;</a></li>
-   </ul>
-   </div>
+   
    </div>
    <!--게시판 이동 버튼 end -->
    </div>
 <!--본문내용 작성 end -->
+<Script id="tmpl_check_item" type="text/x-handlebars-template">
+	<tr>
+	<td>{{userId }}</td>
+	<td>{{content }}</td>
+	<td>{{ipAddress }}</td>
+	<td>{{payCheck }}</td>
+	</tr>
+	</Script>
+	<script>
+		$(function() {
+			$.get("${pageContext.request.contextPath}/pay_check_list.do", {
+			}, function(json) {
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
 
+				//템플릿 HTML을 로드한다.
+				var template = Handlebars.compile($("#tmpl_check_item")
+						.html());
+				for (var i = 0; i < 10; i++) {
+					//줄 바꿈에 대한 처리
+					// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+					// --> JSON에 포함된 '&lt;br//&gt;'을 검색에서 <br/>로 변경함.
+					json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
+
+					//JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+					var html = template(json.item[i]);
+					//결합된 결과를 더슥ㄹ 목록에 추가한다.
+					$("#result").append(html);
+				}
+			});
+			
+			$("#check").ajaxForm(
+					function(json) {
+						if (json.rt != "OK") {
+							alert(json.rt);
+							return false;
+						}
+						var template = Handlebars.compile($("#tmpl_check_item").html());
+						var html = template(json.item);
+						$("#check").trigger('reset');
+						$("#result").empty();
+						$.get("${pageContext.request.contextPath}/pay_check_list.do", {
+						}, function(json) {
+							if (json.rt != "OK") {
+								alert(json.rt);
+								return false;
+							}
+
+							//템플릿 HTML을 로드한다.
+							var template = Handlebars.compile($("#tmpl_check_item")
+									.html());
+							for (var i = 0; i < 10; i++) {
+								//줄 바꿈에 대한 처리
+								// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+								// --> JSON에 포함된 '&lt;br//&gt;'을 검색에서 <br/>로 변경함.
+								json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
+
+								//JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+								var html = template(json.item[i]);
+								//결합된 결과를 더슥ㄹ 목록에 추가한다.
+								$("#result").append(html);
+							}
+						});
+					});
+		});
+	</script>
 <%@include file="inc/footer.jsp" %>
 
    </body>

@@ -1,12 +1,12 @@
-package nurim.jsp.admin.service.impl;
+package nurim.jsp.service.impl;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
-import nurim.jsp.admin.service.ProductService;
 import nurim.jsp.model.Product;
+import nurim.jsp.service.ProductService;
 
 public class ProductServiceImpl implements ProductService{
 	

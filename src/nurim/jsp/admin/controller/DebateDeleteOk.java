@@ -1,6 +1,7 @@
 package nurim.jsp.admin.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,9 @@ import nurim.jsp.controller.bbs.BBSCommon;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.WebHelper;
+import nurim.jsp.model.Comment;
 import nurim.jsp.model.Document;
 import nurim.jsp.model.Member;
-import nurim.jsp.model.Comment;
 import nurim.jsp.service.CommentService;
 import nurim.jsp.service.DiscussionService;
 import nurim.jsp.service.impl.CommentServiceImpl;

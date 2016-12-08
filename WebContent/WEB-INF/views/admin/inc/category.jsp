@@ -32,6 +32,7 @@
 	<li class="glyphicon glyphicon-cog">&nbsp;<a href="${pageContext.request.contextPath}/admin/order_management.do"><span>주문관리</span></a>
 	</li>
 	<li class="glyphicon glyphicon-cog">&nbsp;<a href="${pageContext.request.contextPath}/admin/comment.do"><span>댓글관리</span></a>	</li>
+		<li class="glyphicon glyphicon-cog">&nbsp;<a href="${pageContext.request.contextPath}/admin/pay_check.do"><span>입금확인</span></a>	</li>
 	</ul>
 	</div>
 	</div>

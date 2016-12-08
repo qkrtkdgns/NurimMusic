@@ -1,5 +1,7 @@
 package nurim.jsp.service;
 
+import java.util.List;
+
 import nurim.jsp.model.Comment;
 
 /**
@@ -21,4 +23,35 @@ public interface CommentService {
 	 * @throws Exception
 	 */
 	public Comment selectPayCheck(Comment comment) throws Exception;
+	
+	/**
+	 * 입금목록을 전부 불러온다.
+	 * @param comment
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Comment> selectPayCheckList() throws Exception;
+
+	/**
+	 * 입금확인 목록갯수를 확인한다.
+	 * @param comment
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectcommentCountAll(Comment comment) throws Exception;
+
+	/**
+	 * 입금확인 목록을 불러온다.
+	 * @param comment
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Comment> selectcommentListAll(Comment comment) throws Exception;
+
+	/**
+	 * 입금확인 목록 상태를 변경한다.
+	 * @param comment
+	 * @throws Exception
+	 */
+	public void updatecomment(Comment comment) throws Exception;
 }

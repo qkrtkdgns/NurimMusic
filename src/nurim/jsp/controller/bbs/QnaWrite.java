@@ -1,11 +1,13 @@
 package nurim.jsp.controller.bbs;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nurim.jsp.controller.bbs.BBSCommon;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.WebHelper;
 

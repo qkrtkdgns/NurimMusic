@@ -1,7 +1,6 @@
 package nurim.jsp.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +17,6 @@ import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Product;
-import nurim.jsp.service.ProductService;
 
 /**
  * Servlet implementation class DeleteItem

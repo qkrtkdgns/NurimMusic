@@ -50,7 +50,21 @@
 								<input type="hidden" name="proName" value="${b.proName }" />
 								<input type="hidden" name="proImg" value="${b.proImg }" />
 								<tr>
-								<td id="item"><a><img src="${b.proImg }" /> ${b.proName }</a></td>
+								<td id="item"><a>
+								<c:choose>
+														<c:when test="${b.proImg != null}">
+															<c:url var="downloadUrl" value="/download.do">
+																<c:param name="file" value="${b.proImg}" />
+															</c:url>
+															<img src="${downloadUrl}" />
+														</c:when>
+														<c:otherwise>
+															<img
+																src="${pageContext.request.contextPath}/assets/img/no_image.jpg"
+																/>
+														</c:otherwise>
+													</c:choose>
+								 ${b.proName }</a></td>
 									<td class="text-center" id="item">${b.proPrice }원</td>
 									<td class="text-center" id="item">${b.amount } 개</td>
 									<td class="text-center" id="item">0원</td>

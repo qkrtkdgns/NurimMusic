@@ -91,7 +91,8 @@ public class MemberDelete extends BaseController {
 		// 자체적으로 View를 갖지 않고 결과를 확인할 수 있는
 		// 다른페이지로 강제 이동시켜야 한다. (중복실행 방지)
 		// 그러므로 View의 경로를 리턴하지 않는다.
-		return "admin/member";
+		web.redirect(web.getRootPath()+"/admin/member.do", null);
+		return null;
 	}
 
 }
