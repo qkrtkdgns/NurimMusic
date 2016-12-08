@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- 회원에 대한 CRUD -->
+<mapper namespace="ReviewMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="document" type="nurim.jsp.model.Document">
+    	<result property="id" 				column="id" />
+    	<result property="memberId" 	column="member_id" />
+    	<result property="category" 		column="category" />
+    	<result property="subject" 		column="subject" />
+    	<result property="content"		column="content" />
+    	<result property="regDate" 		column="reg_date" />
+    	<result property="editDate" 		column="edit_date" />
+    	<result property="hit"	 			column="hit" />
+    	<result property="ipAddress"	 	column="ip_address" />
+    	<result property="productId"	 	column="product_id" />
+    </resultMap>
+    
+    <!-- 회원리뷰 저장하기 -->
+    <insert id="insertReview" parameterType="nurim.jsp.model.Document" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO document (
+    category, subject, content, reg_date, edit_date, hit, ip_address, member_id, product_id
+    ) VALUES (
+   		#{category}, #{subject}, #{content}, now(), now(), 0, #{ipAddress}, #{memberId}, #{productId}
+    )
+    </insert>
+    
+    <!-- 회원리뷰 하나에 대한 정보를 조회한다. -->
+    <select id="selectReview" parameterType="nurim.jsp.model.Document" resultMap="document">
+    SELECT id, category, subject, content, hit,
+    	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+    	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+    	ip_address, member_id, product_id
+    FROM document
+   WHERE category=#{category} AND id=#{id}
+    </select>
+    
+     <!-- 조회수 증가 -->
+    <update id="updateReviewHit" parameterType="nurim.jsp.model.Document">
+    UPDATE document SET hit=hit+1 WHERE category=#{category} AND id=#{id}
+    </update>
+   
+   <!-- 회원리뷰 목록을 조회한다. -->
+    <select id="selectReviewList" parameterType="nurim.jsp.model.Document" resultMap="document">
+    SELECT id, category, member_id, subject, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date
+    
+    <if test="gallery == true">
+		,(SELECT concat(file_dir, '/', file_name) FROM file
+		WHERE document_id=document.id
+		AND content_type LIKE ('image/%')
+		) as image_path
+	</if>
+	FROM document
+	
+	<where>
+		category=#{category}
+		
+		<if test="subject != null or content != null">
+			AND (
+				<if test="subject != null">
+				subject LIKE concat('%', #{subject}, '%')
+				</if>
+				
+				<if test="content != null">
+					OR content LIKE concat('%', #{content}, '%')
+				</if>
+				)
+		</if>
+	</where>
+		ORDER BY id DESC
+	</select>
+    
+    <!-- 전체 공지사항 수를 조회한다. // 직계 함수를 사용할 때에는 resultType="int"를 사용한다.-->
+	<select id="selectReviewCount" parameterType="nurim.jsp.model.Document" resultType="int">
+	SELECT COUNT(id) FROM document
+	</select>
+     
+    <!-- 공지사항 삭제하기 -->
+	<delete id="deleteReview" parameterType="nurim.jsp.model.Document">
+	DELETE FROM document WHERE id=#{id}
+	</delete>
+	
+	<!-- 공지사항 수정하기 -->
+	<update id="updateReview" parameterType="nurim.jsp.model.Document">
+	UPDATE document SET category=#{category}, user_name=#{userName}, email=#{email}, subject=#{subject}, content=#{content}, ip_address=#{ipAddress}, edit_date=now() WHERE id=#{id} 
+	</update>
+	
+	<!-- 자신의 게시물인지 검사한다. -->
+	<select id="selectReviewCountByMemberId" parameterType="nurim.jsp.model.Document" resultType="int">
+	SELECT COUNT(id) FROM document
+	WHERE category=#{category} AND id=#{id} AND member_id=#{memberId}
+	</select>
+	
+	<!-- 이전글 정보를 조회한다. -->
+	<select id="selectPrevReview"
+	parameterType="nurim.jsp.model.Document"
+	resultMap="document">
+	SELECT id, category, subject, content, hit,
+	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+				ip_address, member_id, product_id
+	FROM 	document
+	WHERE	category=#{category} AND id &lt; #{id}
+	ORDER 	BY id DESC
+	LIMIT 	0, 1
+	</select>
+	
+	<!-- 다음글 정보를 조회한다. -->
+	<select id="selectNextReview"
+	parameterType="nurim.jsp.model.Document"
+	resultMap="document">
+	SELECT id, category, subject, content, hit,
+	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+				ip_address, member_id, product_id
+	FROM 	document
+	WHERE	category=#{category} AND id &gt; #{id}
+	ORDER	 BY id ASC
+	LIMIT 	0, 1
+	</select>
+     
+</mapper>

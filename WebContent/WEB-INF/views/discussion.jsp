@@ -55,10 +55,12 @@
 
 				<!--참여하기 버튼 -->
 				<div class="dis_img">
-					<img class="agree_img" src="${pageContext.request.contextPath }/img/dis_1.png"> <img
-						class="bar_img" src="${pageContext.request.contextPath }/img/dis_3.png"> <img
-						class="disargee_img" src="${pageContext.request.contextPath }/img/dis_2.png"> <a href="#"> <img
-						class="parti_img" src="${pageContext.request.contextPath }/img/dis_4.png"></a>
+					<img class="agree_img" src="${pageContext.request.contextPath }/img/dis_1.png"> 
+					<img class="bar_img" src="${pageContext.request.contextPath }/img/dis_3.png"> 
+					<img class="disargee_img" src="${pageContext.request.contextPath }/img/dis_2.png"> 
+					<a href="${pageContext.request.contextPath }/discussion_write_result.do?category=discussion"> 
+					<img class="parti_img" src="${pageContext.request.contextPath }/img/dis_4.png">
+					</a>
 				</div>
 			</div>
 
@@ -103,8 +105,8 @@
 							<td class="cont_date">${document.regDate }</td>
 							<td class="cont_datec">2016.10.17</td>
 							<td class="cont_view">${document.hit }</td>
-							<td class="cont_ag">0</td>
-							<td class="cont_disag">0</td>
+							<td class="cont_ag"></td>
+							<td class="cont_disag"></td>
 						</tr>
 						</c:forEach>
 						</c:when>
@@ -223,6 +225,6 @@
 	<!--본문내용 작성 end -->
 
 	<%@include file="inc/footer.jsp"%>
-
+	
 </body>
 </html>
