@@ -55,6 +55,7 @@ public class DeleteItemOK extends BaseController {
 		}
 		
 	
+		web.redirect(web.getRootPath()+"admin/item_list.do", null);
 		return null;
 	}
 

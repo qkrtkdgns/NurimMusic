@@ -49,7 +49,7 @@
 								<tr>
 								
 								<c:choose>
-								<c:when test="${a.index%2 ==0 }">
+								<c:when test="${a.index%2 ==1 }">
 								<td style="font-size:12px; font-weight:bold">${document.regDate } - ${document.id }</td>
 								<td>${document.editDate }</td>
 								<td>${document.qnaType }</td>

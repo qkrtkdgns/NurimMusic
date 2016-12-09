@@ -4,6 +4,7 @@ public class Comment {
 	private int id;
 	private int memberId;
 	private int documentId;
+	private int productId;
 	private String userId;
 	private String regDate;
 	private String editDate;
@@ -14,6 +15,12 @@ public class Comment {
 	private int LimitStart;
 	private int ListCount;
 	
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
 	public String getContent() {
 		return content;
 	}
@@ -83,9 +90,10 @@ public class Comment {
 	}
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", memberId=" + memberId + ", documentId=" + documentId + ", userId=" + userId
-				+ ", regDate=" + regDate + ", editDate=" + editDate + ", ipAddress=" + ipAddress + ", content="
-				+ content + ", payCheck=" + payCheck + ", LimitStart=" + LimitStart + ", ListCount=" + ListCount + "]";
+		return "Comment [id=" + id + ", memberId=" + memberId + ", documentId=" + documentId + ", productId="
+				+ productId + ", userId=" + userId + ", regDate=" + regDate + ", editDate=" + editDate + ", ipAddress="
+				+ ipAddress + ", content=" + content + ", payCheck=" + payCheck + ", LimitStart=" + LimitStart
+				+ ", ListCount=" + ListCount + "]";
 	}
 	
 }

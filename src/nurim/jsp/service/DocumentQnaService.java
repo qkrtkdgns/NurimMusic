@@ -54,4 +54,11 @@ public interface DocumentQnaService {
 	public int selectQnaCount(Document document) throws Exception;
 	
 	public void updateQna(Document document) throws Exception;
+	
+	/**
+	 * 일대일 문의답변 내용을 생성한다.
+	 * @param document
+	 * @throws Exception
+	 */
+	public void insertQnaA (Document document) throws Exception;
 }

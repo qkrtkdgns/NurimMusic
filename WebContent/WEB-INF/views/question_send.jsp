@@ -27,7 +27,7 @@
 	<div class="form-group">
 	<label for="qna_type" class="control-label">상담유형(QnA Type)</label>
 	<div >
-	<select name="qna_type" id="qna_type" form="question_send" class="form-control">
+	<select name="qna_type" id="qna_type" class="form-control">
 		<option value="상담 유형 선택">상담유형을 선택하세요.</option>
 		<option value="교환">교환</option>
 		<option value="반품">반품</option>
