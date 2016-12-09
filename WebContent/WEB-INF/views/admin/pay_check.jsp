@@ -64,7 +64,7 @@
 										<c:forEach var="c" items="${commentList}" varStatus="i">
 											<tr>
 											<td><input type="hidden" id="id" value="${c.id }"/>${i.index + (fn:length(commentList)*pageHelper.page-2)}</td>
-											<td>${c.id }</td>
+											<td>${c.userId }</td>
 											<td>${c.content }</td>
 											<td>
 												<select class="state">
@@ -95,9 +95,7 @@
 	<!-- 테이블 end -->
 	</div>
 	<!-- 버튼 start -->
-	<div id="bt_box">
-	<button id="delete">삭제</button>
-	</div>
+	
 	<!-- 버튼 end -->
 	<!-- 컨텐츠 영역 end -->
 	</div>

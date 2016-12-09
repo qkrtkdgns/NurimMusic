@@ -95,11 +95,13 @@ public class QnaWriteOk extends BaseController {
 		document.setContent(content);
 		document.setMemberId(memberId);
 		document.setIpAddress(ipAddress);
+		document.setQnaType(qnaType);
 		logger.debug("document >> " + document.toString());
 		
 		/** (8) Service를 통한 게시물 저장 */
 		try {
 			documentQnaService.insertQna(document);
+			documentQnaService.insertQnaA(document);
 		} catch (Exception e) {
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());

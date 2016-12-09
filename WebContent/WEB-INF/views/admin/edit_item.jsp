@@ -129,6 +129,7 @@
 					</tbody>
 				</table>
 				<div id="bt">
+				<input type="hidden" id="product_id" value="${readproduct.id }" />
 					<button type="submit">수정 완료</button>
 					<button type="button" onclick="history.back();">취소</button>
 				</div>

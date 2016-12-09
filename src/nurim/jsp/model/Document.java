@@ -13,10 +13,24 @@ public class Document {
 	private int agree = 0;
 	private int disagree = 0;
 	private String qnaType = null;
+	private String endDate;
+	private int productId;
 	
 	private int LimitStart= 0;
 	private int ListCount=0;
 	
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
 	public int getLimitStart() {
 		return LimitStart;
 	}
@@ -106,7 +120,8 @@ public class Document {
 		return "Document [id=" + id + ", memberId=" + memberId + ", category=" + category + ", subject=" + subject
 				+ ", content=" + content + ", regDate=" + regDate + ", editDate=" + editDate + ", hit=" + hit
 				+ ", ipAddress=" + ipAddress + ", agree=" + agree + ", disagree=" + disagree + ", qnaType=" + qnaType
-				+ ", LimitStart=" + LimitStart + ", ListCount=" + ListCount + "]";
+				+ ", endDate=" + endDate + ", productId=" + productId + ", LimitStart=" + LimitStart + ", ListCount="
+				+ ListCount + "]";
 	}
 	
 }

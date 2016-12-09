@@ -154,6 +154,7 @@ public class user_informationOk extends BaseController {
 	    	  memberService.updateMemberInformation(member);
 	      }catch(Exception e){
 	    	  logger.debug(e.getLocalizedMessage());
+	    	  web.redirect(null, e.getLocalizedMessage());
 	    	  return null;
 	      }finally{
 	    	  sqlSession.close();
