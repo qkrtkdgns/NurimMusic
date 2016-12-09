@@ -11,7 +11,6 @@
     	<result property="memberId" 	column="member_id" />
     	<result property="userId" 	column="user_id" />
     	<result property="documentId" 	column="document_id" />
-    	<result property="productId" 	column="product_id" />
     	<result property="content"		column="content" />
     	<result property="regDate" 		column="reg_date" />
     	<result property="editDate" 	column="edit_date" />

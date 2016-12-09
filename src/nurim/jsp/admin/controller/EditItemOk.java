@@ -58,6 +58,7 @@ public class EditItemOk extends BaseController{
 		
 				
 				Map<String, String> paramMap =upload.getParamMap();
+				
 				/** (3) 글 번호 파라미터 받기 */
 				int productId=0;
 				try{

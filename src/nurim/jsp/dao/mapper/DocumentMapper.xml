@@ -10,6 +10,8 @@
     	<result property="id" 			column="id" />
     	<result property="memberId" 	column="member_id" />
     	<result property="category" 	column="category" />
+    	<result property="userName"		column="user_name" />
+    	<result property="tel"			column="tel" />
     	<result property="subject" 		column="subject" />
     	<result property="content"		column="content" />
     	<result property="regDate" 		column="reg_date" />
@@ -19,11 +21,18 @@
     	<result property="agree" 		column="agree" />
     	<result property="disagree" 	column="disagree" />
     	<result property="qnaType" 		column="qna_type" />
-    	<result property="endDate" 		column="end_date" />
-    	<result property="productId" 		column="product_id" />
     	
     </resultMap>
-        
+    
+    <!-- 1:1 문의내역 저장하기 -->
+    <insert id="insertQna" parameterType="nurim.jsp.model.Document" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO document (
+    category, qna_type, user_name, tel, email, subject, content
+    ) VALUES (
+   		#{category}, #{qna_type}, #{user_name}, #{tel}, #{email}, #{subject}, #{content}
+    )
+    </insert>
+    
     <!-- 1:1 문의내역 목록 수를 멤버아이디로 검색 -->
     <select id="selectQnaCount" parameterType="nurim.jsp.model.Document"
     resultType="int">
@@ -41,7 +50,6 @@
     FROM document
     WHERE member_id = #{memberId} 
     AND qna_type IS NOT null
-    ORDER BY id desc
     LIMIT #{limitStart},#{listCount}
     </select>
     

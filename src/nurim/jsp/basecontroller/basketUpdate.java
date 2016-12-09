@@ -49,10 +49,6 @@ public class basketUpdate extends BaseController {
 		//파라미터 받기
 		int id = web.getInt("id");
 		int amount = web.getInt("amount");
-		if(amount < 1){
-			web.redirect(null, "수량을 1보다 작게 설정할 수 없습니다.");
-			return null;
-		}
 		logger.debug("id >> " + id);
 		logger.debug("amount >> " + amount);
 		

@@ -148,23 +148,5 @@ public class DocumentQnaServiceImpl implements DocumentQnaService {
 		
 		return result;
 	}
-	@Override
-	public void insertQnaA(Document document) throws Exception {
-		try {
-			int result = sqlSession.insert("DocumentQnaMapper.insertQnaA", document);
-			if (result == 0) {
-				throw new NullPointerException();
-				}
-			} catch (NullPointerException e) {
-				sqlSession.rollback();
-				throw new Exception("저장된 게시물이 없습니다.");
-			} catch (Exception e) {
-				sqlSession.rollback();
-				logger.error(e.getLocalizedMessage());
-				throw new Exception("게시물 정보 등록에 실패했습니다.");
-			} finally {
-				sqlSession.commit();
-			}
-		
-	}
+	
 }

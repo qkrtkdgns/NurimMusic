@@ -81,15 +81,5 @@
 		SELECT COUNT(id) FROM document
 		
 	</select>
-	
-	 <!-- 1:1 문의게시글 답변 생성 -->
-    <insert id="insertQnaA" parameterType="nurim.jsp.model.Document"
-    useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO document (
-    category, qna_type, member_id, subject, content, reg_date, edit_date, hit, ip_address
-    ) VALUES (
-   		#{category}, #{qnaType}, #{memberId}, "답변대기", "답변대기", now(), now(), 0, #{ipAddress}
-    )
-    </insert>
      
 </mapper>

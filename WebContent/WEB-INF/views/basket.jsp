@@ -108,22 +108,9 @@
       <script>
       $(function(){
     	  $(".update").click(function(){
-    		  var amount = $(this).parents('tr').find('.amount').val();
-    		  if(amount < 1){
-    			  alert("수량을 1보다 적게 설정할 수 없습니다.");
-    			  location.reload();
-    			  return false;
-    		  }
     		  window.location.href = "${pageContext.request.contextPath}/basket_update.do?id="+$(this).parents('tr').find('.id').val()+"&amount="+$(this).parents('tr').find('.amount').val();
     	  }); 
-    	  $("#all_check").click(function(){
-    		  if($("#all_check").is(':checked') == false){
-    			  var cnt = 0;
-    		  }else{
-    			  var cnt = $("input[name=checkbox]:checkbox").length;
-    		  }
-    		  $("#count").val(cnt);
-    	  });
+    	  
     	  $("input[name=checkbox]:checkbox").click(function(){
   			var cnt = $("input[name=checkbox]:checkbox:checked").length;
   			$("#count").val(cnt);

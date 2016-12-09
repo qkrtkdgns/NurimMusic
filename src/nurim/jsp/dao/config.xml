@@ -23,7 +23,6 @@
 	<mapper resource="nurim/jsp/dao/mapper/BasketMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/CommentMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/DocumentMapper.xml" />
-	<mapper resource="nurim/jsp/dao/mapper/DocumentQnaMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/FileMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/MemberMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/OrderMapper.xml" />
