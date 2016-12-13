@@ -62,5 +62,34 @@ public interface ProductService {
 	 * @throws Exception
 	 */
 	public List<Product> selectProductHOTItemList() throws Exception;
-
+	
+	/**
+	 * 단일 상품을 조회한다.
+	 * @param product - 상품 데이터
+	 * @throws Exception
+	 */
+	public Product selectProduct(Product product) throws Exception;
+	
+	/**
+	 * 이전 상품을 조회한다.
+	 * @param product - 상품 데이터
+	 * @throws Exception
+	 */
+	public Product selectPrevProduct(Product product) throws Exception;
+	
+	/**
+	 * 다음 상품을 조회한다.
+	 * @param product - 상품 데이터
+	 * @throws Exception
+	 */
+	public Product selectNextProduct(Product product) throws Exception;
+	
+	
+	/**
+	 * 조회수 증가
+	 * @param product - 상품 데이터
+	 * @throws Exception
+	 */
+	public void updateProduct(Product product) throws Exception;
+	
 }

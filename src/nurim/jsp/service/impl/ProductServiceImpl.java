@@ -182,6 +182,68 @@ List<Product> result = null;
 		
 		return result;
 	}
+	
+	@Override
+	public Product selectProduct(Product product) throws Exception {
+		Product result = null;
+		try{
+			result = sqlSession.selectOne("ProductMapper.selectProduct", product);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 상품에 대한 요청입니다.2");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 검색에 실패했습니다.");
+		}
+		return result;
+	}
 
+	@Override
+	public Product selectPrevProduct(Product product) throws Exception {
+		Product result = null;
+		try{
+			result = sqlSession.selectOne("ProductMapper.selectPrevProduct", product);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("이전 상품 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public Product selectNextProduct(Product product) throws Exception {
+		Product result = null;
+		try{
+			result = sqlSession.selectOne("ProductMapper.selectNextProduct", product);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("다음 상품 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public void updateProduct(Product product) throws Exception {
+
+		try{
+			int result = sqlSession.update("ProductMapper.updateProduct", product);
+			if(result ==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 상품에 대한 요청입니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("조회수 갱신에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
 
 }
