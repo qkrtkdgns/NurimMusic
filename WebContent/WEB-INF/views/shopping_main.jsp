@@ -84,7 +84,7 @@
 								<c:forEach var="n" items="${MDItem }" begin="0" end="4"
 									varStatus="i">
 									<li class="shop_li${i.index+1 }"><a
-										href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+										href="${pageContext.request.contextPath }/item.do?id=${n.id}&category=${n.proCategoryName}">
 											<span class="thumb"> <c:choose>
 													<c:when test="${n.proImg != null}">
 														<c:url var="downloadUrl" value="/download.do">
@@ -118,7 +118,7 @@
 									<c:forEach var="n" items="${HOTItem }" begin="0" end="4"
 										varStatus="i">
 										<li class="shop_li${i.index+1 }"><a
-											href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+											href="${pageContext.request.contextPath }/item.do?id=${n.id}&category=${n.proCategoryName}">
 												<span class="thumb"> <c:choose>
 														<c:when test="${n.proImg != null}">
 															<c:url var="downloadUrl" value="/download.do">

@@ -222,30 +222,36 @@
 	<select id="selectProductBestItemList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
 	SELECT 
-	id, pro_img, pro_name, pro_price, amount, pro_hit,
-	reg_date, edit_date, provider, content
-	FROM product
-	ORDER BY amount asc
+	p.id, p.pro_img, p.pro_name, p.pro_price, p.amount,p. pro_hit, pro_category_name,
+	p.reg_date, p.edit_date, p.provider, p.content
+	FROM product as p 
+	INNER JOIN pro_category ON p.id = pro_category.product_id
+	INNER JOIN category ON pro_category.category_id = category.id	
+	ORDER BY p.amount asc
 	LIMIT 0,12
 	</select>
 	<!-- NewItem 검색 -->
 	<select id="selectProductNewItemList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
 	SELECT 
-	id,pro_img, pro_name, pro_price, amount, pro_hit,
-	reg_date, edit_date, provider, content
-	FROM product
-	ORDER BY edit_date desc
+	p.id, p.pro_img, p.pro_name, p.pro_price, p.amount,p. pro_hit, pro_category_name,
+	p.reg_date, p.edit_date, p.provider, p.content
+	FROM product as p 
+	INNER JOIN pro_category ON p.id = pro_category.product_id
+	INNER JOIN category ON pro_category.category_id = category.id	
+	ORDER BY p.edit_date desc
 	LIMIT 0,15
 	</select>
 	<!-- MDItem 검색 -->	
 	<select id="selectProductMDItemList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
 	SELECT 
-	id, pro_img, pro_name, pro_price, amount, pro_hit,
-	reg_date, edit_date, provider, content
-	FROM product
-	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="7" OR category_id="8")
+	p.id, p.pro_img, p.pro_name, p.pro_price, p.amount,p. pro_hit, pro_category_name,
+	p.reg_date, p.edit_date, p.provider, p.content
+	FROM product as p 
+	INNER JOIN pro_category ON p.id = pro_category.product_id
+	INNER JOIN category ON pro_category.category_id = category.id	
+	WHERE p.id=ANY(SELECT product_id FROM pro_category where category_id="7" OR category_id="8")
 	ORDER BY amount desc
 	LIMIT 0,5
 	</select>
@@ -254,11 +260,13 @@
 	<select id="selectProductKorNewItemList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
 	SELECT 
-	id, pro_img, pro_name, pro_price, amount, pro_hit,
-	reg_date, edit_date, provider, content
-	FROM product
-	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="1" OR category_id="2" OR category_id="3")
-	ORDER BY edit_date desc
+	p.id, p.pro_img, p.pro_name, p.pro_price, p.amount,p. pro_hit, pro_category_name,
+	p.reg_date, p.edit_date, p.provider, p.content
+	FROM product as p 
+	INNER JOIN pro_category ON p.id = pro_category.product_id
+	INNER JOIN category ON pro_category.category_id = category.id	
+	WHERE p.id=ANY(SELECT product_id FROM pro_category where category_id="1" OR category_id="2" OR category_id="3")
+	ORDER BY p.edit_date desc
 	LIMIT 0,15
 	</select>
 		
@@ -266,11 +274,13 @@
 	<select id="selectProductForeignNewItemList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
 	SELECT 
-	id, pro_img, pro_name, pro_price, amount, pro_hit,
-	reg_date, edit_date, provider, content
-	FROM product
-	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="4" OR category_id="5" OR category_id="6")
-	ORDER BY edit_date desc
+	p.id, p.pro_img, p.pro_name, p.pro_price, p.amount,p. pro_hit, pro_category_name,
+	p.reg_date, p.edit_date, p.provider, p.content
+	FROM product as p 
+	INNER JOIN pro_category ON p.id = pro_category.product_id
+	INNER JOIN category ON pro_category.category_id = category.id	
+	WHERE p.id=ANY(SELECT product_id FROM pro_category where category_id="4" OR category_id="5" OR category_id="6")
+	ORDER BY p.edit_date desc
 	LIMIT 0,15
 	</select>
 	
@@ -278,11 +288,13 @@
 	<select id="selectProductHOTItemList" parameterType="nurim.jsp.model.Product"
 	resultMap="product">
 	SELECT 
-	id, pro_img, pro_name, pro_price, amount, pro_hit,
-	reg_date, edit_date, provider, content
-	FROM product
-	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="7" OR category_id="8")
-	ORDER BY pro_hit desc
+	p.id, p.pro_img, p.pro_name, p.pro_price, p.amount,p. pro_hit, pro_category_name,
+	p.reg_date, p.edit_date, p.provider, p.content
+	FROM product as p 
+	INNER JOIN pro_category ON p.id = pro_category.product_id
+	INNER JOIN category ON pro_category.category_id = category.id	
+	WHERE p.id=ANY(SELECT product_id FROM pro_category where category_id="7" OR category_id="8")
+	ORDER BY p.pro_hit desc
 	LIMIT 0,5
 	</select>
 </mapper>

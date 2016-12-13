@@ -71,7 +71,7 @@
 					<c:when test="${fn:length(bestItem) > 0}">
 						<c:forEach var="b" items="${bestItem }" varStatus="i">
 							<a
-								href="${pageContext.request.contextPath }/item.do?productId=${b.id}">
+								href="${pageContext.request.contextPath }/item.do?id=${b.id}&category=${b.proCategoryName}">
 								<c:choose>
 									<c:when test="${b.proImg != null}">
 										<c:url var="downloadUrl" value="/download.do">
@@ -103,7 +103,7 @@
 					<c:when test="${fn:length(newItem) > 0}">
 						<c:forEach var="n" items="${newItem }" varStatus="i">
 							<li><a
-								href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+								href="${pageContext.request.contextPath }/item.do?id=${n.id}&category=${n.proCategoryName}">
 									<span class="thumb"> <c:choose>
 											<c:when test="${n.proImg != null}">
 												<c:url var="downloadUrl" value="/download.do">
@@ -135,7 +135,7 @@
 					<c:when test="${fn:length(MDItem) > 0}">
 						<c:forEach var="md" items="${MDItem }" begin="0" end="3" varStatus="i">
 							<li class="rv_list"><a
-								href="${pageContext.request.contextPath }/item.do?productId=${md.id}">
+								href="${pageContext.request.contextPath }/item.do?id=${md.id}&category=${md.proCategoryName}">
 									<span class="thumb"> <c:choose>
 											<c:when test="${md.proImg != null}">
 												<c:url var="downloadUrl" value="/download.do">

@@ -26,7 +26,7 @@
                         <c:choose>
 					<c:when test="${fn:length(newItem) > 0}">
 						<c:forEach var="n" items="${newItem }" begin="0" end="8" varStatus="i">
-							<li><a href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+							<li><a href="${pageContext.request.contextPath }/item.do?id=${n.id}&category=${n.proCategoryName}">
 								<c:choose>
 									<c:when test="${n.proImg != null}">
 										<c:url var="downloadUrl" value="/download.do">
@@ -52,7 +52,7 @@
                 <c:choose>
 					<c:when test="${fn:length(newItem) > 0}">
 						<c:forEach var="n" items="${newItem }" varStatus="i">
-							<li><a href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+							<li><a href="${pageContext.request.contextPath }/item.do?id=${n.id}&category=${n.proCategoryName}">
 							<span class="thumb">
 								<c:choose>
 									<c:when test="${n.proImg != null}">
