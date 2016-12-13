@@ -55,4 +55,10 @@
     WHERE id=#{id}
     </select>
      
+     <!-- 회원 탈퇴시 게시글 회원id 수정 -->
+     <update id="updateDocumentByMember" parameterType="nurim.jsp.model.Document">
+     UPDATE document
+     SET member_id=1
+     WHERE member_id = #{memberId}
+     </update>
 </mapper>

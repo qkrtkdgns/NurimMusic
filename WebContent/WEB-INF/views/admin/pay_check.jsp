@@ -28,14 +28,27 @@
 	<div id="member">
 	<!--검색 start -->
 	<div id="search">
-	<form>
-	<select id="dropdown">
-	<option value="검색조건">검색조건</option>
-	<option value="아이디">아이디</option>
-	<option value="제목">내용</option>
-	<option value="내용">카테고리</option>
+	<form method="get" action="${pageContext.request.contextPath }/admin/pay_check.do">
+	<select name="dropdown" id="dropdown">
+	<option value="">검색조건</option>
+	<c:choose>
+	<c:when test="${dropdown == 'id' }">
+	<option value="id" selected>아이디</option>
+	</c:when>
+	<c:otherwise>
+	<option value="id">아이디</option>
+	</c:otherwise>
+	</c:choose>
+	<c:choose>
+	<c:when test="${dropdown eq 'content' }">
+	<option value="content" selected>내용</option>
+	</c:when>
+	<c:otherwise>
+	<option value="content">내용</option>
+	</c:otherwise>
+	</c:choose>
 	</select>
-	<input type="text" name="search_item" id="search_item" placeholder="검색어를 입력하세요." />
+	<input type="text" name="search_item" id="search_item" value="${search_item }" placeholder="검색어를 입력하세요." />
 	<button type="submit" id="submit_bt">검색</button>
 	</form>
 	</div>

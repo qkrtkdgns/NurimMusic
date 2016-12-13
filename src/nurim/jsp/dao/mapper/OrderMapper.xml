@@ -330,5 +330,12 @@
 	SET rec_state = ${recState}, edit_date = now()
 	WHERE id=#{id}
 	</update>
+	
+	<!-- 주문목록에서 회원아이디 변경 -->
+	<update id="updateOrderByMember" parameterType="nurim.jsp.model.Order">
+	UPDATE nurimmusic.order
+	SET member_id = 1
+	WHERE member_id=#{memberId}
+	</update>
 </mapper>
 

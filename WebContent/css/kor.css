@@ -90,6 +90,8 @@
            display: block;
            float: left;
            width:80%;
+           height:38px;
+           overflow:hidden;
            margin-left: 10%;
            white-space: normal;
          }
@@ -150,3 +152,8 @@
          }
 
          /** img_slide end */
+         
+         .ab_name{
+         height:38px;
+         overflow:hidden;
+         }

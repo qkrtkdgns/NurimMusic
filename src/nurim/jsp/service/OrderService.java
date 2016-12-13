@@ -121,5 +121,12 @@ public interface OrderService {
 	 * @throws Exception
 	 */
 	void updateOrder(Order order) throws Exception;
+	
+	/**
+	 * 삭제된 회원의 주문목록에서 회원 아이디를 0으로 바꾼다.
+	 * @param order
+	 * @throws Exception
+	 */
+	void updateOrderByMember(Order order) throws Exception;
 
 }

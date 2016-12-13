@@ -166,4 +166,16 @@ public class CommentServiceImpl implements CommentService {
 		}
 	}
 
+	@Override
+	public void updateCommentByMember(Comment comment) throws Exception {
+		try{
+			sqlSession.update("CommentMapper.updateCommentByMember",comment);
+		}catch(Exception e){
+			sqlSession.rollback();
+			throw new Exception("댓글 수정에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
 }

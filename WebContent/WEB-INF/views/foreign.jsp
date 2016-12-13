@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,132 +23,55 @@
          <div class="top_list">
             <div class="img_slide"><span>최신음반</span>
                         <ul>
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide01.jpg" /></a><span>SUICIDE SQUAD: THE ALBUM - O.S.T.</span><br/><span>14,900원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide02.jpg" /></a><span>아라시 - 아라시 라이브 투어 2015 (자포니즘)</span><br/><span class="price">31,100원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide03.jpg" /></a ><span>GREEN DAY - REVOLUTION RADIO</span><br/><span class="price">14,900원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide04.jpg" /></a><span>NORAH JONES - DAY BREAKS</span><br/><span class="price">14,700원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide05.jpg" /></a><span>LADY GAGA - JOANNE (DELUXE)</span><br/><span class="price">18,700원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide06.jpg" /></a><span>STAR TREK BEYOND - O.S.T.</span><br/><span class="price">14,700원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide07.jpg" /></a><span>CELINE DION - ENCORE UN SOIR</span><br/><span class="price">17,800원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide08.jpg" /></a><span>AI SHINOZAKI (篠崎 愛) - KUCHI NO WARUI ONNA</span><br/><span class="price">17,800원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/for_slide09.jpg" /></a><span>HONNE - WARM ON A COLD NIGHT (DELUXE)</span><br/><span class="price">16,800원</span></li>
+                          <c:choose>
+					<c:when test="${fn:length(newItem) > 0}">
+						<c:forEach var="n" items="${newItem }" begin="0" end="8" varStatus="i">
+							<li><a href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+								<c:choose>
+									<c:when test="${n.proImg != null}">
+										<c:url var="downloadUrl" value="/download.do">
+											<c:param name="file" value="${n.proImg}" />
+										</c:url>
+										<img src="${downloadUrl}" />
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+									</c:otherwise>
+								</c:choose>
+							</a><span>${n.proName }</span><br/><span class="price">${n.proPrice }원</span></li>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
                         </ul>
                   </div>
             <div class="goods">
                <ul class="new_item_ul1">
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image01.jpg"></a></span>
-               <span class="ab_name">BRUNO MARS - 24K MAGIC</span>
-               <span class="price">16,800원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image02.jpg"></span>
-               </a><span class="ab_name">BON JOVI - THIS HOUSE IS NOT FOR SALE</span>
-               <span class="price">18,700원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image03.jpg"></span>
-               </a><span class="ab_name">MICHEL CAMILO & TOMATITO - SPAIN FOREVER</span>
-               <span class="price">14,700원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image04.jpg"></span>
-               </a><span class="ab_name">ONEREPUBLIC - OH MY MY (DELUXE)</span>
-               <span class="price">18,700원</span>
-               </li>
-
-               <li >
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image05.jpg"></span>
-               </a><span class="ab_name">JIMI HENDRIX - MACHINE GUN</span>
-               <span class="price">17,100원</span>
-               </li>
-
-               <li style="clear: both;">
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image06.jpg"></span>
-               </a><span class="ab_name">BILLIE MARTEN - WRITING OF BLUES AND YELLOWS</span>
-               <span class="price">16,400원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image07.jpg"></span>
-               </a><span class="ab_name">SHAWN MENDES - ILLUMINATE (DELUXE)</span>
-               <span class="price">17,400원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image08.jpg"></span>
-               </a><span class="ab_name">USHER - HARD II LOVE (어셔 - 하드 투 러브)</span>
-               <span class="price">15,600원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image09.jpg"></span>
-               </a><span class="ab_name">THE MAGNIFICENT SEVEN - O.S.T.</span>
-               <span class="price">15,600원</span>
-               </li>
-
-               <li >
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image10.jpg"></span>
-               </a><span class="ab_name">JAMES BLAKE - THE COLOUR IN ANYTHING</span>
-               <span class="price">33,800원</span>
-               </li>
-
-               <li style="clear: both;">
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image11.jpg"></span>
-               </a><span class="ab_name">BRENT COBB - SHINE ON RAINY DAY</span>
-               <span class="price">18,600원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image12.jpg"></span>
-               </a><span class="ab_name">AIMER - DAYDREAM (에메 - 데이드림)</span>
-               <span class="price">20,800원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image13.jpg"></span>
-               </a><span class="ab_name">RYUICHI SAKAMOTO - CODA [SHM-CD]</span>
-               <span class="price">45,000원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image14.jpg"></span>
-               </a><span class="ab_name">RYUICHI SAKAMOTO - THE ARANGEMENT [SHM-CD]</span>
-               <span class="price">28,200원</span>
-               </li>
-
-
-               <li >
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/for_list_image15.jpg"></span>
-               </a><span class="ab_name">ARASHI - POWER OF THE PARADISE</span>
-               <span class="price">10,400원</span>
-               </li>
+               <c:choose>
+					<c:when test="${fn:length(newItem) > 0}">
+						<c:forEach var="n" items="${newItem }" varStatus="i">
+							<li><a href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+							<span class="thumb">
+								<c:choose>
+									<c:when test="${n.proImg != null}">
+										<c:url var="downloadUrl" value="/download.do">
+											<c:param name="file" value="${n.proImg}" />
+										</c:url>
+										<img src="${downloadUrl}" />
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+									</c:otherwise>
+								</c:choose>
+								</span>
+							</a><span class="ab_name">${n.proName }</span>
+							<span class="price">${n.proPrice }원</span></li>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
             </ul>
             </div>
          </div>

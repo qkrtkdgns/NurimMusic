@@ -54,6 +54,7 @@ public class find_idOk extends BaseController {
 			logger.debug("member >> " + member);
 		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());
+			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		}finally{
 			sqlSession.close();

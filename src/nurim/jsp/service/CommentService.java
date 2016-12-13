@@ -54,4 +54,11 @@ public interface CommentService {
 	 * @throws Exception
 	 */
 	public void updatecomment(Comment comment) throws Exception;
+
+	/**
+	 * 회원 탈퇴시 댓글의 회원 아이디를 변경한다.
+	 * @param comment
+	 * @throws Exception
+	 */
+	public void updateCommentByMember(Comment comment) throws Exception;
 }

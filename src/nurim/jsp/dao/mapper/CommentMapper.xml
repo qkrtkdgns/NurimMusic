@@ -9,7 +9,7 @@
     <resultMap id="comment" type="nurim.jsp.model.Comment">
     	<result property="id" 			column="id" />
     	<result property="memberId" 	column="member_id" />
-    	<result property="userId" 	column="user_id" />
+    	<result property="userId" 		column="user_id" />
     	<result property="documentId" 	column="document_id" />
     	<result property="productId" 	column="product_id" />
     	<result property="content"		column="content" />
@@ -65,7 +65,15 @@
     resultType="int">
     SELECT count(id)
     FROM comment
-    WHERE document_id=1
+    <where>
+    document_id=1
+    <if test="userId !=null">
+    and user_id LIKE concat('%',#{userId},'%')
+    </if>
+    <if test="content != null">
+    and content LIKE concat('%',#{content},'%')
+    </if>
+    </where>
     ORDER BY id desc;
     </select>
     
@@ -73,7 +81,15 @@
     resultMap="comment">
     SELECT id,member_id,user_id,document_id,content,reg_date,edit_date,ip_address,pay_check
     FROM comment
-    WHERE document_id=1
+    <where>
+    document_id=1
+    <if test="userId !=null">
+    and user_id LIKE concat('%',#{userId},'%')
+    </if>
+    <if test="content != null">
+    and content LIKE concat('%',#{content},'%')
+    </if>
+    </where>
     ORDER BY id desc
     LIMIT #{LimitStart},#{ListCount}
     </select>
@@ -82,6 +98,13 @@
     UPDATE comment
     SET pay_check =#{payCheck}
     WHERE id=#{id}
+    </update>
+    
+    <!-- 회원 탈퇴시 댓글에서 회원아이디 수정하기 -->
+    <update id="updateCommentByMember" parameterType="nurim.jsp.model.Comment">
+    UPDATE comment
+    SET member_id=1
+    WHERE member_id=#{memberId}
     </update>
 </mapper>
 

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.model.Document;
+import nurim.jsp.model.Order;
 import nurim.jsp.service.DocumentService;
 
 public class DocumentServiceImpl implements DocumentService {
@@ -86,6 +87,19 @@ public class DocumentServiceImpl implements DocumentService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public void updateDocumentByMember(Document document) throws Exception {
+		try{
+			sqlSession.update("DocumentMapper.updateDocumentByMember",document);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("게시글 수정에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
 	}
 		
 	}

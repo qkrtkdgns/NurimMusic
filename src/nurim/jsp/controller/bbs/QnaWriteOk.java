@@ -108,11 +108,10 @@ public class QnaWriteOk extends BaseController {
 			return null;
 		}
 		
-		/** (9) 저장 완료 후 읽기 페이지로 이동하기 */
-		//읽어들일 게시물을 식별하기 위한 게시물 일련번호 값을 전달해야 한다.
-		String url = "%s/bbs/qna_read.do?category=%s&document_id=%d";
-		url = String.format(url, web.getRootPath(), document.getCategory(), document.getId());
-		web.redirect(url, null);
+		/** (9) 저장 완료 후 마이페이지 1:1 문의게시판으로 이동하기 */
+		
+		web.redirect(web.getRootPath()+"/mypage_qna.do", "문의글이 정상적으로 작성되었습니다.");
+		
 		return null;
 	}
    

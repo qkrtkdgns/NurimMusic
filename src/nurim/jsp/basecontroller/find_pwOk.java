@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
+import nurim.jsp.helper.MailHelper;
 import nurim.jsp.helper.Util;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Member;
@@ -27,6 +28,7 @@ public class find_pwOk extends BaseController {
 	WebHelper web;
 	MemberService memberService;
 	Util util;
+	MailHelper mail;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,6 +36,7 @@ public class find_pwOk extends BaseController {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		util = Util.getInstance();
+		mail = MailHelper.getInstance();
 		memberService = new MemberServiceImpl(sqlSession, logger);
 		
 		//파라미터 받기
@@ -60,13 +63,16 @@ public class find_pwOk extends BaseController {
 			member.setUserPw(password);
 			memberService.updateUserPw(member);
 			logger.debug("member >> " + member);
+			
+			MailHelper.getInstance().sendMail(email, email, "비밀번호 입니다.", "당신의 비밀번호는"+password+"입니다.");
 		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());
+			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		}finally{
 			sqlSession.close();
 		}
-		web.redirect(null, "회원 비밀번호는 " + password +" 입니다.");
+		web.redirect(null, "회원 비밀번호는 " + password +" 입니다. 비밀번호는 이메일로도 전송됩니다.");
 		return null;
 	}
 

@@ -53,7 +53,30 @@
 	resultMap="basket">
 	SELECT b.pro_name as pro_name, IF(p.amount > b.amount,IF(p.amount>0,true,false),false)as amount
 	FROM product AS p , basket AS b
-	where p.id = #{productId} AND  b.id=#{id}
+	WHERE p.id = #{productId} AND  b.id=#{id}
 	</select>
+	<!-- 장바구니 상품과 상품테이블의 상품 수량 비교 -->
+	<select id="compareItem2" parameterType="nurim.jsp.model.Basket"
+	resultMap="basket">
+	SELECT pro_name, IF(amount-1 >0,true,false) as amount
+	FROM product
+	WHERE id = #{productId}
+	</select>
+	
+	<!-- 장바구니에 담을 상품 검색 -->
+	<select id="selectProductBasketItem" parameterType="nurim.jsp.model.Basket"
+	resultMap="basket">
+	SELECT
+	id as product_id,pro_img,pro_name,pro_price,amount
+	FROM product
+	WHERE id = #{productId}
+	</select>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteBasket" parameterType="nurim.jsp.model.Basket">
+	DELETE
+	FROM basket
+	WHERE member_id=#{memberId}
+	</delete>
 </mapper>
 

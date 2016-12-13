@@ -217,8 +217,72 @@
 	<update id="updateProduct" parameterType="nurim.jsp.model.Product">
 		UPDATE product SET pro_hit=pro_hit+1 WHERE id=#{id}
 	</update>
-
 	
-
+	<!-- BestItem 검색 -->
+	<select id="selectProductBestItemList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT 
+	id, pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content
+	FROM product
+	ORDER BY amount asc
+	LIMIT 0,12
+	</select>
+	<!-- NewItem 검색 -->
+	<select id="selectProductNewItemList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT 
+	id,pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content
+	FROM product
+	ORDER BY edit_date desc
+	LIMIT 0,15
+	</select>
+	<!-- MDItem 검색 -->	
+	<select id="selectProductMDItemList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT 
+	id, pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content
+	FROM product
+	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="7" OR category_id="8")
+	ORDER BY amount desc
+	LIMIT 0,5
+	</select>
 	
+	<!-- KorItem 검색 -->	
+	<select id="selectProductKorNewItemList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT 
+	id, pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content
+	FROM product
+	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="1" OR category_id="2" OR category_id="3")
+	ORDER BY edit_date desc
+	LIMIT 0,15
+	</select>
+		
+	<!-- Foreign 검색 -->
+	<select id="selectProductForeignNewItemList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT 
+	id, pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content
+	FROM product
+	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="4" OR category_id="5" OR category_id="6")
+	ORDER BY edit_date desc
+	LIMIT 0,15
+	</select>
+	
+	<!--  HOT Item 검색 -->
+	<select id="selectProductHOTItemList" parameterType="nurim.jsp.model.Product"
+	resultMap="product">
+	SELECT 
+	id, pro_img, pro_name, pro_price, amount, pro_hit,
+	reg_date, edit_date, provider, content
+	FROM product
+	WHERE id=ANY(SELECT product_id FROM pro_category where category_id="7" OR category_id="8")
+	ORDER BY pro_hit desc
+	LIMIT 0,5
+	</select>
 </mapper>

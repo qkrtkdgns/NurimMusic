@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.model.Basket;
+import nurim.jsp.model.Product;
 import nurim.jsp.service.BasketService;
 
 public class BasketServiceImpl implements BasketService {
@@ -92,6 +93,60 @@ public class BasketServiceImpl implements BasketService {
 		Basket res = null;
 		try{
 			res = sqlSession.selectOne("BasketMapper.compareItem",basket);
+			int result = res.getAmount();
+			logger.debug("ProName >> " + res.getProName());
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception(res.getProName()+"상품의 재고가 충분하지 않습니다.");
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("재고 확인에 실패했습니다.");
+		}
+	}
+
+	@Override
+	public Basket selectProductBasketItem(Basket basket) throws Exception {
+Basket result = null;
+		
+		try{
+			result = sqlSession.selectOne("BasketMapper.selectProductBasketItem",basket);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("등록할 상품이 존재하지 않습니다.");
+		}catch(Exception e){
+		
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("상품추가에 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteBasket(Basket basket) throws Exception {
+		
+		try{
+			int result = sqlSession.delete("BasketMapper.deleteBasket",basket);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("장바구니 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void compareItem2(Basket basket) throws Exception {
+		Basket res = null;
+		try{
+			res = sqlSession.selectOne("BasketMapper.compareItem2",basket);
 			int result = res.getAmount();
 			logger.debug("ProName >> " + res.getProName());
 			if(result == 0){

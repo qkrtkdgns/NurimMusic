@@ -12,6 +12,8 @@
 				<!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
 				<!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
 				<c:url var="prevUrl" value="/admin/pay_check.do">
+				<c:param name="search_item" value="${search_item }"></c:param>
+				<c:param name="dropdown" value="${dropdown }"></c:param>
 					<c:param name="page" value="${pageHelper.prevPage }"></c:param>
 				</c:url>
 				<li><a href="${prevUrl }">&laquo;</a></li>
@@ -29,6 +31,8 @@
 
 			<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
 			<c:url var="pageUrl" value="/admin/pay_check.do">
+			<c:param name="search_item" value="${search_item }"></c:param>
+				<c:param name="dropdown" value="${dropdown }"></c:param>
 				<c:param name="page" value="${i}"></c:param>
 			</c:url>
 
@@ -48,6 +52,8 @@
 				<!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
 				<!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
 				<c:url var="nextUrl" value="/admin/pay_check.do">
+				<c:param name="search_item" value="${search_item }"></c:param>
+				<c:param name="dropdown" value="${dropdown }"></c:param>
 					<c:param name="page" value="${pageHelper.nextPage }"></c:param>
 				</c:url>
 				<li><a href="${nextUrl }">&raquo;</a></li>

@@ -152,6 +152,7 @@ public class user_informationOk extends BaseController {
 	    	  logger.debug("member >> " + member);
 	    	  //현재 아이디로 정보 수정
 	    	  memberService.updateMemberInformation(member);
+	    	  web.setSession("loginInfo", member);
 	      }catch(Exception e){
 	    	  logger.debug(e.getLocalizedMessage());
 	    	  web.redirect(null, e.getLocalizedMessage());

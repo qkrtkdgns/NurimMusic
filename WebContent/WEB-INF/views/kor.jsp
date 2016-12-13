@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,132 +23,56 @@
          <div class="top_list">
             <div class="img_slide"><span>최신음반</span>
                         <ul>
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide01.jpg" /></a><span>WEEN - IDENTITY</span><br/><span class="price">14,900원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide02.jpg" /></a><span>할리데이 (HOLIDAY) - INTO MY WORLD</span><br/><span class="price">10,400원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide03.jpg" /></a ><span>언프리티 랩스타3(UNPRETTY RAPSTAR)</span><br/><span class="price">13,400원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide04.jpg" /></a><span>파 이스트 무브먼트 (FAR EAST MOVEMENT)</span><br/><span class="price">17,800원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide05.jpg" /></a><span>하이틴 (HIGHTEEN) - TEEN MAGIC</span><br/><span class="price">13,400원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide06.jpg" /></a><span>윤상 - 베스트</span><br/><span class="price">10,400원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide07.jpg" /></a><span>유영석 - FALLING IN LOVE (재발매)</span><br/><span class="price">10,400원</span></li>
-
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide08.jpg" /></a><span>견우성 - GET ALL RIGHT (1ST EP)</span><br/><span class="price">9,700원</span></li>
-                           
-                           <li><a href="${pageContext.request.contextPath }/item.do"><img src="${pageContext.request.contextPath }/images/kor_slide09.jpg" /></a><span>엠씨 더 맥스 - 7집 [UNVEILING] (2CD)</span><br/><span class="price">14,900원</span></li>
-                        </ul>
+                        <c:choose>
+					<c:when test="${fn:length(newItem) > 0}">
+						<c:forEach var="n" items="${newItem }" begin="0" end="8" varStatus="i">
+							<li><a href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+								<c:choose>
+									<c:when test="${n.proImg != null}">
+										<c:url var="downloadUrl" value="/download.do">
+											<c:param name="file" value="${n.proImg}" />
+										</c:url>
+										<img src="${downloadUrl}" />
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+									</c:otherwise>
+								</c:choose>
+							</a><span>${n.proName }</span><br/><span class="price">${n.proPrice }원</span></li>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
+                        
+                          </ul>
                   </div>
             <div class="goods">
                <ul class="new_item_ul1">
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/강이채 - 1집 [RADICAL PARADISE].png"></a></span>
-               <span class="ab_name">강이채 - 1집 [RADICAL PARADISE]</span>
-               <span class="price">13,500원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/김나영 - 1집 [FROM THE HEART].png"></span>
-               </a><span class="ab_name">김나영 - 1집 [FROM THE HEART]</span>
-               <span class="price">1,7000원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/김효은 - MY AMBITION EP (1ST EP).png"></span>
-               </a><span class="ab_name">김효은 - MY AMBITION EP (1ST EP)</span>
-               <span class="price">15,800원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/다비치 - 50 X HALF (미니앨범).png"></span>
-               </a><span class="ab_name">다비치 - 50 X HALF (미니앨범)</span>
-               <span class="price">18,400원</span>
-               </li>
-
-               <li >
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/레이디스 코드 - STRANG3R.png"></span>
-               </a><span class="ab_name">레이디스 코드 - STRANG3R</span>
-               <span class="price">13,400원</span>
-               </li>
-
-               <li style="clear: both;">
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/백퍼센트 (100%) - TIME LEAP (3RD 미니앨범).png"></span>
-               </a><span class="ab_name">백퍼센트 (100%) - TIME LEAP (3RD 미니앨범)</span>
-               <span class="price">21,900원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/박재범 (JAY PARK) - EVERYTHING YOU WANTED (정규앨범).png"></span>
-               </a><span class="ab_name">박재범 - EVERYTHING YOU WANTED(정규앨범)</span>
-               <span class="price">23,800원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/수퍼스트링 (SUPERSTRING) - 1집 [THE GRAND DESIGN] .png"></span>
-               </a><span class="ab_name">수퍼스트링 - 1집 [THE GRAND DESIGN]</span>
-               <span class="price">15,500원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/스웨덴 세탁소 - 2집 [마음].png"></span>
-               </a><span class="ab_name">스웨덴 세탁소 - 2집[마음]</span>
-               <span class="price">12,800원</span>
-               </li>
-
-               <li >
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/신용재 - EMPATHY (2ND 미니앨범).png"></span>
-               </a><span class="ab_name">신용재 - EMPATHY (2ND 미니앨범).png</span>
-               <span class="price">13,000원</span>
-               </li>
-
-               <li style="clear: both;">
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/아이오아이 (I.O.I) - 미니 2집.png"></span>
-               </a><span class="ab_name">아이오아이 (I.O.I) - 미니 2집</span>
-               <span class="price">20,000원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/알클스 (ALCLS) - 꽃 (1ST 싱글앨범).png"></span>
-               </a><span class="ab_name">알클스 (ALCLS) - 꽃 (1ST 싱글앨범)</span>
-               <span class="price">17,700원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/위아더나잇 (WE ARE THE NIGHT) - 녹색광선 (미니앨범).png"></span>
-               </a><span class="ab_name">위아더나잇 (WE ARE THE NIGHT) - 녹색광선 (미니앨범)</span>
-               <span class="price">15,000원</span>
-               </li>
-
-               <li>
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/크러쉬 (CRUSH) - WONDERLUST (2ND 미니앨범).png"></span>
-               </a><span class="ab_name">크러쉬 (CRUSH) - WONDERLUST (2ND 미니앨범)</span>
-               <span class="price">22,900원</span>
-               </li>
-
-
-               <li >
-               <a href="${pageContext.request.contextPath }/item.do">
-               <span class="thumb"><img src="${pageContext.request.contextPath }/img/펜타곤 (PENTAGON) - PENTAGON (1ST 미니앨범).png"></span>
-               </a><span class="ab_name">펜타곤 (PENTAGON) - PENTAGON (1ST 미니앨범)</span>
-               <span class="price">19,600원</span>
-               </li>
+                <c:choose>
+					<c:when test="${fn:length(newItem) > 0}">
+						<c:forEach var="n" items="${newItem }" varStatus="i">
+							<li><a href="${pageContext.request.contextPath }/item.do?productId=${n.id}">
+							<span class="thumb">
+								<c:choose>
+									<c:when test="${n.proImg != null}">
+										<c:url var="downloadUrl" value="/download.do">
+											<c:param name="file" value="${n.proImg}" />
+										</c:url>
+										<img src="${downloadUrl}" />
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+									</c:otherwise>
+								</c:choose>
+								</span>
+							</a><span class="ab_name">${n.proName }</span>
+							<span class="price">${n.proPrice }원</span></li>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
             </ul>
             </div>
          </div>

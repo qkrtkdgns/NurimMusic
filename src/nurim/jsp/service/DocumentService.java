@@ -3,6 +3,7 @@ package nurim.jsp.service;
 import java.util.List;
 
 import nurim.jsp.model.Document;
+import nurim.jsp.model.Order;
 
 public interface DocumentService {
 	/** 
@@ -17,4 +18,11 @@ public interface DocumentService {
 	public List<Document> selectQnaList(Document document) throws Exception;
 
 	public Document selectQnaQuestion(Document document) throws Exception;
+
+	/**
+	 * 회원 탈퇴시 회원이 작성한 게시글의 member id을 변경한다.
+	 * @param document
+	 * @throws Exception
+	 */
+	public void updateDocumentByMember(Document document) throws Exception;
 }

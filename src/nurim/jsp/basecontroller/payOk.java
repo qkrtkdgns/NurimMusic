@@ -85,6 +85,27 @@ public class payOk extends BaseController {
 		logger.debug("recAddr2 >> " + recAddr2);
 		logger.debug("recTel >> " + recTel);
 		
+		if(recName == null){
+			web.redirect(null, "수령자명을 입력해주세요.");
+			return null;
+		}
+		if(recPostcode== null){
+			web.redirect(null, "우편번호를 입력해주세요.");
+			return null;
+		}
+		if(recAddr1 == null){
+			web.redirect(null, "주소를 입력해주세요.");
+			return null;
+		}
+		if(recAddr2 == null){
+			web.redirect(null, "상세주소를 입력해주세요.");
+			return null;
+		}
+		if(recTel == null){
+			web.redirect(null, "수령자 전화번호를 입력해주세요.");
+			return null;
+		}
+		
 		//중복사용될 배송 정보 등록
 		Basket basket = new Basket();
 		Order order = new Order();
@@ -102,7 +123,11 @@ public class payOk extends BaseController {
 				int temp2 = Integer.parseInt(pId[i]);
 				basket.setId(temp);
 				basket.setProductId(temp2);
+				if(temp!=0){
 				basketService.compareItem(basket);
+				}else{
+					basketService.compareItem2(basket);
+				}
 				logger.debug("["+i+"]번 실행했습니다.");
 				logger.debug("basket >> "+ basket);
 			}
@@ -113,6 +138,9 @@ public class payOk extends BaseController {
 			order.setProImg(proImg[i]);
 			order.setProPrice(Integer.parseInt(price[i]));
 			order.setoAmount(Integer.parseInt(amount[i]));
+			if(order.getoAmount()==0){
+				order.setoAmount(1);
+			}
 			logger.debug("order >> " + order);
 			
 			orderService.insertOrder(order);
@@ -122,7 +150,8 @@ public class payOk extends BaseController {
 			
 			//등록된 상품 제거 (사용이 완료된 basket Id를 삭제한다.)
 			basket.setId(Integer.parseInt(id[i]));
-			basketService.deleteitem(basket);
+			if(basket.getId()!=0){
+			basketService.deleteitem(basket);}
 			}
 		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());

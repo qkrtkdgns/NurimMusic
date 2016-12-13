@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
+import nurim.jsp.model.Basket;
 import nurim.jsp.model.Product;
 import nurim.jsp.service.ProductService;
 
@@ -97,5 +98,90 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return result;
 	}
+
+	@Override
+	public List<Product> selectProductBestItemList() throws Exception {
+		List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductBestItemList",null);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("Best아이템을 찾을 수 없습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Product> selectProductNewItemList() throws Exception {
+List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductNewItemList",null);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("new아이템을 찾을 수 없습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Product> selectProductMDItemList() throws Exception {
+List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductMDItemList",null);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("MD아이템을 찾을 수 없습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Product> selectProductKorNewItemList() throws Exception {
+List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductKorNewItemList",null);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("Kor new아이템을 찾을 수 없습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Product> selectProductForeignNewItemList() throws Exception {
+List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductForeignNewItemList",null);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("Kor new아이템을 찾을 수 없습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Product> selectProductHOTItemList() throws Exception {
+List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductHOTItemList",null);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("HOT 아이템을 찾을 수 없습니다.");
+		}
+		
+		return result;
+	}
+
 
 }

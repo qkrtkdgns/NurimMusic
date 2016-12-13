@@ -55,10 +55,20 @@ public class PayCheck extends BaseController{
 			return null;
 		}
 		/** (4) 검색할 값 받아오기 */
+		String dropdown = web.getString("dropdown");
+		String search_item = web.getString("search_item");
+		logger.debug("dropdown >> " + dropdown);
+		logger.debug("search_item >> "+ search_item);
 
 		Comment comment = new Comment();
 		logger.debug("comment >> " + comment);
 
+		if(dropdown == null){}else{
+		if(dropdown.equals("id")){
+			comment.setUserId(search_item);
+		}else{
+			comment.setContent(search_item);
+		}}
 		// 현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page", 1);
 
@@ -95,6 +105,8 @@ public class PayCheck extends BaseController{
 		request.setAttribute("pageHelper", pageHelper);
 		//셀렉트 리스트 전달
 		request.setAttribute("state", state);
+		request.setAttribute("search_item", search_item);
+		request.setAttribute("dropdown", dropdown);
 		// "/WEB-INF/views/view/index.jsp"파일을 View로 사용한다.
 		
 		// "/WEB-INF/views/view/index.jsp"파일을 View로 사용한다.

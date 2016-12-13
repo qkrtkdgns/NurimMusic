@@ -256,4 +256,17 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 
+	@Override
+	public void updateOrderByMember(Order order) throws Exception {
+		try{
+			sqlSession.update("OrderMapper.updateOrderByMember",order);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("주문목록 변경에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
 }
