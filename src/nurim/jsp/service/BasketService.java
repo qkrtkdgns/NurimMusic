@@ -3,6 +3,7 @@ package nurim.jsp.service;
 import java.util.List;
 
 import nurim.jsp.model.Basket;
+import nurim.jsp.model.Product;
 
 public interface BasketService {
 
@@ -42,6 +43,22 @@ public interface BasketService {
 	 * @throws Exception
 	 */
 	public void compareItem(Basket basket) throws Exception;
+
+	public Basket selectProductBasketItem(Basket basket) throws Exception;
+
+	/**
+	 * 삭제된 회원의 장바구니를 삭제한다.
+	 * @param basket
+	 * @throws Exception
+	 */
+	public void deleteBasket(Basket basket) throws Exception;
+
+	/**
+	 * 바로 주문시 상품 재고 확인
+	 * @param basket
+	 * @throws Exception
+	 */
+	public void compareItem2(Basket basket) throws Exception;
 	
 	
 	/**
@@ -52,6 +69,7 @@ public interface BasketService {
 	 */
 	public Basket insertItem(Basket basket) throws Exception;
 	
+	
 	/**
 	 * (상품 상세페이지)장바구니에 상품을 추가한다.
 	 * @param basket
@@ -60,7 +78,6 @@ public interface BasketService {
 	 */
 	public Basket insertItem2(Basket basket) throws Exception;
 	
-	
 	/**
 	 * 체크된 상품들을 장바구니에 상품을 추가한다.
 	 * @param basket
@@ -68,5 +85,4 @@ public interface BasketService {
 	 * @throws Exception
 	 */
 	public Basket insertItemList(Basket basket) throws Exception;
-
 }

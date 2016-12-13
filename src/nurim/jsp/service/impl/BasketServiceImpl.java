@@ -160,5 +160,64 @@ Basket result = null;
 			throw new Exception("재고 확인에 실패했습니다.");
 		}
 	}
+	@Override
+	public Basket insertItem(Basket basket) throws Exception {
+		try {
+			int result = sqlSession.insert("BasketMapper.insertItem", basket);
+			if (result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("장바구니에 저장된 상품이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 장바구니 등록에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		return null;
+	}
+
+	@Override
+	public Basket insertItemList(Basket basket) throws Exception {
+		try {
+			int result = sqlSession.insert("BasketMapper.insertItemList", basket);
+			if (result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("장바구니에 저장된 상품이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 장바구니 등록에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		return null;
+	}
+
+	@Override
+	public Basket insertItem2(Basket basket) throws Exception {
+		try {
+			int result = sqlSession.insert("BasketMapper.insertItem2", basket);
+			if (result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("장바구니에 저장된 상품이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 장바구니 등록에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		return null;
+	}
 
 }

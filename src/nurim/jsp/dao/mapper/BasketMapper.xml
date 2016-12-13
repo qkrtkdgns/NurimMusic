@@ -55,6 +55,7 @@
 	FROM product AS p , basket AS b
 	WHERE p.id = #{productId} AND  b.id=#{id}
 	</select>
+	
 	<!-- 장바구니 상품과 상품테이블의 상품 수량 비교 -->
 	<select id="compareItem2" parameterType="nurim.jsp.model.Basket"
 	resultMap="basket">
@@ -78,5 +79,35 @@
 	FROM basket
 	WHERE member_id=#{memberId}
 	</delete>
+	
+	<!-- 바로 장바구니 상품 담기 -->
+	<insert id="insertItem" parameterType="nurim.jsp.model.Basket" 
+	useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO basket (
+	member_id, product_id, pro_img, pro_name, pro_price, amount)
+	VALUES(
+	#{memberId},#{productId},#{proImg},#{proName},#{proPrice},1
+	)
+	</insert>
+	
+	<!-- 체크된 상품 장바구니 담기-->
+	<insert id="insertItemList" parameterType="nurim.jsp.model.Product"
+	useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO basket (
+	member_id, product_id, pro_img, pro_name, pro_price, amount)
+	SELECT m.id ,p.id,p.pro_img,p.pro_name,p.pro_price,1
+	FROM member AS m, product AS p
+	WHERE p.id=${productId} AND m.id=${memberId};
+	</insert>
+	
+	<!-- 상세페이지에서 장바구니 상품 담기 -->
+	<insert id="insertItem2" parameterType="nurim.jsp.model.Basket" 
+	useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO basket (
+	member_id, product_id, pro_img, pro_name, pro_price, amount)
+	VALUES(
+	#{memberId},#{productId},#{proImg},#{proName},#{proPrice},#{amount}
+	)
+	</insert>
 </mapper>
 
