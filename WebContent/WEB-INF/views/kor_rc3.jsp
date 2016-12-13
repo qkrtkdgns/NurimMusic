@@ -23,7 +23,7 @@
 				<div class="list-topbar">
 					<div class="check_list">
 						체크한 음반
-						<a href="#" class="btn btn-default">장바구니 담기</a>
+						<button class="btn btn-default btn-sm" id="basket_list">장바구니 담기</button>
 					</div>
 					<div class="search_list">
 						<a href="${pageContext.request.contextPath}/kor_rc3.do?CList=Reg&keyword1=${keyword1}&keyword2=${keyword2}">발매일
@@ -43,9 +43,9 @@
 							<li>
 							<table >
 								<tr>
-								<td style="width:10;"><input type="checkbox" name="basket"></td>
+								<td style="width:10;"><input type="checkbox" name="basket" value="${product.id}" ></td>
 								<td width="145">
-								<a href="${pageContext.request.contextPath }/item.do&category=${product.proCategoryName}">
+								<a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
 								<c:choose>
 									<c:when test="${product.proImg != null}">
 											<c:url var="downloadUrl" value="/download.do">
@@ -54,31 +54,47 @@
 												<img src="${downloadUrl}" />
 											</c:when>
 										<c:otherwise>
-												<img src="${pageContext.request.contextPath}/img/noimage.jpg" />
+												<img src="${pageContext.request.contextPath}/img/noimage.png" />
 										</c:otherwise>
 								</c:choose>			
 								</a>
 								</td>
 								<td width="493">
-								<a href="${pageContext.request.contextPath }/item.do&category=${product.proCategoryName}">
-								<span class="title">${product.proName}</span></a>
-								<span class="substance">${product.provider}</span>
+								<a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
+								<span class="title" name="pro_name"  value="${product.proName}">${product.proName}</span></a>
+								<span class="substance" >${product.provider}</span>
 								</td>
 								<th width="183">
-									<p class="price1">${product.proPrice}원</p>
+									<p class="price1" name="price" value="${product.proPrice}">${product.proPrice}원</p>
 									<p class="price2">${product.proPrice}원</p>
 								</th>
+								
+								<!-- 장바구니, 구매 버튼 -->
 								<th class="item_button">
-									<c:choose>
+								<c:choose>
 									<c:when test="${product.amount != 0}">
-											<a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
-											<a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
+									<form name="basketgo" method="post" action="${pageContext.request.contextPath }/basketgo.do">
+									<button type="submit"  class="btn btn-default"  id="A" name="list_01" >장바구니</button>
+									
+											<input type="hidden" name="b_basket"  value="${product.id}">
+											<input type="hidden" name="blist" id="blist" >
+											<input type="hidden" name="b_pro_name"  value="${product.proName}">
+											<input type="hidden" name="b_price"  value="${product.proPrice}">
+											<input type="hidden" name="b_file"  value="${product.proImg}">
+										
+									</form>
+									<form method="post" action="${pageContext.request.contextPath }/pay.do">
+											<button type="submit"  class="btn btn-default" id="B" name="list_01" >바로구매</button>
+											<input type="hidden" name="order_id"  value="${product.id}">
+											<input type="hidden" name="order_amount"  value="1">
+									</form>
 											</c:when>
 										<c:otherwise>
-												<a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
+											<button class="btn btn-default" id="A1" name="list_01" disabled ><font color="red">품&nbsp;&nbsp;절</font></button>
 										</c:otherwise>
 								</c:choose>
 								</th>
+								<!-- end 장바구니, 구매 버튼 -->
 								</tr>
 					</table>
 						</li>
@@ -99,7 +115,7 @@
 			<c:when test="${pageHelper.prevPage > 0}">
 				<!-- 이전 그룹에 대한 페이지 번호가 존재할 경우, 이전 그룹으로 이동하기 위한
 				URL을 생성해서 prevUrl에 저장 -->
-				<c:url var="prevUrl" value="/kor_rc1.do">
+				<c:url var="prevUrl" value="/kor_rc3.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${pageHelper.prevPage}" />
@@ -115,7 +131,7 @@
 			
 			<c:forEach var="i"  begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
 			<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
-			<c:url var="pageUrl" value="/kor_rc1.do">
+			<c:url var="pageUrl" value="/kor_rc3.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${i}" />
@@ -136,7 +152,7 @@
 			<c:when test="${pageHelper.nextPage > 0}">
 				<!-- 다음 그룹에 대한 페이지 번호가 존재할 경우, 다음 그룹으로 이동하기 위한
 				URL을 생성해서 nextUrl에 저장 -->
-				<c:url var="nextUrl" value="/kor_rc1.do">
+				<c:url var="nextUrl" value="/kor_rc3.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${pageHelper.nextPage}" />

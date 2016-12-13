@@ -1,7 +1,6 @@
 package nurim.jsp.basecontroller;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,24 +16,21 @@ import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Basket;
-import nurim.jsp.model.Product;
 import nurim.jsp.service.BasketService;
 import nurim.jsp.service.ProductService;
 import nurim.jsp.service.impl.BasketServiceImpl;
 import nurim.jsp.service.impl.ProductServiceImpl;
 
-@WebServlet("/basketgo.do")
-public class basketGo extends BaseController {
+@WebServlet("/basket_go.do")
+public class basketGo2 extends BaseController {
 
-
-	private static final long serialVersionUID = 4194066265630205701L;
-	
+	private static final long serialVersionUID = 3326644117348018082L;
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
 	BasketService basketService;
 	UploadHelper upload;
-	ProductService productService;
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -44,7 +40,7 @@ public class basketGo extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		basketService = new BasketServiceImpl(sqlSession, logger);
 		upload = UploadHelper.getInstance();
-		productService = new ProductServiceImpl(sqlSession, logger);
+		
 		
 		/** (3) 로그인 여부 검사 */
 		
@@ -69,64 +65,49 @@ public class basketGo extends BaseController {
 		}
 		// UploadHelper에서 텍스트 형식의 파라미터를 분류한 Map을 리턴받아서 값을 추출한다.
 		Map<String, String> paramMap = upload.getParamMap();  paramMap.get*/
-		String proImg =web.getString("b_file");
-		String pro_price = web.getString("b_price");
-		String proName = web.getString("b_pro_name");
-		String product_id= web.getString("b_basket");
-		String[] pro_idList = web.getStringArray("blist");
+		
+		String product_id= web.getString("basket_id");
+		String proName = web.getString("basket_proname");
+		String pro_price = web.getString("basket_price");
+		String pro_amount = web.getString("basket_amount");
+		String proImg =web.getString("basket_proimg");
 		
 		
-		logger.debug("proImg > " +proImg);
 		logger.debug("pro_price > " +pro_price);
-		logger.debug("proName > " +proName);
 		logger.debug("product_id > " +product_id);
+		logger.debug("proName > " +proName);
+		logger.debug("pro_amount > " +pro_amount);
+		logger.debug("proImg > " +proImg);
 				
-		
 		int memberId=1;
-	
+		int productId = Integer.parseInt(product_id);
+		int proPrice = Integer.parseInt(pro_price);
+		int proAmount = Integer.parseInt(pro_amount);
+		if (productId == 0) {
+			sqlSession.close();
+			web.redirect(null, "상품 번호가 지정되지 않았습니다.");
+			return null;
+			}
 		
 		/** (5) 조회할 정보에 대한 Beans 생성 */
 		// 파라미터를 Beans로 묶기
 		Basket basket = new Basket();
-		
-		if (product_id == null) {
-			if(pro_idList == null){
-			sqlSession.close();
-			web.redirect(null, "상품 번호가 지정되지 않았습니다.");
-			return null;
-			}else{
-				for(int i = 0 ; i < pro_idList.length; i++){
-					logger.debug("pro_idList > " +pro_idList[i]);
-				}
-			}
-		}else{
-			int productId =Integer.parseInt(product_id);
-			int proPrice = Integer.parseInt(pro_price);
-			basket.setProductId(productId);
-			basket.setProImg(proImg);
-			basket.setProName(proName);
-			basket.setProPrice(proPrice);
-		}
-		
+		basket.setProductId(productId);
+		basket.setProImg(proImg);
+		basket.setProName(proName);
+		basket.setProPrice(proPrice);
 		basket.setMemberId(memberId);
+		basket.setAmount(proAmount);
+		
 		
 		/** (4) 일련번호를 사용한 데이터 조회 */
 		// 지금 보고 있는 상품이 저장될 객체
-		Basket basketItem= null;
-		Basket basketItemList= null;
+		Basket basketItem2= null;
 		
 		try {
-			if(product_id != null){
-				basketItem=basketService.insertItem(basket);
-				logger.debug("basketItem > " +basketItem);
-				
-			}else if(pro_idList !=null){
-				for(int i = 0 ; i < pro_idList.length; i++){
-					logger.debug("pro_idList > " +pro_idList[i]);
-					basket.setProductId(Integer.parseInt(pro_idList[i]));
-					basketItemList=basketService.insertItemList(basket);
-				}
-			}
+			
+				basketItem2=basketService.insertItem2(basket);
+				logger.debug("basketItem2 > " +basketItem2);
 
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());

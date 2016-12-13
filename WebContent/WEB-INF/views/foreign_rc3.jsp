@@ -29,7 +29,7 @@
          	   <!-- 체크한 음반 -->
                <div class="check_list">
                   체크한 음반
-                  <button type="button" class="btn btn-default btn-sm" >장바구니 담기</button>
+                  <button class="btn btn-default btn-sm"  id="basket_list">장바구니 담기</button>
                </div>
                <!-- //체크한 음반 끝 -->
                
@@ -54,8 +54,9 @@
 				<c:forEach var="product" items="${productList }">      
                	<!-- 항목(1) --> 
                   <li class="goods_li">
-                  <input type="checkbox" id="check">
-                  <span class="thumb"><a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
+                  <input type="checkbox"  name="basket"  id="check" value="${product.id}" >
+                  <span class="thumb">
+                  <a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
                      <c:choose>
 									<c:when test="${product.proImg != null}">
 											<c:url var="downloadUrl" value="/download.do">
@@ -70,33 +71,48 @@
                      </a>
                    </span>
                      <span class="text">
-                     <span class="title"><a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">${product.proName}</a>
-                     </span>
+                     <a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
+                     <span class="title" name="pro_name"  value="${product.proName}">${product.proName}</span></a>
                      <span class="desc">${product.provider}</span>
                      </span>
                         
                     <!-- 가격 -->
                     <div class="prices">
-                    <span class="price">${product.proPrice}원</span>
+                    <span class="price" name="price" value="${product.proPrice}">${product.proPrice}원</span>
                     <span class="price_dc">
                      ${product.proPrice}원</span>
                      </div>
                      <!-- //가격 끝 -->
 
-                      <!-- 버튼들 -->
+                     <!-- 버튼들 -->
                      <div class="button">
                      <c:choose>
 						<c:when test="${product.amount != 0}">
+						<!-- 장바구니 -->
                      <div class="basket_btn">
-                     <a href="${pageContext.request.contextPath }/basket.do" class="btn btn-default" id="A" name="list_01" />장바구니</a>
+                     <form name="basketgo" method="post" action="${pageContext.request.contextPath }/basketgo.do">
+                     <button type="submit" class="btn btn-default" id="A" name="list_01" >장바구니</button>
+                     	<input type="hidden" name="b_basket"  value="${product.id}">
+						<input type="hidden" name="blist" id="blist" >
+						<input type="hidden" name="b_pro_name"  value="${product.proName}">
+						<input type="hidden" name="b_price"  value="${product.proPrice}">
+						<input type="hidden" name="b_file"  value="${product.proImg}">
+                     </form>
                      </div>
+                     <!-- 장바구니 end -->
+                     <!-- 바로구매 -->
                      <div class="buy_btn">
-                     <a href="${pageContext.request.contextPath }/pay.do" class="btn btn-default" id="B" name="list_01" />바로구매</a>
+                    <form method="post" action="${pageContext.request.contextPath }/pay.do">
+                     <button type="submit" class="btn btn-default" id="B" name="list_01" >바로구매</button>
+                     <input type="hidden" name="order_id"  value="${product.id}">
+					<input type="hidden" name="order_amount"  value="1">
+                     </form>
                      </div>
+                     <!-- 바로구매 end -->
                      </c:when>
                      <c:otherwise>
                      <div class="so_btn">
-                      <a href="#" class="btn btn-default" id="A1" name="list_01"/><font color="red">품&nbsp;&nbsp;절</font></a>
+                      <button class="btn btn-default" id="A1" name="list_01" disabled><font color="red">품&nbsp;&nbsp;절</font></button>
                       </div>
                       <div class="al_btn">
                    
@@ -123,7 +139,7 @@
 			<c:when test="${pageHelper.prevPage > 0}">
 				<!-- 이전 그룹에 대한 페이지 번호가 존재할 경우, 이전 그룹으로 이동하기 위한
 				URL을 생성해서 prevUrl에 저장 -->
-				<c:url var="prevUrl" value="/kor_rc1.do">
+				<c:url var="prevUrl" value="/foreign_rc3.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${pageHelper.prevPage}" />
@@ -139,7 +155,7 @@
 			
 			<c:forEach var="i"  begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
 			<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
-			<c:url var="pageUrl" value="/kor_rc1.do">
+			<c:url var="pageUrl" value="/foreign_rc3.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${i}" />
@@ -160,7 +176,7 @@
 			<c:when test="${pageHelper.nextPage > 0}">
 				<!-- 다음 그룹에 대한 페이지 번호가 존재할 경우, 다음 그룹으로 이동하기 위한
 				URL을 생성해서 nextUrl에 저장 -->
-				<c:url var="nextUrl" value="/kor_rc1.do">
+				<c:url var="nextUrl" value="/foreign_rc3.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${pageHelper.nextPage}" />
@@ -199,27 +215,24 @@
 
 
 <!--본문내용 작성 end -->
-<!-- 템플릿 참조 -->
-<script id="tmpl_comment_item" type="text/x-handlebars-template">				
-</script>
+</div>
 <%@include file="inc/footer.jsp" %>
-		 <script type="text/javascript">
+<script type="text/javascript">
     	
-	$(function(){
-	//검색 관리
+$(function(){
+    		
+//검색 관리
    $("#keyword_type").change(function(){
 	   var keyword_type = this.value;
 		$('#keyword1').empty();
 		 $('#keyword2').empty();
 		
 			if(keyword_type == "provider"){
-				
 				$('#keyword1').empty();
 				$('#keyword2').empty();
 				$('#keyword1').hide();
 				$('#keyword2').attr("type", "text"); 
 				$('#keyword2').attr("disabled",false); 
-
 		    }else if(keyword_type == "pro_name"){
     				$('#keyword1').empty();
    					$('#keyword2').empty();
@@ -227,17 +240,34 @@
     				$('#keyword1').show();
     				$('#keyword1').attr("disabled",false);
     				
-    	}else if(keyword_type == "null"){
+    		}else if(keyword_type == "null"){
     				$('#keyword1').empty();
      				 $('#keyword2').empty();
      				$('#keyword1').attr("disabled",true);
      				$('#keyword2').attr("disabled",true);
-     			
    			}
-		
-		    });
-		
-    });
+	});
+   $('#keyword1').attr("disabled",true);	
+   
+   $("#basket_list").click(function(){  
+	    var str = new Array();
+	    $("input[name=basket]:checked").each(function(){  
+	        str.push($(this).val());
+	    });
+
+	    jQuery.ajaxSettings.traditional = true;
+	    $.ajax({
+	    	url:'${pageContext.request.contextPath }/basketgo.do',
+	    	type:'get',
+	    	dataType:'text',
+	    	data:{blist:str},
+	    	success  : function(){
+                alert("체크하신 상품들이 장바구니에  담겼습니다. 확인해 보세요");
+            },error:function(request,status,error){
+	    	    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+	    });
+  	}); 
+  });
 
 		</script>
 

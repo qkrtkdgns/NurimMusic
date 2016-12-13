@@ -17,6 +17,7 @@
 <!-- 본문내용 작성 start -->
          <div id="content">
          <input type="hidden"  name="category" value="${product.proCategoryName}">
+         <input type="hidden"  name="id" value="${readproduct.id}">
            <div class="item_header">
            <div class="item_thumnail" style="float:left;">
            <c:choose>
@@ -36,7 +37,7 @@
            <b>${readproduct.proName}</b>
            </div><!-- //item_title -->
            <div class="item_form">
-           <form>
+
            <table>
            <tbody>
            <tr>
@@ -57,18 +58,34 @@
            </tbody>
            </table>
            <div class="btn_box">
+            
            <div class="buy">
-             <a href="${pageContext.request.contextPath }/pay.do">
+           <form action="${pageContext.request.contextPath }/pay.do" method="post" >
+            <button type="submit">
                <img src="${pageContext.request.contextPath }/img/btn_buy.gif" />
-             </a>
-           </div>
-           <div class="basket">
-             <a href="${pageContext.request.contextPath }/basket.do">
-               <img src="${pageContext.request.contextPath }/img/btn_cart.gif" />
-             </a>             
-           </div>
-           </div><!-- btn_box -->
+             </button>
+              <input type="hidden"  name="order_id" id="order_id"  value="${readproduct.id}"/>
+              <input type="hidden" name="order_amount" id="order_amount"  value="1" />
            </form>
+           </div>
+        
+            
+           		<div class="basket">
+           		<form action="${pageContext.request.contextPath }/basket_go.do" method="post" >
+           		<button type="submit">
+               <img src="${pageContext.request.contextPath }/img/btn_cart.gif" />
+              </button>
+              
+              <input type="hidden"  name="basket_id" id="basket_id"  value="${readproduct.id}"/>
+               <input type="hidden" name="basket_amount" id="basket_amount"  value="1" />
+               <input type="hidden"  name="basket_proname" id="basket_proname"  value="${readproduct.proName}"/>
+               <input type="hidden"  name="basket_proimg" id="basket_proimg"  value="${readproduct.proImg}" />
+               <input type="hidden"  name="basket_price" id="basket_price"  value="${readproduct.proPrice}"/>
+                  </form>
+             </div>
+         
+           </div><!-- btn_box -->
+
            </div><!-- //item form -->
            </div><!-- //item -->
            </div><!-- // item header -->
@@ -174,10 +191,14 @@
     	$("#up").click(function(){
     		if(amount>99){}else{amount++;}
     		$("#amount").val(amount);
+    		$("#basket_amount").val(amount);
+    		$("#order_amount").val(amount);
     	}); 
     	$("#down").click(function(){
     		if(amount <= 1){}else{amount--;}
     		$("#amount").val(amount);
+    		$("#basket_amount").val(amount);
+    		$("#order_amount").val(amount);
     	}); 
     	//동적 margin 조절
     	 var PrevNext= document.getElementById("PrevNext");
