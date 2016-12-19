@@ -63,7 +63,7 @@ body{
 	top: 7px;
 }
 .top_nav{
-	width:400px;
+	width:400px !important;
 	height:16px;
 	position: absolute;
 	top:7px;

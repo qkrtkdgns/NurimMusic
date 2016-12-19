@@ -125,15 +125,17 @@ div#PrevNext img{
 #PrevNext .nextitem{
    margin-left: 300px;
    float: left; 
-   height: 122px;
-
+   height:250px;
+	width:300px;
+	overflow:hidden;
 }
 
-
 #PrevNext .previtem{
-   margin-right: 300px;
+   margin-right: 250px;
    float: right; 
-   height: 122px;
+   height:250px;
+	width:300px;
+	overflow:hidden;
 }
 
 div#PrevNext  a{

@@ -18,11 +18,8 @@ import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Basket;
 import nurim.jsp.model.Member;
-import nurim.jsp.model.Product;
 import nurim.jsp.service.BasketService;
-import nurim.jsp.service.ProductService;
 import nurim.jsp.service.impl.BasketServiceImpl;
-import nurim.jsp.service.impl.ProductServiceImpl;
 
 @WebServlet("/pay.do")
 public class pay extends BaseController {
@@ -60,7 +57,7 @@ public class pay extends BaseController {
 
 		/** (4) 검색할 값 받아오기 */
 		// 상품페이지에서 바로구매를 눌렀을 경우
-		int productId = web.getInt("product_id");
+		int productId = web.getInt("order_id");
 		logger.debug("productId >> " + productId);
 		int count = 0;
 		String[] checkbox = null;
