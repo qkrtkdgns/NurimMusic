@@ -13,12 +13,7 @@
               <a href="${pageContext.request.contextPath }/index.do">
                 <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
               </a>
-              <!-- 입력창 -->
-              <input type="text" name="search" />
-              <!-- 검색버튼 -->
-              <button class="btn-link" type="submit" value="검색하기">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-              </button>
+              
           </form>
        </div>
      <div class="top_nav">

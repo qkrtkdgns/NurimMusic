@@ -220,4 +220,23 @@ Basket result = null;
 		return null;
 	}
 
+	@Override
+	public int CountItem(Basket basket) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("BasketMapper.CountItem",basket);
+			if(result > 0){
+				throw new NullPointerException();
+			}
+			logger.debug("CountItem >> " + result);
+		}catch(NullPointerException e){
+			throw new Exception("이미 장바구니에 담긴 상품입니다 장바구니를 확인해 주세요.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("중복 검사에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

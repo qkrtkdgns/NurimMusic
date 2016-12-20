@@ -47,28 +47,15 @@ public class basketGo extends BaseController {
 		productService = new ProductServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사 */
-		
-		/**로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
 		if (web.getSession("loginInfo") == null) {
 			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
 			sqlSession.close();
 			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
 			return null;
 		}
-		*/ 
-		/** (4) POST 파라미터 받기 
-		// <form>태그 안에 <input type="file">요소가 포함되어 있고
-		// enctype="multipart/form-data"가 정의되어 있는 경우
-		// WebHelper의 getString()|getInt() 메서드는 더 이상 사용할 수 없게 된다.
-		try {
-			upload.multipartRequest(request);
-		} catch (Exception e) {
-			sqlSession.close();
-			web.redirect(null, "multipart 데이터가 아닙니다.");
-			return null;
-		}
-		// UploadHelper에서 텍스트 형식의 파라미터를 분류한 Map을 리턴받아서 값을 추출한다.
-		Map<String, String> paramMap = upload.getParamMap();  paramMap.get*/
+		
+		/** (4) POST 파라미터 받기 */
 		String proImg =web.getString("b_file");
 		String pro_price = web.getString("b_price");
 		String proName = web.getString("b_pro_name");
@@ -82,7 +69,8 @@ public class basketGo extends BaseController {
 		logger.debug("product_id > " +product_id);
 				
 		
-		int memberId=1;
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		Basket bas = new Basket();
 	
 		
 		/** (5) 조회할 정보에 대한 Beans 생성 */
@@ -108,15 +96,16 @@ public class basketGo extends BaseController {
 			basket.setProPrice(proPrice);
 		}
 		
-		basket.setMemberId(memberId);
+		basket.setMemberId(loginInfo.getId());
 		
 		/** (4) 일련번호를 사용한 데이터 조회 */
 		// 지금 보고 있는 상품이 저장될 객체
 		Basket basketItem= null;
 		Basket basketItemList= null;
-		
+		int countItem= 0;
 		try {
 			if(product_id != null){
+				countItem = basketService.CountItem(basket);
 				basketItem=basketService.insertItem(basket);
 				logger.debug("basketItem > " +basketItem);
 				
@@ -124,6 +113,7 @@ public class basketGo extends BaseController {
 				for(int i = 0 ; i < pro_idList.length; i++){
 					logger.debug("pro_idList > " +pro_idList[i]);
 					basket.setProductId(Integer.parseInt(pro_idList[i]));
+					countItem = basketService.CountItem(basket);
 					basketItemList=basketService.insertItemList(basket);
 				}
 			}

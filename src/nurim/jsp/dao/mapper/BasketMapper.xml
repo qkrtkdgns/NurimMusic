@@ -109,5 +109,12 @@
 	#{memberId},#{productId},#{proImg},#{proName},#{proPrice},#{amount}
 	)
 	</insert>
+
+	<!-- 장바구니 상품 중복 여부 확인 -->
+	<select id="CountItem" parameterType="nurim.jsp.model.Basket"
+	resultType="int">
+	SELECT COUNT(id) FROM basket WHERE member_id = #{memberId} AND  product_id=#{productId}
+	</select>
+	
 </mapper>
 

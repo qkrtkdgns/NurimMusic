@@ -85,4 +85,12 @@ public interface BasketService {
 	 * @throws Exception
 	 */
 	public Basket insertItemList(Basket basket) throws Exception;
+
+	/**
+	 * 상품이 장바구니에 담겨있는지 확인(중복 검사)
+	 * @param basket
+	 * @return int
+	 * @throws Exception
+	 */
+	public int CountItem(Basket basket) throws Exception;
 }

@@ -43,29 +43,15 @@ public class basketGo2 extends BaseController {
 		
 		
 		/** (3) 로그인 여부 검사 */
-		
-		/**로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		//로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
 		if (web.getSession("loginInfo") == null) {
 			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
 			sqlSession.close();
 			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
 			return null;
 		}
-		*/ 
-		/** (4) POST 파라미터 받기 
-		// <form>태그 안에 <input type="file">요소가 포함되어 있고
-		// enctype="multipart/form-data"가 정의되어 있는 경우
-		// WebHelper의 getString()|getInt() 메서드는 더 이상 사용할 수 없게 된다.
-		try {
-			upload.multipartRequest(request);
-		} catch (Exception e) {
-			sqlSession.close();
-			web.redirect(null, "multipart 데이터가 아닙니다.");
-			return null;
-		}
-		// UploadHelper에서 텍스트 형식의 파라미터를 분류한 Map을 리턴받아서 값을 추출한다.
-		Map<String, String> paramMap = upload.getParamMap();  paramMap.get*/
-		
+		 
+		/** (4) POST 파라미터 받기 */
 		String product_id= web.getString("basket_id");
 		String proName = web.getString("basket_proname");
 		String pro_price = web.getString("basket_price");
@@ -79,7 +65,7 @@ public class basketGo2 extends BaseController {
 		logger.debug("pro_amount > " +pro_amount);
 		logger.debug("proImg > " +proImg);
 				
-		int memberId=1;
+		
 		int productId = Integer.parseInt(product_id);
 		int proPrice = Integer.parseInt(pro_price);
 		int proAmount = Integer.parseInt(pro_amount);
@@ -96,18 +82,25 @@ public class basketGo2 extends BaseController {
 		basket.setProImg(proImg);
 		basket.setProName(proName);
 		basket.setProPrice(proPrice);
-		basket.setMemberId(memberId);
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		basket.setMemberId(loginInfo.getId());
 		basket.setAmount(proAmount);
 		
 		
 		/** (4) 일련번호를 사용한 데이터 조회 */
 		// 지금 보고 있는 상품이 저장될 객체
 		Basket basketItem2= null;
-		
+
+		int countItem= 0;
+
 		try {
-			
+				//장바구니 상품 중복 여부 검사	
+				countItem = basketService.CountItem(basket);
+				logger.debug("countItem > " +countItem);
+				if(countItem==0){
 				basketItem2=basketService.insertItem2(basket);
 				logger.debug("basketItem2 > " +basketItem2);
+				}
 
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
