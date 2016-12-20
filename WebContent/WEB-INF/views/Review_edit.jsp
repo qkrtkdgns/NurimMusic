@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,9 +23,12 @@
 				<hr>
 				
 				<form class="form-horizontal" method="post" enctype="multipart/form-data"
-				action="${pageContext.request.contextPath }/Review_write_ok.do">
+				action="${pageContext.request.contextPath }/Review_edit_ok.do">
 				<!-- 게시판 카테고리에 대한 상태 유지 -->
 				<input type="hidden" name="category" value="${category }" />
+				<!-- 수정 대상에 대한 상태유지 -->
+				<input type="hidden" name="document_id" value="${readDocument.id }" />
+				
 				<!-- 회원리뷰 작성 영역 시작 -->
 				<div class="review_board">
 					<table class="table table-bordered">
@@ -34,14 +39,31 @@
 							<tbody>
 								<tr>
 								<th class="active">제목</th>
-									<td><input type="text" class="input_text" name="subject"></td>
+									<td><input type="text" class="input_text" name="subject" value="${readDocument.subject }"></td>
 									
 								</tr>
 								
 								<tr>
 									<th class="active">리뷰상품</th>
 									<td>
-									<input type="file" name="file" id="photo" multiple />
+									<input type="file" name="file" multiple id="photo" />
+									
+									<!-- 첨부파일 리스트가 존재할 경우만 삭제할 항목 선택 가능 -->
+									<c:if test="${fileList != null }">
+										<c:forEach var="file" items="${fileList }">
+											<!-- 이미지를 다운받기 위한 URL 구성 -->
+											<c:url value="/download.do" var="downloadUrl">
+												<c:param name="file" value="${file.fileDir }/${file.fileName }" />
+											</c:url>
+						
+											<div class="checkbox">
+												<label>
+													<input type="checkbox" name="del_file" id="img_del" value="${file.id }" />
+													${file.originName } 삭제하기
+												</label>
+											</div>
+										</c:forEach>
+									</c:if>
 									</td>
 								</tr>						
 							</tbody>
@@ -49,7 +71,7 @@
 
 					<!--내용 작성 영역 -->
 					<div class="textarea">
-						<textarea name="content" id="cont" class="ckeditor"></textarea>
+						<textarea name="content" id="cont" class="ckeditor">${readDocument.content }</textarea>
 					</div>
 					<!--//내용 작성 영역 끝 -->
 				</div>

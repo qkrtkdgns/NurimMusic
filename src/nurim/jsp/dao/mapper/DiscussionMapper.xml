@@ -18,8 +18,7 @@
     	<result property="ipAddress"	 	column="ip_address" />
     	<result property="agree" 			column="agree" />
     	<result property="disagree" 		column="disagree" />
-
-    	
+    	<result property="endDate" 		column="end_date" />
     </resultMap>
     
     <!-- 토론광장 글 저장하기 -->
@@ -47,7 +46,7 @@
 	<select id="selectPrevDiscussion"
 	parameterType="nurim.jsp.model.Document"
 	resultMap="document">
-	SELECT id, category, user_name, subject, content, hit,
+	SELECT id, category, subject, content, hit,
 	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
 	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
 				ip_address, member_id
@@ -61,7 +60,7 @@
 	<select id="selectNextDiscussion"
 	parameterType="nurim.jsp.model.Document"
 	resultMap="document">
-	SELECT id, category, user_name, subject, content, hit,
+	SELECT id, category, subject, content, hit,
 	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
 	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
 				ip_address, member_id
@@ -76,23 +75,15 @@
 	UPDATE document SET hit=hit+1 WHERE category=#{category} AND id=#{id}
 	</update>
 	
-	<!-- 토론 종료일을 계산한다. -->
-	<update id="updateDiscussionEndDate" parameterType="nurim.jsp.model.Document">
-	UPDATE document SET reg_date=reg_date+7 WHERE category=#{category} AND id=#{id}
-	</update>
+	<!-- 토론종료일을 계산한다. -->
+	<select id="selectDiscussionEndDate" parameterType="nurim.jsp.model.Document" resultMap="document">
+	SELECT date_add(now(), INTERVAL 7 DAY) as end_date FROM document WHERE category=#{category} AND id=#{id}
+	</select>
 
-    <!-- 게시물 목록을 조회한다. -->
+    <!-- 토론광장 목록을 조회한다. -->
 	<select id="selectDiscussionList" parameterType="nurim.jsp.model.Document" resultMap="document">
-	SELECT id, category, subject, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date
-	
-	<if test="gallery == true">
-		,(SELECT concat(file_dir, '/', file_name) FROM bbs_file
-		WHERE document_id=document.id
-		AND content_type LIKE ('image/%')
-		) as image_path
-	</if>
+	SELECT id, category, subject, content, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, DATE(date_add(now(), INTERVAL 7 DAY)) as end_date
 	FROM document
-	
 	<where>
 		category=#{category}
 		

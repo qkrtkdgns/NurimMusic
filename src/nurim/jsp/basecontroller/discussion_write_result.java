@@ -71,6 +71,11 @@ public class discussion_write_result extends BaseController {
 		/** (6) 게시물 일련번호를 사용한 데이터 조회 */
 		//지금 읽고 있는 게시물이 저장될 객체
 		Document readDocument = null;
+		//이전글이 저장될 객체
+		Document prevDocument = null;
+		//다음글이 저장될 객체
+		Document nextDocument = null;
+		Document readEndDate = null;
 		
 		/** 조회수 중복 갱신 방지 처리 */
 		//카테고리와 게시물 일련번호를 조합한 문자열을 생성
@@ -79,12 +84,15 @@ public class discussion_write_result extends BaseController {
 		//준비한 문자열에 대응되는 쿠키값 조회
 		String cookieVar = web.getCookie(cookieKey);
 		try {
-			//쿠키값이 없다면 토론종료일 갱신
+			//쿠키값이 없다면 조회수 갱신
 			if (cookieVar == null) {
-				discussionService.updateDiscussionEndDate(document);
+				discussionService.updateDiscussionHit(document);
 				web.setCookie(cookieKey, "Y", 60*60*24);
 			}
+			readEndDate = discussionService.selectDiscussionEndDate(document);
 			readDocument = discussionService.selectDiscussion(document);
+			prevDocument = discussionService.selectPrevDiscussion(document);
+			nextDocument = discussionService.selectNextDiscussion(document);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -93,7 +101,10 @@ public class discussion_write_result extends BaseController {
 		}
 		
 		/** (7) 읽은 데이터를 View에게 전달한다. */
+		request.setAttribute("readEndDate", readEndDate);
 		request.setAttribute("readDocument", readDocument);
+		request.setAttribute("prevDocument", prevDocument);
+		request.setAttribute("nextDocument", nextDocument);
 		
 		return "discussion_write_result";
 	}

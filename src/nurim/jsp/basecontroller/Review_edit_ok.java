@@ -1,4 +1,4 @@
-package nurim.jsp.admin.controller.bbs;
+package nurim.jsp.basecontroller;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,9 +13,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nurim.jsp.admin.service.DocumentNoticeService;
 import nurim.jsp.admin.service.NoticeFileService;
-import nurim.jsp.admin.service.impl.DocumentNoticeServiceImpl;
 import nurim.jsp.admin.service.impl.NoticeFileServiceImpl;
 import nurim.jsp.controller.bbs.BBSCommon;
 import nurim.jsp.dao.MyBatisConnectionFactory;
@@ -26,10 +24,13 @@ import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Document;
 import nurim.jsp.model.File;
+import nurim.jsp.model.Member;
+import nurim.jsp.service.ReviewService;
+import nurim.jsp.service.impl.ReviewServiceImpl;
 
-@WebServlet("/admin/info_edit_ok.do")
-public class infoEditOk extends BaseController {
-	private static final long serialVersionUID = 4276030630590189920L;
+@WebServlet("/Review_edit_ok.do")
+public class Review_edit_ok extends BaseController {
+	private static final long serialVersionUID = 2883603059706786214L;
 
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	Logger logger;
@@ -38,24 +39,21 @@ public class infoEditOk extends BaseController {
 	BBSCommon bbs;
 	UploadHelper upload;
 	RegexHelper regex;
-	DocumentNoticeService documentNoticeService;
-	NoticeFileService fileService;
+	ReviewService reviewService;
+	NoticeFileService noticeFileService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		/** (2) 페이지 형식 지정 + 사용하고자 하는 Helper + Service 객체 선언 */
-		//페이지 형식을 JSON으로 설정한다.'
-		response.setContentType("application/json");
 		
+		/** (2) 사용하고자 하는 Helper + Service 객체 생성 */
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		bbs = BBSCommon.getInstance();
 		upload = UploadHelper.getInstance();
 		regex = RegexHelper.getInstance();
-		documentNoticeService = new DocumentNoticeServiceImpl(sqlSession, logger);
-		fileService = new NoticeFileServiceImpl(sqlSession, logger);
+		reviewService = new ReviewServiceImpl(sqlSession, logger);
+		noticeFileService = new NoticeFileServiceImpl(sqlSession, logger);
 		
 		/** (3) 파일이 포함된 POST 파라미터 받기 */
 		try {
@@ -84,8 +82,9 @@ public class infoEditOk extends BaseController {
 		String content = paramMap.get("content");
 		//작성자 아이피 주소 가져오기
 		String ipAddress = web.getClientIP();
+		//회원 일련번호 -> 비로그인인 경우 0
 		int memberId = 1;
-	
+		
 		/** (5) 게시판 카테고리 값을 받아서 View에 전달 */
 		//파일이 첨부된 경우 WebHelper를 사용할 수 있다.
 		request.setAttribute("category", category);
@@ -100,7 +99,41 @@ public class infoEditOk extends BaseController {
 			return null;
 		}
 		
-		/** (7) 입력 받은 파라미터에 대한 유효성 검사 */
+		/** (7) 로그인 한 경우 자신의 글이라면 입력하지 않은 정보를 세션 데이터로 대체한다. */
+		//소유권 검사 정보
+		boolean myDocument = false;
+		
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		if (loginInfo != null) {
+			try {
+				//소유권 판정을 위하여 사용하는 임시 객체
+				Document temp = new Document();
+				temp.setCategory(category);
+				temp.setId(documentId);
+				temp.setMemberId(loginInfo.getId());
+				
+				if (reviewService.selectReviewCountByMemberId(temp) > 0) {
+					//소유권을 의미하는 변수 변경
+					myDocument = true;
+					//입력되지 않은 정보들 갱신
+					memberId = loginInfo.getId();
+				}
+			} catch (Exception e) {
+				sqlSession.close();
+				web.redirect(null, e.getLocalizedMessage());
+				return null;
+			}
+		}
+		
+		//전달된 파라미터는 로그로 확인한다.
+		logger.debug("documentId = " + documentId);
+		logger.debug("category = " + category);
+		logger.debug("subject = " + subject);
+		logger.debug("content = " + content);
+		logger.debug("ipAddress = " + ipAddress);
+		logger.debug("memberId = " + memberId);
+		
+		/** (8) 입력 받은 파라미터에 대한 유효성 검사 */
 		//제목 및 내용 검사
 		if (!regex.isValue(subject)) {
 			sqlSession.close();
@@ -113,7 +146,7 @@ public class infoEditOk extends BaseController {
 			web.redirect(null, "내용을 입력하세요.");
 			return null;
 		}
-		
+				
 		/** (9) 입력 받은 파파미터를 Beans로 묶기 */
 		Document document = new Document();
 		//UPDATE 문의 WHERE 절에서 사용해야 하므로 글 번호 추가
@@ -128,8 +161,7 @@ public class infoEditOk extends BaseController {
 		
 		/** (10) 게시물 변경을 위한 Service 기능을 호출 */
 		try {
-			documentNoticeService.updateNotice(document);
-			logger.debug("document = " + document);
+			reviewService.updateReview(document);
 		}  catch (Exception e) {
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
@@ -151,18 +183,18 @@ public class infoEditOk extends BaseController {
 					file.setId(Integer.parseInt(delFileList[i]));
 					
 					//개별 파일에 대한 정보를 조회하여 실제 파일을 삭제한다.
-					File item = fileService.selectFile(file);
+					File item = noticeFileService.selectFile(file);
 					upload.removeFile(item.getFileDir() + "/" + item.getFileName());
 					
 					//DB에서 파일정보 삭제처리
-					fileService.deleteFile(file);
+					noticeFileService.deleteFile(file);
 				} catch (Exception e) {
 					sqlSession.close();
 					web.redirect(null, e.getLocalizedMessage());
 					return null;
 				}
 			}
-		}
+		}		
 		
 		/** (12) 추가적으로 업로드 된 파일 정보 처리 */
 		//업로드 된 파일 목록
@@ -189,7 +221,7 @@ public class infoEditOk extends BaseController {
 			
 			//복사된 데이터를 DB에 저장
 			try {
-				fileService.insertFile(file); 
+				noticeFileService.insertFile(file); 
 			} catch (Exception e) {
 				sqlSession.close();
 				web.redirect(null, e.getLocalizedMessage());
@@ -200,12 +232,12 @@ public class infoEditOk extends BaseController {
 		
 		/** (13) 모든 절차가 종료되었으므로 DB 접속 해제 후 페이지 이동 */
 		sqlSession.close();
-			
-		String url = "%s/admin/info_read.do?category=%s&document_id=%d";
+		
+		String url = "%s/Review_write_result.do?category=%s&document_id=%d";
 		url = String.format(url, web.getRootPath(), category, documentId);
 		web.redirect(url, null);
 		
 		return null;
 	}
-
+	
 }

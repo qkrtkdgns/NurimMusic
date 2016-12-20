@@ -60,19 +60,18 @@ table > thead > tr{
   vertical-align: middle;
 }
 .move_list > tbody > tr > td:nth-child(2){
-  width:80px;
-  text-align: center;
+  width:800px;
   vertical-align: middle;
 }
 .move_list > tbody > tr > td:nth-child(3){
-  width:950px;
+  width:100px;
   vertical-align: middle;
 }
-.move_list > tbody > tr > td:nth-child(4){
+ .move_list > tbody > tr > td:nth-child(4){
   width:200px;
   text-align: center;
   vertical-align: middle;
-}
+} 
 
 /** 이전, 다음글 링크 표시 */
 .move_list > tbody > tr > td > a{

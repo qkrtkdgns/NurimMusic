@@ -87,13 +87,13 @@
 				height: 30px;
 			}
 
-			.list button {
+			.list > a {
 				background-color: #af64a9;
 				border-color: #af64a9;
 				margin-bottom: 40px;
 			}
-
-			.modify button {
+			
+			.modify > a {
 				background-color: #af64a9;
 				border-color: #af64a9;
 				margin-bottom: 40px;

@@ -74,6 +74,7 @@
 		</if>
 	</where>
 		ORDER BY id DESC
+		LIMIT #{limitStart}, #{listCount}
 	</select>
 	
 	<!-- 전체 나의 문의사항 수를 조회한다. // 직계 함수를 사용할 때에는 resultType="int"를 사용한다.-->
@@ -81,15 +82,5 @@
 		SELECT COUNT(id) FROM document
 		
 	</select>
-	
-	 <!-- 1:1 문의게시글 답변 생성 -->
-    <insert id="insertQnaA" parameterType="nurim.jsp.model.Document"
-    useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO document (
-    category, qna_type, member_id, subject, content, reg_date, edit_date, hit, ip_address
-    ) VALUES (
-   		#{category}, #{qnaType}, #{memberId}, "답변대기", "답변대기", now(), now(), 0, #{ipAddress}
-    )
-    </insert>
      
 </mapper>

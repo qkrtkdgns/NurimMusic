@@ -1,4 +1,7 @@
 ﻿/** 수정본 */
+h3 {
+			color: gray;
+		}
 h2,h3{
       display: inline-block;
     }
@@ -49,22 +52,21 @@ h2,h3{
       }
 
       .dis_parti {
-        display: block;
+        display: inline-block;
+        width:1000px;
         margin-top: 50px;
         margin-left: 200px;
         margin-bottom: 60px;
       }
 
-      .dis_parti a {
-        text-decoration: none;
-      }
-
       span.thumb1 {
         margin-right: 20px;
+        float: left;
       }
 
       span.thumb2 {
-        margin-right: 40px;
+      	float: right;
+        margin-right: 200px;
       }
       
        #comment_box {
@@ -96,6 +98,10 @@ h2,h3{
         border-bottom: 1px solid #000;
         height: 28px;
 
+      }
+      
+      .move_page a {
+      	color: black;
       }
 
       .comment_txt {

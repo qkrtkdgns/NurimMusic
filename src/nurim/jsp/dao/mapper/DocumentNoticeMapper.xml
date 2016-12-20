@@ -45,7 +45,7 @@
     
     <!-- 공지사항 목록을 조회한다. -->
     <select id="selectNoticeList" parameterType="nurim.jsp.model.Document" resultMap="document">
-    SELECT id, category, member_id, subject, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date
+    SELECT id, category, member_id, subject, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, DATE_FORMAT(edit_date, '%Y-%m-%d') as edit_date
     
     <if test="gallery == true">
 		,(SELECT concat(file_dir, '/', file_name) FROM file
@@ -71,12 +71,12 @@
 		</if>
 	</where>
 		ORDER BY id DESC
+		LIMIT #{limitStart}, #{listCount}
 	</select>
 	
 	<!-- 전체 공지사항 수를 조회한다. // 직계 함수를 사용할 때에는 resultType="int"를 사용한다.-->
 	<select id="selectNoticeCount" parameterType="nurim.jsp.model.Document" resultType="int">
-		SELECT COUNT(id) FROM document
-		
+	SELECT COUNT(id) FROM document
 	</select>
      
     <!-- 공지사항 삭제하기 -->
@@ -95,5 +95,32 @@
 	WHERE category=#{category} AND id=#{id} AND member_id=#{memberId}
 	</select>
 	
+	<!-- 이전글 정보를 조회한다. -->
+	<select id="selectPrevNotice"
+	parameterType="nurim.jsp.model.Document"
+	resultMap="document">
+	SELECT id, category, subject, content, hit,
+	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+				ip_address, member_id
+	FROM 	document
+	WHERE	category=#{category} AND id &lt; #{id}
+	ORDER 	BY id DESC
+	LIMIT 	0, 1
+	</select>
+	
+	<!-- 다음글 정보를 조회한다. -->
+	<select id="selectNextNotice"
+	parameterType="nurim.jsp.model.Document"
+	resultMap="document">
+	SELECT id, category, subject, content, hit,
+	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+				ip_address, member_id
+	FROM 	document
+	WHERE	category=#{category} AND id &gt; #{id}
+	ORDER	 BY id ASC
+	LIMIT 	0, 1
+	</select>
 	
 </mapper>

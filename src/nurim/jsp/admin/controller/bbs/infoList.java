@@ -120,6 +120,9 @@ public class infoList extends BaseController {
 		
 		/** (7) 조회 결과를 view에 전달 */
 		request.setAttribute("documentList", documentList);
+		//사용자가 입력한 검색어를 view에 되돌려준다. -> 자동완성 구현을 위함
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("pageHelper", pageHelper);
 		
 		return "admin/info_list";
 	}

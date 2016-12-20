@@ -12,45 +12,39 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nurim.jsp.admin.service.DocumentNoticeService;
 import nurim.jsp.admin.service.NoticeFileService;
-import nurim.jsp.admin.service.impl.DocumentNoticeServiceImpl;
 import nurim.jsp.admin.service.impl.NoticeFileServiceImpl;
 import nurim.jsp.controller.bbs.BBSCommon;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
-import nurim.jsp.helper.PageHelper;
-import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Document;
 import nurim.jsp.model.File;
+import nurim.jsp.service.ReviewService;
+import nurim.jsp.service.impl.ReviewServiceImpl;
 
-@WebServlet("/info_contents.do")
-public class info_contents extends BaseController {
-	private static final long serialVersionUID = 664101863044703201L;
-	
+@WebServlet("/Review_edit.do")
+public class Review_edit extends BaseController {
+	private static final long serialVersionUID = 404930658419442237L;
+
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
 	BBSCommon bbs;
-	DocumentNoticeService documentNoticeService;
-	PageHelper pageHelper;
-	UploadHelper upload;
-	NoticeFileService fileService;
+	ReviewService reviewService;
+	NoticeFileService noticeFileService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		/** (2) 사용하고자 하는 Helper + Service 객체 선언 */
+		/** (2) 사용하고자 하는 Helper + Service 객체 생성 */
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		bbs = BBSCommon.getInstance();
-		documentNoticeService = new DocumentNoticeServiceImpl(sqlSession, logger);
-		pageHelper = PageHelper.getInstance();
-		upload = UploadHelper.getInstance();
-		fileService = new NoticeFileServiceImpl(sqlSession, logger);
+		reviewService = new ReviewServiceImpl(sqlSession, logger);
+		noticeFileService = new NoticeFileServiceImpl(sqlSession, logger);
 		
 		/** (3) 게시판 카테고리 값을 받아서 View에 전달 */
 		String category = web.getString("category");
@@ -88,31 +82,22 @@ public class info_contents extends BaseController {
 		Document readDocument = null;
 		//첨부파일 정보가 저장될 객체
 		List<File> fileList = null;
-		//이전글이 저장될 객체
-		Document prevDocument = null;
-		//다음글이 저장될 객체
-		Document nextDocument = null;
-				
-		/** 조회수 중복 갱신 방지 처리 */
+		
 		try {
-			readDocument = documentNoticeService.selectNotice(document);
-			prevDocument = documentNoticeService.selectPrevNotice(document);
-			nextDocument = documentNoticeService.selectNextNotice(document);
-			fileList = fileService.selectNoticeFileList(file);
+			readDocument = reviewService.selectReview(document);
+			fileList = noticeFileService.selectNoticeFileList(file);
 		} catch (Exception e) {
-			web.redirect(null,  e.getLocalizedMessage());
+			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		} finally {
 			sqlSession.close();
 		}
-				
-		/** (5) 읽은 데이터를 view에 전달한다. */
+		
+		/** (7) 읽은 데이터를 View에게 전달한다. */
 		request.setAttribute("readDocument", readDocument);
 		request.setAttribute("fileList", fileList);
-		request.setAttribute("prevDocument", prevDocument);
-		request.setAttribute("nextDocument", nextDocument);
-				
-		return "info_contents";
+		
+		return "Review_edit";
 	}
 
 }

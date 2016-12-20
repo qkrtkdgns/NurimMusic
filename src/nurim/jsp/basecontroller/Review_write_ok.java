@@ -72,7 +72,7 @@ public class Review_write_ok extends BaseController {
 		//작성자 아이피 주소 가져오기
 		String ipAddress = web.getClientIP();
 		//회원 일련번호 -> 비로그인인 경우 0
-		int memberId = 0;
+		int memberId = 1;
 		//로그인 한 경우, 입력하지 않은 이름, 비밀번호, 이메일을 세션정보로 대체
 		Member loginInfo = (Member) web.getSession("loginInfo");
 		if (loginInfo != null) {
@@ -126,10 +126,7 @@ public class Review_write_ok extends BaseController {
 		
 		/** (9) Service를 통한 게시물 저장 */
 		try {
-			for (int i = 1; i <= 1; i++) {
-				document.setSubject(subject + "(" + i + ")");
-				reviewService.insertReview(document);
-			}
+			reviewService.insertReview(document);
 		} catch (Exception e) {
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
@@ -152,7 +149,7 @@ public class Review_write_ok extends BaseController {
 				file.setDocumentId(document.getId());
 				
 				//데이터 복사
-				file.setOriginName(info.getOrginName());
+				file.setOriginName(info.getOriginName());
 				file.setFileDir(info.getFileDir());
 				file.setFileName(info.getFileName());
 				file.setContentType(info.getContentType());

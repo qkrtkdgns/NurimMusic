@@ -108,7 +108,7 @@ h2,h3{
 		}
 
 		.page_num {
-				margin-left: 235px;
+				margin-left: 305px;
 				margin-top: 40px;
 			}
 
@@ -150,7 +150,13 @@ h2,h3{
 		}
 
 		.result_search {
-				
 				margin-left: 180px;
 				margin-top: 20px;
 			}
+			
+		.result_search button {
+			margin-bottom: 1px;
+			background-color: #555;
+			color: white;
+		
+		}
