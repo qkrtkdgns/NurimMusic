@@ -34,16 +34,19 @@ public class Category extends HttpServlet {
 				
 		switch(type){
 		case "kor":
+			list.add(new CategoryItem("0", "-------"));
 			list.add(new CategoryItem("1", "k-pop"));
 			list.add(new CategoryItem("2", "dance"));
 			list.add(new CategoryItem("3", "ost"));
 			break;
 		case "for":
+			list.add(new CategoryItem("0", "-------"));
 			list.add(new CategoryItem("4", "pop"));
 			list.add(new CategoryItem("5", "Rock"));
 			list.add(new CategoryItem("6", "jazz"));
 			break;
 		case "shapping":
+			list.add(new CategoryItem("0", "--------"));
 			list.add(new CategoryItem("7", "이어폰"));
 			list.add(new CategoryItem("8", "헤드폰"));
 			break;
