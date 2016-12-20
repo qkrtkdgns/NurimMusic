@@ -55,36 +55,6 @@ public class EditItem extends BaseController{
 		*/
 		
 				
-				/**
-				 * Map<String, String> paramMap =upload.getParamMap();
-				int productId=0;
-				try{
-					productId = Integer.parseInt(paramMap.get("product_id"));
-				}catch(NumberFormatException e){
-					sqlSession.close();
-					web.redirect(null, "글 번호가 올바르지 않습니다");
-					return null;
-				}
-				
-				
-				String proName = paramMap.get("title");
-				String proPrice = paramMap.get("price");
-				String amount= paramMap.get("no");
-				String provider = paramMap.get("provider");
-				String content = paramMap.get("content");
-				String proCategoryName = paramMap.get("category");
-				
-				//로그 확인
-				logger.debug("proName=" + proName);
-				logger.debug("proPrice=" + proPrice);
-				logger.debug("amount=" + amount);
-				logger.debug("provider=" + provider);
-				logger.debug("content=" + content);
-				logger.debug("proCategoryName=" + proCategoryName);
-				*/
-			
-			
-				
 				/** (3) 글 번호 파라미터 받기 */
 				int productId = web.getInt("id");
 				if (productId == 0) {

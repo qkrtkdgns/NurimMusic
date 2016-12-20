@@ -49,6 +49,13 @@ public class item extends BaseController {
 		product.setId(productId);
 		product.setProCategoryName(CategoryName);
 		logger.debug("productId> " + productId);
+		
+		/**조회수 중복 갱신 방지 처리*/
+		//카테고리와 게시물 일련번호를 조합한 문자열 생성
+		String cookieKey = "product"+CategoryName+"_"+productId;
+		//준비한 문자열에 대응되는 쿠키값 조회
+		String cookieVar = web.getCookie(cookieKey);
+		
 		/**(4) 게시물 일련번호를 사용한 데이터 조회*/
 		//상품 상세 페이지 내용이 저장될 객체
 		Product readproduct = null;
@@ -56,6 +63,12 @@ public class item extends BaseController {
 		Product nextproduct = null;
 		
 		try{
+			if(cookieVar==null){
+				productService.updateProductHit(product);
+				//준비한 문자열에 대한 쿠키를 24시간동안 저장
+				web.setCookie(cookieKey, "Y", 60*60*24);
+			}
+			
 			readproduct = productService.selectProduct(product);
 			prevproduct = productService.selectPrevProduct(product);
 			nextproduct =productService.selectNextProduct(product);

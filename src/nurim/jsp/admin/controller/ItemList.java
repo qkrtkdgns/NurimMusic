@@ -90,8 +90,15 @@ public class ItemList extends BaseController{
 							logger.debug("checkbox >>"+checkbox);
 							proCategory.setProductId(Integer.parseInt(checkbox[i]));
 							product.setId(Integer.parseInt(checkbox[i]));
+							Product img = null;
+							img =  productAdmin.selectImg(product);
+							String img1 = String.valueOf(img);
+							logger.debug("img1 >>"+img1);
+							upload.removeFile(img1);
 							productAdmin.deleteProCategory(proCategory);
 							productAdmin.deleteProduct(product);
+							
+
 						}
 					}
 				} catch (Exception e) {
@@ -115,8 +122,7 @@ public class ItemList extends BaseController{
 					}
 				}
 				
-			
-				
+
 				/** (7) 조회 결과를 View에 전달 */
 				request.setAttribute("productList", productList);
 				// 사용자가 입력한 검색어를 View에 되돌려준다. --> 자동완성 구현을 위함

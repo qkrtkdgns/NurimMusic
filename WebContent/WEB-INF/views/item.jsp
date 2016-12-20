@@ -53,7 +53,15 @@
            <tr>
            <th>수량</th>
            <td>:</td>
-           <td><input type="text" name="amount" id="amount" value="1" disabled /><a id="up"><img src="${pageContext.request.contextPath }/img/count_up.gif" /></a><a id="down"><img src="${pageContext.request.contextPath }/img/count_down.gif" /></a></td>
+           <td> 
+           <c:choose>
+           <c:when test="${readproduct.amount != 0}">
+           <input type="text" name="amount" id="amount" value="1" disabled /><a id="up"><img src="${pageContext.request.contextPath }/img/count_up.gif" /></a><a id="down"><img src="${pageContext.request.contextPath }/img/count_down.gif" /></a></td>
+           </c:when>
+           <c:otherwise>
+           품절된 상품입니다! 재 입고 문의는 고객센터 -> 문의하기 -> 1:1 문의를 이용해주세요.
+           </c:otherwise>
+           </c:choose>
            </tr>
            </tbody>
            </table>
@@ -61,21 +69,37 @@
             
            <div class="buy">
            <form action="${pageContext.request.contextPath }/pay.do" method="post" >
-            <button type="submit">
+            <c:choose>
+            <c:when test="${readproduct.amount != 0}">
+            <button type="submit" >
                <img src="${pageContext.request.contextPath }/img/btn_buy.gif" />
              </button>
+             </c:when>
+             <c:otherwise>
+             <button type="submit" disabled>
+               <img src="${pageContext.request.contextPath }/img/btn_buy.gif" />
+             </button>
+             </c:otherwise>
+             </c:choose>
               <input type="hidden"  name="order_id" id="order_id"  value="${readproduct.id}"/>
               <input type="hidden" name="order_amount" id="order_amount"  value="1" />
            </form>
            </div>
         
-            
            		<div class="basket">
            		<form action="${pageContext.request.contextPath }/basket_go.do" method="post" >
+           		<c:choose>
+           		 <c:when test="${readproduct.amount != 0}">
            		<button type="submit">
                <img src="${pageContext.request.contextPath }/img/btn_cart.gif" />
               </button>
-              
+              </c:when>
+              <c:otherwise>
+              <button type="submit" disabled>
+               <img src="${pageContext.request.contextPath }/img/btn_cart.gif" />
+              </button>
+              </c:otherwise>
+              </c:choose>
               <input type="hidden"  name="basket_id" id="basket_id"  value="${readproduct.id}"/>
                <input type="hidden" name="basket_amount" id="basket_amount"  value="1" />
                <input type="hidden"  name="basket_proname" id="basket_proname"  value="${readproduct.proName}"/>

@@ -190,4 +190,62 @@ public class ProductAdminImpl implements ProductAdmin {
 		return result;
 	}
 
+	@Override
+	public void updateProduct(Product product) throws Exception {
+		try{
+			int result= sqlSession.update("ProductMapper.updateProduct", product);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 상품에 대한 요청입니다..");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());;
+			throw new Exception("상품 수정에 실패하였습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+
+	@Override
+	public void updateProCategory(ProCategory proCategory) throws Exception {
+		try{
+			int result= sqlSession.update("ProCategoryMapper.updateProCategory", proCategory);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 상품에 대한 요청입니다..");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());;
+			throw new Exception("상품 수정에 실패하였습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+
+	@Override
+	public Product selectImg(Product product) throws Exception {
+		Product result = null;
+		
+		try{
+			result = sqlSession.selectOne("ProductMapper.selectImg", product);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 이미지에 대한 요청입니다.1");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("이미지 검색에 실패했습니다.");
+		}
+		return result;
+	}
 }

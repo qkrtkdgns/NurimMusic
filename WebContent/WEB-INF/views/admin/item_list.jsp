@@ -62,7 +62,7 @@ color:#249;
 						
 					</div>
 					<!--검색 end -->
-					<div class="help">상품명을 클릭하여 해당 상품 정보의 수정이 가능합니다.</div>
+					<div class="help">상품명을 클릭하여 해당 상품의 정보 수정이 가능합니다.</div>
 					<!-- 테이블 start -->
 					<div id="items">
 						<table>
@@ -94,6 +94,7 @@ color:#249;
 								<c:choose>
 									<c:when test="${fn:length(productList) > 0}">
 										<c:forEach var="product" items="${productList }">
+											<input type="hidden" name="img" value="${product.proImg}" />
 											<tr>
 												<td><input type="checkbox" class="item_checked"   name="check" value="${product.id}"   /></td>
 												<td>

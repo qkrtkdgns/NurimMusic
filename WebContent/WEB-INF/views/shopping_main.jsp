@@ -3,7 +3,6 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -78,31 +77,37 @@
 				</div>
 				<div class="items">
 
-					<ul class="new_item_ul1">
+					<ul class="new_item_ul">
 						<c:choose>
-							<c:when test="${fn:length(MDItem) > 0}">
-								<c:forEach var="n" items="${MDItem }" begin="0" end="4"
-									varStatus="i">
-									<li class="shop_li${i.index+1 }"><a
-										href="${pageContext.request.contextPath }/item.do?id=${n.id}&category=${n.proCategoryName}">
-											<span class="thumb"> <c:choose>
-													<c:when test="${n.proImg != null}">
+							<c:when test="${fn:length(shppingItemList) > 0}">
+								<c:forEach var="product" items="${shppingItemList }">
+									<li class="shop_li"><input type="hidden" name="product_id"
+										value="${product.id}"> 
+										<a href="${pageContext.request.contextPath }/item.do">
+										<span class="thumb">
+											<c:choose>
+													<c:when test="${product.proImg != null}">
 														<c:url var="downloadUrl" value="/download.do">
-															<c:param name="file" value="${n.proImg}" />
+															<c:param name="file" value="${product.proImg}" />
 														</c:url>
 														<img src="${downloadUrl}" />
 													</c:when>
 													<c:otherwise>
-														<img
-															src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+														<img src="${pageContext.request.contextPath}/img/noimage.png" />
 													</c:otherwise>
 												</c:choose>
-										</span>
-									</a><span class="ab_name">${n.proName }</span> <span class="price">${n.proPrice }원</span></li>
+										</span> <span class="ab_name">${product.proName}</span></a>
+										<span class="price">${product.proPrice}원</span></li>
 								</c:forEach>
 							</c:when>
+							<c:otherwise>
+								<span class="thumb"><img
+									src="${pageContext.request.contextPath}/img/noimage.png" /></span>
+								<span class="ab_name">상품 없음</span>
+							</c:otherwise>
 						</c:choose>
 					</ul>
+
 
 				</div>
 				<div class="items2">
@@ -112,36 +117,46 @@
 
 					<div class="items">
 
-						<ul class="new_item_ul1">
+						<ul class="new_item_ul">
 							<c:choose>
-								<c:when test="${fn:length(HOTItem) > 0}">
-									<c:forEach var="n" items="${HOTItem }" begin="0" end="4"
-										varStatus="i">
-										<li class="shop_li${i.index+1 }"><a
-											href="${pageContext.request.contextPath }/item.do?id=${n.id}&category=${n.proCategoryName}">
+								<c:when test="${fn:length(HotItemList) > 0}">
+									<c:forEach var="product" items="${HotItemList }">
+										<li class="shop_li">
+										<input type="hidden" name="product_id" value="${product.id}">
+											<a href="${pageContext.request.contextPath }/item.do?id=${product.id}&category=${product.proCategoryName}">
 												<span class="thumb"> <c:choose>
-														<c:when test="${n.proImg != null}">
+														<c:when test="${product.proImg != null}">
 															<c:url var="downloadUrl" value="/download.do">
-																<c:param name="file" value="${n.proImg}" />
+																<c:param name="file" value="${product.proImg}" />
 															</c:url>
 															<img src="${downloadUrl}" />
 														</c:when>
 														<c:otherwise>
 															<img
-																src="${pageContext.request.contextPath}/assets/img/no_image.jpg" />
+																src="${pageContext.request.contextPath}/img/noimage.png" />
 														</c:otherwise>
 													</c:choose>
-											</span>
-										</a><span class="ab_name">${n.proName }</span> <span class="price">${n.proPrice }원</span></li>
-									</c:forEach>
-								</c:when>
-							</c:choose>
+											</span> <span class="ab_name">${product.proName}</span></a>
+											<span class="price">${product.proPrice}원</span>
+											</li>
+						</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<span class="thumb"><img
+								src="${pageContext.request.contextPath}/img/noimage.png" /></span>
+							<span class="ab_name">상품 없음</span>
+						</c:otherwise>
+						</c:choose>
 						</ul>
+						
 
 					</div>
 				</div>
+				<!-- items2 end -->
 			</div>
+			<!-- shop_items end -->
 		</div>
+		<!-- shop_content end -->
 	</div>
 
 	<!--본문내용 작성 end -->

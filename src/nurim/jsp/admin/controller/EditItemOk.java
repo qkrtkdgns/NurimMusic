@@ -1,6 +1,7 @@
 package nurim.jsp.admin.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -16,9 +17,11 @@ import nurim.jsp.admin.service.ProductAdmin;
 import nurim.jsp.admin.service.impl.ProductAdminImpl;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
+import nurim.jsp.helper.FileInfo;
 import nurim.jsp.helper.RegexHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
+import nurim.jsp.model.ProCategory;
 import nurim.jsp.model.Product;
 
 
@@ -55,34 +58,42 @@ public class EditItemOk extends BaseController{
 			return null;
 		}
 		*/
-		
-				
+		try {
+			upload.multipartRequest(request);
+		} catch (Exception e) {
+			sqlSession.close();
+			web.redirect(null, "multipart 데이터가 아닙니다.");
+			return null;
+		}
+
 				Map<String, String> paramMap =upload.getParamMap();
-				/** (3) 글 번호 파라미터 받기 */
-				int productId=0;
-				try{
-					productId = Integer.parseInt(paramMap.get("product_id"));
-				}catch(NumberFormatException e){
-					sqlSession.close();
-					web.redirect(null, "글 번호가 올바르지 않습니다");
-					return null;
-				}
-				
-				
+				String product_id = paramMap.get("id");
 				String proName = paramMap.get("title");
 				String proPrice = paramMap.get("price");
-				String amount= paramMap.get("no");
 				String provider = paramMap.get("provider");
 				String content = paramMap.get("content");
+				String amount= paramMap.get("no");
 				String proCategoryName = paramMap.get("category");
+				String soldout = paramMap.get("sal_no");
+				String regDate= paramMap.get("date");
 				
-				//로그 확인
+				
 				logger.debug("proName=" + proName);
 				logger.debug("proPrice=" + proPrice);
 				logger.debug("amount=" + amount);
 				logger.debug("provider=" + provider);
 				logger.debug("content=" + content);
 				logger.debug("proCategoryName=" + proCategoryName);
+				logger.debug("soldout=" + soldout);
+				
+				/** (3) 글 번호 파라미터 받기 */
+				if(product_id == null){
+					sqlSession.close();
+					web.redirect(null, "글 번호가 올바르지 않습니다");
+					return null;
+				}
+				
+				
 				
 				/** (4) 입력 받은 파라미터에 대한 유효성 검사 */
 				if (!regex.isValue(proName)) {
@@ -104,22 +115,51 @@ public class EditItemOk extends BaseController{
 					return null;
 				}
 			
-				
-				
-
-				// 파라미터를 Beans로 묶기
+			
+				/**(5) 입력 받은 파라미터를 Beans로 묶기*/
 				Product product = new Product();
+				int productId = Integer.parseInt(product_id);
 				product.setId(productId);
+				product.setProName(proName);
+				product.setProPrice(proPrice);
+				product.setProvider(provider);
+				product.setContent(content);
+				product.setRegDate(regDate);
 				
-				/** (5) 덧글 일련번호를 사용한 데이터 조회 */
-				// 지금 읽고 있는 덧글이 저장될 객체
-				Product readproduct= null;
+				if(soldout.equals("2")){
+					product.setAmount("0");
+				}else{
+					product.setAmount(amount);
+				}
 				
+				List<FileInfo> fileList = upload.getFileList();
+				// 업로드 된 프로필 사진 경로가 저장될 변수
 				
-				try {
+				String profileImg = null;
+				// 업로드 된 파일이 존재할 경우만 변수값을 할당한다.
+				if (fileList.size() > 0) {
+					// 단일 업로드이므로 0번째 항목만 가져온다.
+					FileInfo info = fileList.get(0);
+					upload.removeFile( paramMap.get("Oldfile"));
+					profileImg = info.getFileDir() + "/" + info.getFileName();
 					
-					readproduct=productAdmin.selectProduct(product);
-					logger.debug("readproduct > " +readproduct);
+				}else{
+					profileImg = paramMap.get("Oldfile");
+				}
+			
+				// 파일경로를 로그로 기록
+				logger.debug("profileImg=" + profileImg);
+				
+				product.setProImg(profileImg);
+	
+				ProCategory proCategory =new ProCategory();
+				proCategory.setProductId(productId);
+				proCategory.setProCategoryName(proCategoryName);
+				
+			/**(6) 상품 변경을 위한 Service 기능을 호출*/	
+			try {
+					productAdmin.updateProduct(product);
+					productAdmin.updateProCategory(proCategory);
 				} catch (Exception e) {
 					web.redirect(null, e.getLocalizedMessage());
 					return null;
@@ -127,9 +167,8 @@ public class EditItemOk extends BaseController{
 					sqlSession.close();
 				}
 				
-				/** (7) 조회 결과를 View에 전달 */
-				request.setAttribute("readproduct", readproduct);
-		return "admin/edit_item";
+		web.redirect(web.getRootPath() + "/admin/item_list.do", "상품이 수정되었습니다. 상품을 확인해 주세요.");
+		return null;
 	}
 
 }

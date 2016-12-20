@@ -22,6 +22,7 @@
 		<!-- 컨텐츠 영역 start -->
 		<div id="content">
 			<form method="post" action="../admin/edit_item_ok.do" enctype="multipart/form-data">
+			<input type="hidden" name="id"  value="${readproduct.id}">
 			<table>
 					<tbody>
 						<tr>
@@ -54,8 +55,8 @@
 						</tr>
 						<tr>
 							<th colspan="2">이미지 추가</th>
-							<td><input type="file" name="file" id="file"  value="${readproduct.proImg}"/>
-							기존 파일 ${readproduct.proImg}</td>
+							<td><input type="file" name="afile" id="file" />
+							기존 파일 ${readproduct.proImg}<input type="hidden" name="Oldfile" id="Oldfile"  value="${readproduct.proImg}"/></td>
 						</tr>
 						<tr>
 							<th colspan="2">카테고리</th>
@@ -129,7 +130,6 @@
 					</tbody>
 				</table>
 				<div id="bt">
-				<input type="hidden" id="product_id" value="${readproduct.id }" />
 					<button type="submit">수정 완료</button>
 					<button type="button" onclick="history.back();">취소</button>
 				</div>
@@ -176,12 +176,16 @@
 		$("input[name='sal_no']:radio").change(function(){
 		var sal_no = this.value;
 		if(sal_no == "1"){
-			 $('#no').attr('disabled',false); 
+			 $('#no').attr('disabled',false);
 		}else{
+			$('#no').attr("value", "0"); 
 			    $('#no').attr('disabled',true);
 		}
 	});
-
+		$('#date').pickadate({
+			 selectMonths: true,
+			  selectYears: true
+			});
 		
 	});
 </script>

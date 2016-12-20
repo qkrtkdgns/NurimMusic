@@ -27,4 +27,7 @@
 	DELETE FROM pro_category WHERE product_id=#{productId}
 	</delete>
 
+	<update id="updateProCategory" parameterType="nurim.jsp.model.ProCategory">
+	UPDATE pro_category SET category_id=(select id from category where id=#{proCategoryName}) WHERE product_id=#{productId}
+	</update>
 </mapper>

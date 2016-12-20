@@ -126,3 +126,29 @@
 		<!-- jquery end -->
 	</body>
 </html>
+<!-- 
+ <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' id="comment_{{id}}">
+        <div class="media-body" style='display: block;'>
+            <h4 class="media-heading clearfix">
+                
+                <div class='pull-left'>
+                    {{writerName}}
+                    <small>
+                        <a href='mailto:{{email}}'>
+                            <i class='glyphicon glyphicon-envelope'></i></a>
+                            / {{regDate}}
+                    </small>
+                </div>
+                
+                <div class='pull-right'>
+                    <a href="${pageContext.request.contextPath}/bbs/comment_edit.do?" data-toggle="modal" data-target="#comment_edit_modal" class='btn btn-warning btn-xs'>
+                        <i class='glyphicon glyphicon-edit'></i></a>
+                    <a href="${pageContext.request.contextPath}/bbs/comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_delete_modal" class='btn btn-danger btn-xs'>
+                        <i class='glyphicon glyphicon-remove'></i> </a>
+                </div>
+            </h4>
+         ]
+            <p>{{{content}}}</p>
+        </div>
+    </li>
+ -->

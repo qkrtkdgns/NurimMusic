@@ -65,6 +65,7 @@
 
       .shop_items a {
         text-decoration: none;
+        color : #000;
       }
     
       .shop_items li {
@@ -79,7 +80,7 @@
         display: block;
 
       }
-      .new_item_ul1{
+      .new_item_ul{
        float: left;
        margin-bottom: 30px;
        border-top: 1px solid #000;
@@ -89,22 +90,22 @@
 
       }
 
-      .new_item_ul1 img {
+      .new_item_ul img {
         width: 128px;
         height: 128px;
       }
 
-      .new_item_ul1 > li >a>.ab_name{
+      .new_item_ul > li >a>.ab_name{
        width:100px;
        text-align: center;
        margin: auto;
       }
-      .new_item_ul1 > li >a> span{
+      .new_item_ul > li >a> span{
         text-align: center;
         color: black;
       }
 
-      .new_item_ul1 > li > span{
+      .new_item_ul > li > span{
         text-align: center;
       }
 
@@ -119,7 +120,7 @@
          padding-bottom: 10px;
       }
 
-      .shop_li1, .shop_li2, .shop_li3, .shop_li4 {
+      .shop_li {
         margin-right: 20px;
       }
 

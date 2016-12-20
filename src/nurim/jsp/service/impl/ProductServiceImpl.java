@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
-import nurim.jsp.model.Basket;
 import nurim.jsp.model.Product;
 import nurim.jsp.service.ProductService;
 
@@ -35,27 +34,7 @@ public class ProductServiceImpl implements ProductService{
 		return result;
 	}
 
-	@Override
-	public List<Product> selectProductList(Product product) throws Exception {
-		List<Product> result = null;
-		
-		try{
-			result = sqlSession.selectList("ProductMapper.selectProductList",product);
-			if(result == null){
-				throw new NullPointerException();
-			}
-			logger.debug("selectProductList >> " + result);
-		}catch (NullPointerException e){
-			sqlSession.rollback();
-			logger.debug(e.getLocalizedMessage());
-		}catch(Exception e){
-			sqlSession.rollback();
-			logger.debug(e.getLocalizedMessage());
-		}finally{
-			sqlSession.commit();
-		}
-		return result;
-	}
+	
 
 	@Override
 	public void insertProductItem(Product product) throws Exception {
@@ -168,13 +147,27 @@ List<Product> result = null;
 		
 		return result;
 	}
+	
+	@Override
+	public List<Product> selectProductShoppingNewItemList(Product product) throws Exception {
+		List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductShoppingNewItemList",product);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("Kor new아이템을 찾을 수 없습니다.");
+		}
+		
+		return result;
+	}
 
 	@Override
-	public List<Product> selectProductHOTItemList() throws Exception {
+	public List<Product> selectProductHOTItemList(Product product) throws Exception {
 List<Product> result = null;
 		
 		try{
-			result = sqlSession.selectList("ProductMapper.selectProductHOTItemList",null);
+			result = sqlSession.selectList("ProductMapper.selectProductHOTItemList",product);
 		}catch(Exception e){
 			logger.debug(e.getLocalizedMessage());
 			throw new Exception("HOT 아이템을 찾을 수 없습니다.");
@@ -226,10 +219,10 @@ List<Product> result = null;
 	}
 
 	@Override
-	public void updateProduct(Product product) throws Exception {
+	public void updateProductHit(Product product) throws Exception {
 
 		try{
-			int result = sqlSession.update("ProductMapper.updateProduct", product);
+			int result = sqlSession.update("ProductMapper.updateProductHit", product);
 			if(result ==0){
 				throw new NullPointerException();
 			}
@@ -246,4 +239,37 @@ List<Product> result = null;
 		
 	}
 
+	@Override
+	public int selectProductSearchListCount(Product product) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("ProductMapper.selectProductSearchListCount",product);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("상품 수 조회에 실패했습니다.");
+		}
+		return result;
+		
+	}
+
+	@Override
+	public List<Product> selectProductSearchList(Product product) throws Exception {
+		List<Product> result = null;
+		
+		try{
+			result = sqlSession.selectList("ProductMapper.selectProductSearchList",product);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e){
+			throw new Exception("조회된 상품 목록이 없습니다.");
+		}catch(Exception e){
+			throw new Exception("조회된 상품 목록이 없습니다.");
+		}
+		return result;
+	}
+
+
+	
 }

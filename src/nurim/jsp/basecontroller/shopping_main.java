@@ -1,7 +1,6 @@
 package nurim.jsp.basecontroller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -23,36 +22,38 @@ import nurim.jsp.service.impl.ProductServiceImpl;
 @WebServlet("/shopping_main.do")
 public class shopping_main extends BaseController {
 	private static final long serialVersionUID = 956198854180820389L;
+	
 	Logger logger;
 	SqlSession sqlSession;
 	ProductService productService;
 	WebHelper web;
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		productService = new ProductServiceImpl(sqlSession, logger);
 		
-List<Product> MDItem = new ArrayList<Product>();
-List<Product> HOTItem = new ArrayList<Product>();
+		Product product =null;
+		List<Product> HotItemList = null;
+		List<Product> shppingItemList = null;
 		
-		try{
-			MDItem = productService.selectProductMDItemList();
-			HOTItem = productService.selectProductHOTItemList();
-		}catch(Exception e){
-			logger.debug(e.getLocalizedMessage());
+		try {
+
+			HotItemList= productService.selectProductHOTItemList(product);
+			shppingItemList= productService.selectProductShoppingNewItemList(product);
+				
+			logger.debug("HotItemList >> " + HotItemList);
+			logger.debug("shppingItemList >> " + shppingItemList);
+		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
-			
-		}finally{
+		} finally {
 			sqlSession.close();
 		}
-		logger.debug("MDItem >> " + MDItem);
-		logger.debug("HOTItem >> " + HOTItem);
-		
-		request.setAttribute("MDItem", MDItem);
-		request.setAttribute("HOTItem", HOTItem);
+		request.setAttribute("HotItemList", HotItemList);
+		request.setAttribute("shppingItemList", shppingItemList);
 		return "shopping_main";
 	}
 	
