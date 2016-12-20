@@ -139,7 +139,7 @@
 			<c:when test="${pageHelper.prevPage > 0}">
 				<!-- 이전 그룹에 대한 페이지 번호가 존재할 경우, 이전 그룹으로 이동하기 위한
 				URL을 생성해서 prevUrl에 저장 -->
-				<c:url var="prevUrl" value="/kor_rc1.do">
+				<c:url var="prevUrl" value="/kor_rc2.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${pageHelper.prevPage}" />
@@ -155,7 +155,7 @@
 			
 			<c:forEach var="i"  begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
 			<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
-			<c:url var="pageUrl" value="/foregin_rc2..do">
+			<c:url var="pageUrl" value="/foregin_rc2.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${i}" />
@@ -176,7 +176,7 @@
 			<c:when test="${pageHelper.nextPage > 0}">
 				<!-- 다음 그룹에 대한 페이지 번호가 존재할 경우, 다음 그룹으로 이동하기 위한
 				URL을 생성해서 nextUrl에 저장 -->
-				<c:url var="nextUrl" value="/foregin_rc2..do">
+				<c:url var="nextUrl" value="/foregin_rc2.do">
 					<c:param name="category" value="${category}" />
 					<c:param name="keyword" value="${keyword}" />
 					<c:param name="page" value="${pageHelper.nextPage}" />
