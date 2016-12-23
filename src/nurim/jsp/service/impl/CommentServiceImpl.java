@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.model.Comment;
+import nurim.jsp.model.Product;
 import nurim.jsp.service.CommentService;
 
 public class CommentServiceImpl implements CommentService {
@@ -21,6 +22,7 @@ public class CommentServiceImpl implements CommentService {
 		this.sqlSession = sqlSession;
 		this.logger = logger;
 	}
+	
 	
 	@Override
 	public void insertComment(Comment comment) throws Exception {
@@ -95,58 +97,75 @@ public class CommentServiceImpl implements CommentService {
 			throw new Exception("댓글 조회에 실패했습니다.");
 		}
 		
-		return result;
+		return null;
 	}
 
 	@Override
-	public List<Comment> selectPayCheckList() throws Exception {
-		List<Comment> result = null;
-		try {
-			result = sqlSession.selectList("CommentMapper.selectPayCheckList", null);
-			if (result == null) {
-				throw new NullPointerException();
-			} 
-		} catch (NullPointerException e) {
-			throw new Exception("조회된 댓글이 없습니다.");
-		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
-			throw new Exception("댓글 조회에 실패했습니다.");
-		}
-		
-		return result;
-	}
-
-	@Override
-	public int selectcommentCountAll(Comment comment) throws Exception {
+	public int selectcommentListCount(Comment comment) throws Exception {
 		int result = 0;
-		
 		try{
-			result = sqlSession.selectOne("CommentMapper.selectcommentCountAll", comment);
+			result = sqlSession.selectOne("CommentMapper.selectcommentListCount",comment);
+			
+			logger.debug("selectcommentListCount >> " + result);
 		}catch(Exception e){
 			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 수 조회에 실패했습니다.");
 		}
-		
 		return result;
 	}
 
 	@Override
-	public List<Comment> selectcommentListAll(Comment comment) throws Exception {
-		List<Comment> result = null;
-		try {
-			result = sqlSession.selectList("CommentMapper.selectcommentListAll", comment);
-			if (result == null) {
-				throw new NullPointerException();
-			} 
-		} catch (NullPointerException e) {
-			throw new Exception("조회된 댓글이 없습니다.");
-		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
-			throw new Exception("댓글 조회에 실패했습니다.");
-		}
+	public List<Comment> selectcommentList(Comment comment) throws Exception {
+			List<Comment> result = null;
 		
+		try{
+			result = sqlSession.selectList("CommentMapper.selectcommentList",comment);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+		}finally{
+			sqlSession.commit();
+		}
 		return result;
 	}
 
+	@Override
+	public void deleteComment(Comment comment) throws Exception {
+		try{
+			int result = sqlSession.delete("CommentMapper.deleteComment", comment ); 
+			if(result  == 0) {
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 덧글에 대한 요청입니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+	
+	@Override
+	public void updateCommentByMember(Comment comment) throws Exception {
+		try{
+			sqlSession.update("CommentMapper.updateCommentByMember",comment);
+		}catch(Exception e){
+			sqlSession.rollback();
+			throw new Exception("댓글 수정에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+	
 	@Override
 	public void updatecomment(Comment comment) throws Exception {
 		try {
@@ -165,17 +184,54 @@ public class CommentServiceImpl implements CommentService {
 			sqlSession.commit();
 		}
 	}
-
+	
 	@Override
-	public void updateCommentByMember(Comment comment) throws Exception {
-		try{
-			sqlSession.update("CommentMapper.updateCommentByMember",comment);
-		}catch(Exception e){
-			sqlSession.rollback();
-			throw new Exception("댓글 수정에 실패했습니다.");
-		}finally{
-			sqlSession.commit();
+	public List<Comment> selectcommentListAll(Comment comment) throws Exception {
+		List<Comment> result = null;
+		try {
+			result = sqlSession.selectList("CommentMapper.selectcommentListAll", comment);
+			if (result == null) {
+				throw new NullPointerException();
+			} 
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 댓글이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("댓글 조회에 실패했습니다.");
 		}
+		
+		return result;
+	}
+	
+	@Override
+	public int selectcommentCountAll(Comment comment) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("CommentMapper.selectcommentCountAll", comment);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<Comment> selectPayCheckList() throws Exception {
+		List<Comment> result = null;
+		try {
+			result = sqlSession.selectList("CommentMapper.selectPayCheckList", null);
+			if (result == null) {
+				throw new NullPointerException();
+			} 
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 댓글이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("댓글 조회에 실패했습니다.");
+		}
+		
+		return result;
 	}
 
 }

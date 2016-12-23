@@ -126,9 +126,29 @@
     SET member_id=1
     WHERE member_id=#{memberId}
     </update>
+    
+    <!-- 1:1 제외한 모든 덧글 리스트 -->
+     <select id="selectcommentList" parameterType="nurim.jsp.model.Comment"
+    resultMap="comment">
+    SELECT c.id, c.member_id, c.user_id, c.document_id, 
+    c.content, c.reg_date, c.edit_date, d.category FROM comment c 
+    INNER JOIN document d ON c.document_id=d.id
+  	WHERE d.category='review' OR d.category='discussion'
+    ORDER BY c.reg_date DESC
+    LIMIT #{limitStart},#{listCount}
+ </select>
+    
+      <!-- 1:1 제외한 모든 덧글 수 -->
+     <select id="selectcommentListCount" parameterType="nurim.jsp.model.Comment"
+   resultType="int">
+    SELECT COUNT(c.id) FROM comment c 
+    INNER JOIN document d ON c.document_id=d.id
+    WHERE d.category='review' OR d.category='discussion'
+   
+    </select>
+    
+    	<!-- 덧글 삭제 -->
+	<delete id="deleteComment" parameterType="nurim.jsp.model.Comment" >
+		DELETE FROM comment WHERE id=#{id}
+	</delete>	
 </mapper>
-
-
-
-
-
