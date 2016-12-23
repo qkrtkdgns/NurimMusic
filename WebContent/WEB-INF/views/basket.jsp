@@ -55,7 +55,7 @@
 							<c:forEach var="b" items="${basket }">
 								<tr>
 								<td class="text-center" id="item"><input type="checkbox" name="checkbox" class="item_checked id" value="${b.id }"/></td>
-									<td id="item"><a href="${pageContext.request.contextPath }/item.do?productId=${b.productId}" style="display:block; width:800px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+									<td id="item"><a style="display:block; width:800px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
 									<c:choose>
 														<c:when test="${b.proImg != null}">
 															<c:url var="downloadUrl" value="/download.do">

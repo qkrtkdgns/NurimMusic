@@ -58,7 +58,67 @@
      <!-- 회원 탈퇴시 게시글 회원id 수정 -->
      <update id="updateDocumentByMember" parameterType="nurim.jsp.model.Document">
      UPDATE document
-     SET member_id=1
+     SET member_id=1, edit_date=now()
      WHERE member_id = #{memberId}
      </update>
+     
+     <!-- 1:1문의 답변 게시글 리스트 카운트(관리자) -->
+     <select id="selectDocumentOneCount" parameterType="nurim.jsp.model.Document"
+     resultType="int">
+     SELECT count(id) FROM document
+    <where> 
+    qna_type IS NOT null
+    <choose>
+    <when test="subject != null and content ==null">
+    AND subject LIKE concat('%',#{subject},'%')
+    </when>
+    <when test="content != null and subject ==null"> 
+    AND content LIKE concat('%',#{content},'%')
+    </when>
+    <when test="subject == null and content == null"></when>
+    <otherwise>
+    AND subject LIKE concat('%',#{subject},'%') OR content LIKE concat('%',#{content},'%')    
+    </otherwise>
+    </choose>
+    </where>
+     </select> 
+     
+     <!-- 1:1문의 답변 게시글 리스트 출력 (관리자) -->
+     <select id="selectDocumentOneList" parameterType="nurim.jsp.model.Document"
+     resultMap="document">
+     SELECT id,category,subject,content,DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,
+    DATE_FORMAT(edit_date,'%Y-%m-%d') AS edit_date,hit,ip_address,member_id,agree,disagree,
+    qna_type,end_date
+    FROM document
+    <where> 
+    qna_type IS NOT null
+    <choose>
+   <when test="subject != null and content ==null">
+    AND subject LIKE concat('%',#{subject},'%')
+    </when>
+    <when test="content != null and subject ==null"> 
+    AND content LIKE concat('%',#{content},'%')
+    </when>
+     <when test="subject == null and content == null"></when>
+    <otherwise>
+    AND subject LIKE concat('%',#{subject},'%') OR content LIKE concat('%',#{content},'%')    
+    </otherwise>
+    </choose>
+    </where>
+    ORDER BY reg_date desc
+    LIMIT #{limitStart},#{listCount}
+    </select>
+    
+    <update id="updateQnaAnswer" parameterType="nurim.jsp.model.Document">
+    UPDATE document 
+    SET subject =#{subject}, content = #{content}, edit_date=now()
+    WHERE id=#{id}
+    </update>
+    
+    <select id="selectAnswer" parameterType="nurim.jsp.model.Document"
+    resultMap="document">
+    SELECT subject, content
+    FROM document
+    where id=#{id}
+    </select>
 </mapper>

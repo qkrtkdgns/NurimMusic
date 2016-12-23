@@ -70,5 +70,36 @@ public interface DocumentService {
 	 */
 	public void deleteNotice(Document document) throws Exception;
 
+	/**
+	 * 1:1 질문 게시글의 갯수를 확인한다(관리자)
+	 * @param document
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectDocumentOneCount(Document document) throws Exception;
+
+	/**
+	 * 1:1 질문 게시글의 목록을 출력한다.(관리자)
+	 * @param document
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Document> selectDocumentOneList(Document document) throws Exception;
+
+	/**
+	 * 답변대기중인 게시글에 답변을 작성한다.(관리자)
+	 * @param document
+	 * @throws Exception
+	 */
+	public int updateQnaAnswer(Document document) throws Exception;
+
+	/**
+	 * 답변작성할 게시글을 조회한다. (관리자)
+	 * @param document
+	 * @return
+	 * @throws Exception
+	 */
+	public Document selectAnswer(Document document) throws Exception;
+
 
 }

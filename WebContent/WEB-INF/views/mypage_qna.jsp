@@ -26,11 +26,10 @@
 <div>
 	<table>
 		<colgroup>
-			<col width="6%" />
-			<col width="6%" />
-			<col width="6%" />
-			<col width="60%" />
-			<col width="5%" />
+			<col width="100px" />
+			<col width="100px" />
+			<col width="130px" />
+			<col width="850px" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -38,7 +37,6 @@
 				<th>일자</th>
 				<th>상담 유형</th>
 				<th>제목</th>
-				<th>답변 여부</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -61,14 +59,6 @@
 								<td>${document.editDate }</td>
 								<td>${document.qnaType }</td>
 								<td><a href="${pageContext.request.contextPath }/mypage_qna_answer.do?id=${document.id}">${document.subject }</a></td>
-								<td>
-								<c:if test="${document.subject == '답변대기' }">
-								답변대기
-								</c:if>
-								<c:if test="${document.subject != '답변대기' }">
-								답변완료
-								</c:if> 
-								</td>
 								</c:otherwise>
 								</c:choose>
 								</tr>

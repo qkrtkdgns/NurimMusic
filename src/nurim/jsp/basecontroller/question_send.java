@@ -16,7 +16,7 @@ public class question_send extends BaseController {
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		return "question_send";
-	}
+	} 
 	
        
     

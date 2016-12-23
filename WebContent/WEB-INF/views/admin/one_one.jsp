@@ -8,9 +8,8 @@
 		<%@ include file="inc/head.jsp"%>
 		<%@ include file="inc/layout.jsp"%>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin_assets/css/one_one.css" />
-		<style type="text/css">
-		</style>
-
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
 	</head>
 	<body>
 	<div id="container">
@@ -26,11 +25,26 @@
 	<!--검색 start -->
 	<div id="search">
 	<form method="get" action="${pageContext.request.contextPath }/admin/one_one.do">
-	<input type="hidden" name="category" value="${category }" />
-	<select id="dropdown">
-	<option value="검색조건">검색조건</option>
+	<select name="dropdown" id="dropdown">
+	<option value="">검색조건</option>
+	<c:choose>
+	<c:when test="${dropdown =='제목' }">
+	<option value="제목" selected>제목</option>
+	</c:when>
+	<c:otherwise>
 	<option value="제목">제목</option>
-	<option value="내용">내용</option>	</select>
+	</c:otherwise>
+	</c:choose>
+	<c:choose>
+	<c:when test="${dropdown =='내용' }">
+	<option value="내용" selected>내용</option>
+	</c:when>
+	<c:otherwise>
+	<option value="내용">내용</option>
+	</c:otherwise>
+	</c:choose>
+	</select>
+	
 	<input type="text" name="keyword" id="search_item" placeholder="검색어를 입력하세요." value="${keyword }" />
 	<button type="submit" id="submit_bt">검색</button>
 	</form>
@@ -43,12 +57,11 @@
 	<colgroup>
 		<col style="width:50px;">
 		<col style="width:50px;">
-		<col style="width:70px;">
+		<col style="width:100px;">
 		<col style="width:100px;">
 		<col style="width:300px;">
 		<col style="width:80px;">
-		<col style="width:80px;">
-		<col style="width:80px;">
+		<col style="width:100px;">
 	</colgroup>
 	<thead>
 	<tr>
@@ -56,25 +69,49 @@
 	<th>아이디</th>
 	<th>문의 유형</th>
 	<th>제목</th>
-	<th>문의 내용</th>
-	<th>답변 내용</th>
-	<th>문의 날짜</th>
+	<th>문의/답변 내용</th>
+	<th>문의/답변 날짜</th>
 	<th>답변 상태</th>
 	</tr>
 	</thead>
 	<tbody>
 	<c:choose>
-		<c:when test="${fn: length(documentQnaList) > 0 }">
-			<c:forEach var="document" items="${documentQnaList }">
+		<c:when test="${fn: length(documentList) > 0 }">
+			<c:forEach var="document" items="${documentList }" varStatus="i">
 	<tr>
-	<td>${document.id }
+	<td>${(pageHelper.totalCount-(pageHelper.page-1)*pageHelper.listCount)-i.index }</td>
+	<c:choose>
+	<c:when test="${document.qnaType ne '답변'}">
 	<td>${document.memberId }</td>
+	</c:when>
+	<c:otherwise>
+	<td>Admin</td>
+	</c:otherwise>
+	</c:choose>
 	<td>${document.qnaType }</td>
-	<td>${document.subject }</td>
-	<td>${document.content }</td>
-	<td>답변합니다.</td>
-	<td>${document.regDate }</td>
-	<td><button class="answer_end">답변완료</button></td>
+	<td><i style="display:inline-block; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${document.subject }</i></td>
+	<td>
+	<i style="display:inline-block; width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${document.content }
+	</i></td>
+	<c:choose>
+	<c:when test="${((pageHelper.totalCount-(pageHelper.page-1)*pageHelper.listCount)-pageHelper.totalPage-i.index+2)%2 == 0 }">
+	<td>${document.regDate}</td>
+	</c:when>
+	<c:otherwise>
+	<td>${document.editDate }</td>
+	</c:otherwise>
+	</c:choose>
+	<td>
+	<c:choose>
+	<c:when test="${document.qnaType eq '답변' }">
+	<a id="answer" class="btn" href='${pageContext.request.contextPath}/admin/one_one_answer.do?id=${document.id}' data-toggle="modal" data-target="#answer_box_modal">
+	<button class="answer" type="button" style="width:64px; height:24px; color:black; font-size:12px;">답변작성</button></a>
+	</c:when>
+	<c:otherwise>
+	<i class="answer_end"></i>
+	</c:otherwise>
+	</c:choose>
+	</td>
 	</tr>
 			</c:forEach>
 			</c:when>
@@ -87,56 +124,7 @@
 	</c:choose>
 	</tbody>
 	</table>
-	</div>
-	<!-- 테이블 end -->
-	</div>
-	<!-- 컨텐츠 영역 end -->
-	</div>
-
-	<!--답변박스 start -->
-	<div id="answer_box">
-	<div class="control_box">
-		<form>
-			<div class="input_box">
-			<label>제목</label>
-			<input type="text" name="answer_title" id="answer_title" />
-			</div>
-			<div class="input_box">
-			<label>내용</label>
-			<textarea name="answer_ans" id="answer_ans"></textarea>
-			</div>
-		<button id="commit">답변등록</button>
-		<button class="cancel">취소</button>
-		</form>
-	</div>
-	<div class="no_touch"></div>
-	</div>
-
-	<!-- 답변박스 end -->
-
-	<!-- 게시글 박스 start -->
-
-	<div id="content_box">
-	<div class="control_box">
-		<form>
-			<div class="input_box">
-			<label>제목</label>
-			<input type="text" name="answer_title" id="answer_title" value="결제문의" disabled/>
-			</div>
-			<div class="input_box">
-			<label>내용</label>
-			<textarea name="answer_ans" id="answer_ans" disabled>결제 Plug-in 설치가 자동으로 안돼요. 어떻게 해야 하나요 ?</textarea>
-			</div>
-		<button class="cancel">닫기</button>
-		</form>
-	</div>
-	<div class="no_touch"></div>
-	</div>
-
-	<!-- 게시글 박스 end -->
-	</div>
-	
-	<!-- 페이지 번호 시작 -->
+		<!-- 페이지 번호 시작 -->
 		<nav class="text-center">
 			<ul class="pagination">
 				<!-- 이전 그룹으로 이동 -->
@@ -203,34 +191,45 @@
 			</ul>
 		</nav>
 		<!-- 페이지 번호 끝 -->
+	
+	</div>
+	<!-- 테이블 end -->
+	</div>
+	<!-- 컨텐츠 영역 end -->
+	</div>
+
+	</div>
+	<!-- 답변 버튼 클릭시 start -->
+	<div class="modal fade" id="answer_box_modal">
+<div class="modal-dialog modal-md">
+<div class="modal-content">
+</div></div></div>
+	<!-- 답변 버튼 클릭시 end -->
+	
 
 		<!-- jquery start -->
 		<script type="text/javascript">
 		$(function(){
-			$(".answer").click(function(){
-				$("#answer_box").css("visibility","visible")
-
-				$("#commit").click(function(){
-
-				});
-				$(".cancel").click(function(){
-					$("#answer_box").css("visibility","hidden")
-					return false;
-				});
-				return;false;
+			$(".modal").on("hidden.bs.modal",function(e){
+				//모달창 내의 내용을 강제로 지움.
+				$(this).removeData('bs.modal');
+				
 			});
-			$(".content").click(function(){
-				$("#content_box").css("visibility","visible")
+			$(document).on("submit","#answer_form",function(e) {
+				e.preventDefault();
 
-				$("#commit").click(function(){
-
-				});
-				$(".cancel").click(function(){
-					$("#content_box").css("visibility","hidden")
-					return false;
-				});
-				return;false;
+				//AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+							if (json.rt != "OK") {
+								alert(json.rt);
+								return false;
+							}
+							//덧글 수정 모달 강제로 닫기
+							$("#answer_box_modal").modal('hide');
+							location.reload(); 
+						});
 			});
+			
 			$(".answer_end").parents("tr").css("background","rgba(200,200,200,0.3)");
 
 		});

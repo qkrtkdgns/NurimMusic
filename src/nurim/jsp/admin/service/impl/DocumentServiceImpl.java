@@ -48,4 +48,61 @@ public class DocumentServiceImpl implements DocumentService {
 		return result;
 	}
 
+	@Override
+	public int selectDocumentOneCount(Document document) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.selectOne("DocumentMapper.selectDocumentOneCount",document);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception(e.getLocalizedMessage());
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<Document> selectDocumentOneList(Document document) throws Exception{
+		List<Document> result = null;
+		try{
+			result = sqlSession.selectList("DocumentMapper.selectDocumentOneList",document);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception(e.getLocalizedMessage());
+		}
+		return result;
+	}
+
+	@Override
+	public int updateQnaAnswer(Document document) throws Exception{
+		int result = 0;
+		try{
+			result = sqlSession.update("DocumentMapper.updateQnaAnswer",document);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("답변이 등록되지 않았습니다.");
+		}catch(Exception e){		
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception(e.getLocalizedMessage());
+		}finally{
+			sqlSession.commit();
+		}
+		return result;
+	}
+	@Override
+	public Document selectAnswer(Document document) throws Exception{
+		Document result = null;
+		
+		try{
+			result = sqlSession.selectOne("DocumentMapper.selectAnswer",document);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }
