@@ -28,7 +28,17 @@
 	<!-- 관리자용 상품 리스트 수 검색 -->
 	<select id="selectProductCount" parameterType="nurim.jsp.model.Product"
 	resultType="int">
-	SELECT COUNT(id) FROM Product
+	SELECT COUNT(b.id) FROM product b
+	INNER JOIN pro_category a ON b.id=a.product_id
+	INNER JOIN category c ON a.category_id=c.id
+<if test="proName != null or provider != null">
+	<if test="proName !=null">
+	WHERE b.pro_name LIKE concat('%',#{proName},'%')
+	</if>
+	<if test="provider !=null">
+	WHERE b.provider LIKE concat('%',#{provider},'%')
+	</if>
+</if>
 	</select>
 	
 	<!-- 서비스용 상품 리스트 수 검색 -->
@@ -93,9 +103,21 @@
 	FROM product b
 	INNER JOIN pro_category a ON b.id=a.product_id
 	INNER JOIN category c ON a.category_id=c.id
+<if test="proName != null or provider != null">
+	<if test="proName !=null">
+	WHERE b.pro_name LIKE concat('%',#{proName},'%')
+	</if>
+	<if test="provider !=null">
+	WHERE b.provider LIKE concat('%',#{provider},'%')
+	</if>
+</if>
 	ORDER BY b.id DESC
 	LIMIT #{limitStart},#{listCount}
 	</select>
+	
+
+  
+
 	
 	<!--사용자용 상품 리스트 출력 -->
 	<select id="selectProductCategoryList" parameterType="nurim.jsp.model.Product"

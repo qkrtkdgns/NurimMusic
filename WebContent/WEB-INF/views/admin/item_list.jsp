@@ -39,8 +39,8 @@ color:#249;
 		<!-- 컨텐츠 영역 start -->
 	<form method="get" action="../admin/item_list.do" >	
 			<div id="content">
+			
 				<div id="member">
-				
 					<!--검색 start -->
 					<div id="search">
 							<div id="state_box">
@@ -50,11 +50,10 @@ color:#249;
 									id="state" value="3" />미진열
 							</div>
 							<div id="search_form">
-								<select id="dropdown">
-									<option value="검색조건">검색조건</option>
-									<option value="국내음반">국내음반</option>
-									<option value="해외음반">해외음반</option>
-									<option value="쇼핑">쇼핑</option>
+								<select name="dropdown" id="dropdown">
+									<option>검색조건</option>
+									<option value="1">상품명</option>
+									<option value="2">공급업체</option>
 								</select> <input type="text" name="search_item" id="search_item"
 									placeholder="검색어를 입력하세요." />
 								<button type="submit" id="submit_bt">검색</button>
@@ -62,7 +61,7 @@ color:#249;
 						
 					</div>
 					<!--검색 end -->
-					<div class="help">상품명을 클릭하여 해당 상품 정보의 수정이 가능합니다.</div>
+					<div class="help">상품명을 클릭하여 해당 상품의 정보 수정이 가능합니다.</div>
 					<!-- 테이블 start -->
 					<div id="items">
 						<table>
@@ -94,6 +93,7 @@ color:#249;
 								<c:choose>
 									<c:when test="${fn:length(productList) > 0}">
 										<c:forEach var="product" items="${productList }">
+											<input type="hidden" name="img" value="${product.proImg}" />
 											<tr>
 												<td><input type="checkbox" class="item_checked"   name="check" value="${product.id}"   /></td>
 												<td>

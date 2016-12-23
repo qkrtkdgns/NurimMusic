@@ -14,6 +14,7 @@
 		
 		<script src="${pageContext.request.contextPath}/admin_assets/assets/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/admin_assets/assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/ajax-form/jquery.form.min.js"></script>
 		 <script src="${pageContext.request.contextPath}/plugins/handlebars-v4.0.5.js"></script>
       <script src="${pageContext.request.contextPath}/plugins/ajax/ajax_helper.js"></script>
+      <script src="${pageContext.request.contextPath}/plugins/jquery.form.min.js"></script>
+     

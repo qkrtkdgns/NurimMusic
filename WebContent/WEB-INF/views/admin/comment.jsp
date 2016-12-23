@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -10,6 +12,14 @@
 		img{
 			width:50px;
 			height:auto;
+		}
+		.pagination{
+		margin :auto;
+		margin-top:40px;
+		margin-right:15%;
+		}
+		#items{
+		margin-top: 100px;
 		}
 		</style>
 
@@ -23,21 +33,8 @@
 
 	<!-- 컨텐츠 영역 start -->
 	<div id="content">
+	<form method="get" action="${pageContext.request.contextPath}/admin/comment.do">
 	<div id="member">
-	<!--검색 start -->
-	<div id="search">
-	<form>
-	<select id="dropdown">
-	<option value="검색조건">검색조건</option>
-	<option value="아이디">아이디</option>
-	<option value="제목">내용</option>
-	<option value="내용">카테고리</option>
-	</select>
-	<input type="text" name="search_item" id="search_item" placeholder="검색어를 입력하세요." />
-	<button type="submit" id="submit_bt">검색</button>
-	</form>
-	</div>
-	<!--검색 end -->
 
 	<!-- 테이블 start -->
 	<div id="items">
@@ -46,10 +43,10 @@
 		<col style="width:50px;">
 		<col style="width:50px;">
 		<col style="width:50px;">
-		<col style="width:100px;">
-		<col style="width:50px;">
-		<col style="width:50px;">
-		<col style="width:350px;">
+		<col style="width:80px;">
+		<col style="width:200px;">
+		<col style="width:150px;">
+		<col style="width:150px;">
 		<col style="width:100px;">
 	</colgroup>
 	<thead>
@@ -58,97 +55,97 @@
 	<th>글번호</th>
 	<th>카테고리</th>
 	<th>아이디</th>
-	<th>이름</th>
-	<th>성별</th>
 	<th>내용</th>
 	<th>작성일</th>
+	<th>수정일</th>
+	<th>삭제버튼</th>
 	</tr>
 	</thead>
 	<tbody>
+	
+<c:choose>
+	<c:when test="${fn:length(commentList) > 0}">
+		<c:forEach var="comment" items="${commentList }">
 	<tr>
 	<td><input type="checkbox" class="item_checked"/></td>
-	<td>4</td>
-	<td>쇼핑</td>
-	<td>qkrtkd12</td>
-	<td>사용자</td>
-	<td>남자</td>
-	<td>너밖에 몰라 명곡인데 진짜 노래를 너밖에몰라....ㅋㅋㅋ</td>
-	<td>2016.10.20</td>
+	<td>${comment.id}</td>
+	<td>${comment.category}</td>
+	<td>${comment.userId}</td>
+	<td>${comment.content}</td>
+	<td>${comment.regDate}</td>
+	<td>${comment.editDate}</td>
+	<td><a href='${pageContext.request.contextPath}/admin/comment_delete.do?comment_id=${comment.id}' data-toggle="modal" data-target="#comment_delete_modal" class='btn-danger btn-xs'>
+     삭제하기</a>
+     <input type="hidden" name="comment_id" value="${comment.id}" />
+     </td>
+     
 	</tr>
+		</c:forEach>
+	</c:when>
+<c:otherwise>
 	<tr>
-	<td><input type="checkbox" class="item_checked"/></td>
-	<td>3</td>
-	<td>쇼핑</td>
-	<td>qkrtkd12</td>
-	<td>사용자</td>
-	<td>남자</td>
-	<td>예전 솔로앨범 꽃게춤이 진리</td>
-	<td>2016.10.20</td>
-	</tr>
-	<tr>
-	<td><input type="checkbox" class="item_checked"/></td>
-	<td>2</td>
-	<td>쇼핑</td>
-	<td>qkrtkd12</td>
-	<td>사용자</td>
-	<td>남자</td>
-	<td>노래 완전 잼나다...... 세상에..</td>
-	<td>2016.10.20</td>
-	</tr>
-	<tr>
-	<td><input type="checkbox" class="item_checked"/></td>
-	<td>1</td>
-	<td>쇼핑</td>
-	<td>qkrtkd12</td>
-	<td>사용자</td>
-	<td>남자</td>
-	<td>아니 뭐 컬투는 가수도 아닌데 노래가 넘나 좋은것</td>
-	<td>2016.10.20</td>
-	</tr>
+		<td colspan="9" class="text-center"
+					style="line-height: 100px;">조회된 글이 없습니다.</td>
+		</tr>
+</c:otherwise>
+</c:choose>
+
 	</tbody>
 	</table>
 	</div>
 	<!-- 테이블 end -->
-	</div>
-	<!-- 버튼 start -->
-	<div id="bt_box">
-	<button id="delete">삭제</button>
-	</div>
-	<!-- 버튼 end -->
-	<!-- 컨텐츠 영역 end -->
-	</div>
+	
 	</div>
 
+	<!-- 컨텐츠 영역 end -->
+	</form>
+	</div>
+	<%@ include file="inc/commnet_page.jsp" %>
+	</div>
+	
+<!--Delete  Modal -->
+<div class="modal fade" id="comment_delete_modal">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+		
+	</div>
+</div>
+</div>
 		<!-- jquery start -->
 		<script type="text/javascript">
+	$(function() {
+	
+		//모달이 창이 닫히는 경우의 이벤트
+		//.modal 로 지정하는 경우 모든 모달 창에 적용됨
+		//#아이디 로 지정하는 경우 특정 모달 창에 적용
+		$(".modal").on("hidden.bs.modal",function(e){
+			//내용 삭제
+			$(this).removeData('bs.modal');
+		});
+		
+		//ajax에 의해서 로드 되는 폼에 대한 submit 이벤트
+		//ajax에 의해서 동적으로 로드 되는 요소는 on 함수를 통한
+		//이벤트 정의가 요구된다.
+	$(document).on('submit', '#comment_delete_form', function(e){
+	e.preventDefault();
+	$(this).ajaxSubmit(function(json) {
+		if (json.rt != "OK") {
+			alert(json.rt);
+			return false;
+		}
+	
+			alert("삭제되었습니다.");
+			
+			//모달창 종료
+			$("#comment_delete_modal").modal('hide');
+			location.reload();
+		});
+	});	
+});
 
-		</script>
+	
+</script>
 		<!-- jquery end -->
 	</body>
 </html>
-<!-- 
- <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' id="comment_{{id}}">
-        <div class="media-body" style='display: block;'>
-            <h4 class="media-heading clearfix">
-                
-                <div class='pull-left'>
-                    {{writerName}}
-                    <small>
-                        <a href='mailto:{{email}}'>
-                            <i class='glyphicon glyphicon-envelope'></i></a>
-                            / {{regDate}}
-                    </small>
-                </div>
-                
-                <div class='pull-right'>
-                    <a href="${pageContext.request.contextPath}/bbs/comment_edit.do?" data-toggle="modal" data-target="#comment_edit_modal" class='btn btn-warning btn-xs'>
-                        <i class='glyphicon glyphicon-edit'></i></a>
-                    <a href="${pageContext.request.contextPath}/bbs/comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_delete_modal" class='btn btn-danger btn-xs'>
-                        <i class='glyphicon glyphicon-remove'></i> </a>
-                </div>
-            </h4>
-         ]
-            <p>{{{content}}}</p>
-        </div>
-    </li>
- -->
+

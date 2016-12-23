@@ -42,7 +42,7 @@ public class Category extends HttpServlet {
 		case "for":
 			list.add(new CategoryItem("0", "-------"));
 			list.add(new CategoryItem("4", "pop"));
-			list.add(new CategoryItem("5", "Rock"));
+			list.add(new CategoryItem("5", "rock"));
 			list.add(new CategoryItem("6", "jazz"));
 			break;
 		case "shapping":

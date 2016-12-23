@@ -240,7 +240,7 @@ $(function(){
 	    	dataType:'text',
 	    	data:{blist:str},
 	    	success  : function(){
-                alert("체크하신 상품들이 장바구니에  담겼습니다. 확인해 보세요");
+	    		 alert("체크된 상품들중 이미 장바구니에 담겨있는 상품이 있을 경우  장바구니에 상품들을 담을 수 없습니다! 중복 상품이 있을 경우 제외해 주세요! ");
             },error:function(request,status,error){
 	    	    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
 	    });
