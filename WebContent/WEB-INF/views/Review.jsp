@@ -32,9 +32,9 @@
 		
 		<!-- 회원리뷰 상단 -->
 		<div class="box1">
-			<a href="${pageContext.request.contextPath }/Review.do?category=review">
+			<a href="${pageContext.request.contextPath }/Review.do?category=review&hitHighList=ii">
 			최신 글순&nbsp;&nbsp;&nbsp;</a>
-			<a href="${pageContext.request.contextPath }/Review.do?category=review&high">
+			<a href="${pageContext.request.contextPath }/Review.do?category=review&hitHighList=high">
 			인기글순&nbsp;</a>
 		</div>
 		<!-- //회원리뷰 상단 끝 -->

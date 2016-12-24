@@ -53,7 +53,6 @@
 	FROM document
 	<where>
 		category=#{category}
-		
 		<if test="subject != null or content != null">
 			AND (
 				<if test="subject != null">
@@ -63,15 +62,18 @@
 				<if test="content != null">
 					OR content LIKE concat('%', #{content}, '%')
 				</if>
-				
-				<if test="hit == high">
-					ORDER BY hit DESC
-				</if>
 				)
 		</if>
-	</where>
-		ORDER BY id DESC
-		LIMIT #{limitStart}, #{listCount}
+		<if test="hitHighList == 'ii'">
+			ORDER BY id DESC
+			</if>
+			<if test="hitHighList == 'high'">
+			ORDER BY hit DESC
+			</if>
+			
+				</where>
+			
+			LIMIT #{limitStart}, #{listCount}
 	</select>
 	
     <!-- 전체 회원리뷰 수를 조회한다. // 직계 함수를 사용할 때에는 resultType="int"를 사용한다.-->

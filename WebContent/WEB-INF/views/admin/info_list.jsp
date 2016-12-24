@@ -9,9 +9,6 @@
 	<%@ include file="inc/head.jsp"%>
 		<%@ include file="inc/layout.jsp"%>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin_assets/css/member.css" />
-		<style type="text/css">
-		</style>
-
 	</head>
 	<body>
 	<div id="container">
@@ -23,11 +20,9 @@
 	<!-- 컨텐츠 영역 start -->
 	<div id="content">
 	<div class="page-header"></div>
-	
 	<!--검색 start -->
 	<div id="search">
 	<form method="get" action="${pageContext.request.contextPath }/admin/info_list.do">
-	<input type="hidden" name="category" value="${category }" />
 	<select id="dropdown">
 	<option value="검색조건">검색조건</option>
 	<option value="제목">제목</option>
@@ -39,6 +34,7 @@
 	<!--검색 end -->
 	
 	<!-- 테이블 start -->
+	<form method="get" action="${pageContext.request.contextPath }/admin/info_check_delete.do?document_id=${document.id}">
 	<div id="items">
 	<input type="hidden" name="category" value="${category }" />
 	<table>
@@ -66,7 +62,7 @@
 		<c:when test="${fn:length(documentList) > 0}">
 			<c:forEach var="document" items="${documentList }">
 				<tr>
-					<td><input type="checkbox" class="item_checked"/></td>
+					<td><input type="checkbox" class="item_checked" name="check" value="${document.id }"/></td>
 					<td class="text-center">${document.id }</td>
 					<td class="text-center">${document.memberId }</td>
 					<td class="text-center">
@@ -91,15 +87,16 @@
 	</c:choose>
 	</tbody>
 	</table>
-
 	</div>
 	<!-- 테이블 end -->
-	</div>
 	<!-- 버튼 start -->
 	<div id="bt_box">
-	<button id="delete"><a href="${pageContext.request.contextPath }/admin/info_delete.do?category=${category}&document_id=${readDocument.id}">삭제</a></button>
-	<button id="insert"><a href="${pageContext.request.contextPath }/admin/info_write.do?category=${category}">등록</a></button>
-	<button id="update"><a href="${pageContext.request.contextPath }/admin/info_edit.do?category=${category}&document_id=${readDocument.id}">수정</a></button>
+	<button id="delete" type="submit">삭제</button>
+	</div>
+	
+	</form>
+	<a href="${pageContext.request.contextPath }/admin/info_write.do?category=${category}"><button id="insert">등록</button></a>
+	</div>
 	</div>
 	<!-- 버튼 end -->
 	<!-- 컨텐츠 영역 end -->
@@ -141,7 +138,7 @@
 					<!-- 반복 중의 페이지 번호와 현재 페이지 번호가 같은 경우에 대한 분기 -->
 					<c:choose>
 						<c:when test="${pageHelper.page == i }">
-							<li class='active'><a href="#">${i}</a></li>
+							<li class='active'><a href="#">${i }</a></li>
 						</c:when>
 						<c:otherwise>
 							<li><a href="${pageUrl }">${i }</a></li>
@@ -171,7 +168,5 @@
 			</ul>
 		</nav>
 		<!-- 페이지 번호 끝 -->
-	</div>
-
 	</body>
 </html>

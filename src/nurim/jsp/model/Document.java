@@ -2,7 +2,6 @@ package nurim.jsp.model;
 
 public class Document {
 	private int id = 0;
-	private int memberId = 0;
 	private String category = null;
 	private String subject = null;
 	private String content = null;
@@ -10,38 +9,33 @@ public class Document {
 	private String editDate = null;
 	private int hit = 0;
 	private String ipAddress = null;
+	private int memberId = 0;
 	private int agree = 0;
 	private int disagree = 0;
 	private String qnaType = null;
-	private String endDate;
-	private int productId;
+	private String endDate = null;
+	private int productId = 0;
 	
-	private int LimitStart= 0;
-	private int ListCount=0;
+	private boolean gallery;
+	private String imagePath;
 	
-	public String getEndDate() {
-		return endDate;
+	//페이지 구현을 위해서 추가된 값
+	private int limitStart;
+	private int listCount;
+	
+	private String hitHighList = null;
+	
+	public boolean isGallery() {
+		return gallery;
 	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setGallery(boolean gallery) {
+		this.gallery = gallery;
 	}
-	public int getProductId() {
-		return productId;
+	public String getImagePath() {
+		return imagePath;
 	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-	public int getLimitStart() {
-		return LimitStart;
-	}
-	public void setLimitStart(int limitStart) {
-		LimitStart = limitStart;
-	}
-	public int getListCount() {
-		return ListCount;
-	}
-	public void setListCount(int listCount) {
-		ListCount = listCount;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	public int getId() {
 		return id;
@@ -115,13 +109,48 @@ public class Document {
 	public void setQnaType(String qnaType) {
 		this.qnaType = qnaType;
 	}
-	@Override
-	public String toString() {
-		return "Document [id=" + id + ", memberId=" + memberId + ", category=" + category + ", subject=" + subject
-				+ ", content=" + content + ", regDate=" + regDate + ", editDate=" + editDate + ", hit=" + hit
-				+ ", ipAddress=" + ipAddress + ", agree=" + agree + ", disagree=" + disagree + ", qnaType=" + qnaType
-				+ ", endDate=" + endDate + ", productId=" + productId + ", LimitStart=" + LimitStart + ", ListCount="
-				+ ListCount + "]";
+	
+	public int getLimitStart() {
+		return limitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		this.limitStart = limitStart;
+	}
+	public int getListCount() {
+		return listCount;
+	}
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
 	}
 	
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+	
+	public String getHitHighList() {
+		return hitHighList;
+	}
+	public void setHitHighList(String hitHighList) {
+		this.hitHighList = hitHighList;
+	}
+	
+	@Override
+	public String toString() {
+		return "Document [id=" + id + ", category=" + category + ", subject=" + subject + ", content=" + content
+				+ ", regDate=" + regDate + ", editDate=" + editDate + ", hit=" + hit + ", ipAddress=" + ipAddress
+				+ ", memberId=" + memberId + ", agree=" + agree + ", disagree=" + disagree + ", qnaType=" + qnaType
+				+ ", endDate=" + endDate + ", productId=" + productId + ", gallery=" + gallery + ", imagePath="
+				+ imagePath + ", limitStart=" + limitStart + ", listCount=" + listCount + ", hitHighList=" + hitHighList
+				+ "]";
+	}
 }

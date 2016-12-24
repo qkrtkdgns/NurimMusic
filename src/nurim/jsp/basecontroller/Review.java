@@ -55,6 +55,7 @@ public class Review extends BaseController {
 		/** (3) 게시판 카테고리 값을 받아서 View에 전달 */
 		String category = web.getString("category");
 		request.setAttribute("category", category);
+		String aa = web.getString("hitHighList");
 		
 		/** (4) 존재하는 게시판인지 판별하기 */
 		try {
@@ -72,7 +73,7 @@ public class Review extends BaseController {
 		
 		Document document = new Document();
 		document.setCategory(category);
-		
+		document.setHitHighList(aa);
 		//현재 페이지 수 -> 기본값은 1페이지로 정함
 		int page = web.getInt("page", 1);
 		
@@ -87,10 +88,6 @@ public class Review extends BaseController {
 		//첨부파일 정보가 저장될 객체
 		List<File> fileList = null;
 		
-		//게시판 종류가 갤러리인 경우 사진목록을 함께 조회함을 요청
-		document.setGallery(category.equals("gallery"));
-		logger.debug("document = " + document.getCategory());
-		
 		try {
 			//전체 게시물 수
 			totalCount = reviewService.selectReviewCount(document);
@@ -103,7 +100,7 @@ public class Review extends BaseController {
 			document.setLimitStart(pageHelper.getLimitStart());
 			document.setListCount(pageHelper.getListCount());
 			
-			documentList = reviewService.selectReviewList(document);	
+			documentList = reviewService.selectReviewList(document);
 			fileList = noticeFileService.selectNoticeFileList(file);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());

@@ -91,7 +91,7 @@ public class Review_write_result extends BaseController {
 		/** 조회수 중복 갱신 방지 처리 */
 		//카테고리와 게시물 일련번호를 조합한 문자열을 생성
 		//ex) document_notice_15
-		String cookieKey = "document" + category + "_" + documentId;
+		String cookieKey = "document_" + category + "_" + documentId;
 		//준비한 문자열에 대응되는 쿠키값 조회
 		String cookieVar = web.getCookie(cookieKey);
 		try {
@@ -99,7 +99,7 @@ public class Review_write_result extends BaseController {
 			if (cookieVar == null) {
 				reviewService.updateReviewHit(document);
 				//준비한 문자열에 대한 쿠키를 24시간동안 저장
-				web.setCookie(cookieKey, "Y", 60*60*24);
+				web.setCookie(cookieKey, "Y", 1);
 			}
 			readDocument = reviewService.selectReview(document);
 			prevDocument = reviewService.selectPrevReview(document);
@@ -111,6 +111,7 @@ public class Review_write_result extends BaseController {
 		} finally {
 			sqlSession.close();
 		}
+		logger.debug("document >> " + readDocument);
 		
 		/** (7) 읽은 데이터를 View에게 전달한다. */
 		request.setAttribute("readDocument", readDocument);

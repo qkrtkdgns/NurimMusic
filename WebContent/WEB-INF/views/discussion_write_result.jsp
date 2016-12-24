@@ -42,7 +42,7 @@
 								<tr>
 								<th class="active">제목</th>
 									<td colspan="4">
-										<p class="dboard_sub" name="subject">${readDocument.subject }</p>
+										<p class="dboard_sub">${readDocument.subject }</p>
 									
 									</td>
 									
@@ -57,7 +57,7 @@
 								
 								<tr>
 									<th class="active">토론기간</th>
-									<td>${Document.endDate }</td>
+									<td>${readEndDate.endDate}</td>
 									<th class="active">조회수</th>
 									<td>${readDocument.hit }</td>
 									
@@ -76,15 +76,12 @@
 					<!--토론 참여 -->
 					<div class="dis_parti">
 					<span class="thumb1">
-						<img src="${pageContext.request.contextPath }/img/dis_btn1.png" onclick="test()">
-						<div id="test">
-						</div>
+						<a href="${pageContext.request.contextPath }/discussion_ok.do?category=review&document_id=${readDocument.id}&result=Y">
+						<img src="${pageContext.request.contextPath }/img/dis_btn1.png"></a>
 					</span>
-
 					<span class="thumb2">
-						<img src="${pageContext.request.contextPath }/img/dis_btn2.png" onclick="test2()">
-						<div id="test2">
-						</div>
+						<a href="${pageContext.request.contextPath }/discussion_ok.do?category=review&document_id=${readDocument.id}&result=N">
+						<img src="${pageContext.request.contextPath }/img/dis_btn2.png"></a>
 					</span>
 					</div>
 					<hr>

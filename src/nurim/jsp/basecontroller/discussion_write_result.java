@@ -56,7 +56,7 @@ public class discussion_write_result extends BaseController {
 		
 		/** (5) 글 번호 파라미터 받기 */
 		int documentId = web.getInt("document_id");
-		logger.debug("documentId = " + documentId);
+		logger.debug("document_id = " + documentId);
 		
 		if (documentId == 0) {
 			web.redirect(null, "글 번호가 지정되지 않았습니다.");

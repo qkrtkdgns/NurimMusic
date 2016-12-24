@@ -26,19 +26,19 @@
 
 		<!-- 컨텐츠 영역 start -->
 	<div id="content">
+	<form method="get" action="${pageContext.request.contextPath }/admin/user_review.do">
 	<div id="member">
 	<!--검색 start -->
 	<div id="search">
-	<form>
 	<select id="dropdown">
 	<option value="검색조건">검색조건</option>
 	<option value="아이디">아이디</option>
 	<option value="제목">제목</option>
 	<option value="내용">내용</option>
 	</select>
-	<input type="text" name="search_item" id="search_item" placeholder="검색어를 입력하세요." />
+	<input type="text" name="keyword" id="search_item" placeholder="검색어를 입력하세요." value="${keyword }" />
 	<button type="submit" id="submit_bt">검색</button>
-	</form>
+	</div>
 	</div>
 	<!--검색 end -->
 
@@ -67,19 +67,22 @@
 	</thead>
 	<tbody>
 	<c:choose>
-		<c:when test="${fn:length(reviewList) > 0}">
-		<c:forEach var="review" items="${reviewList }">
+		<c:when test="${fn:length(documentList) > 0}">
+		<c:forEach var="document" items="${documentList }">
 		<tr>
-		<td><input type="checkbox" class="item_checked" /></td>
-		<td>${review.id}</td>		
-		<td>${review.userId}</td>
-		<td>${review.userName}</td>
-		<td>${review.gender}</td>
-		<td>${review.postcode}</td>
-		<td>${review.tel}</td>
-		<td>${review.email}</td>
-		<td>${review.regDate}</td>
-		<td>${review.editDate}</td>
+		<td><input type="checkbox" class="item_checked" name="check" value="${document.id }" /></td>
+		<td>${document.id}</td>		
+		<td>${document.memberId}</td>
+		<td>
+			<c:url var="readUrl" value="/Review_write_result.do">
+				<c:param name="category" value="${document.category }" />
+				<c:param name="document_id" value="${document.id }" />
+			</c:url>
+			<a href="${readUrl }" style="color:black;">${document.subject }</a>
+		</td>
+		<td>${document.content}</td>
+		<td>${document.regDate}</td>
+		<td>${document.hit}</td>
 		</tr>
 		</c:forEach>
 		</c:when>
@@ -90,54 +93,86 @@
 		</tr>		
 		</c:otherwise>
 		</c:choose>
-	<tr>
-	<td><input type="checkbox" class="item_checked"/></td>
-	<td>4</td>
-	<td>qkrtkdqkrtkd</td>
-	<td>SBS 파워FM 20주년 쏭 프로젝트 3탄! 컬YP '십만원'</td>
-	<td>박진영은 지난 4월 라디오 "두시 탈출 컬투쇼 (이하 컬투쇼)"에 출연해 컬투에게 곡을 주겠다는 농담 아닌 농담을 던졌다. 그리고 6개월 뒤, 세 사람은 실제로 JYP 녹음 스튜디오에서 만나 '십만원'을 녹음했다. </td>
-	<td>2016.10.19</td>
-	<td>0</td>
-	</tr>
-	<tr>
-	<td><input type="checkbox" class="item_checked"/></td>
-	<td>3</td>
-	<td>qkrtkdqkrtkd</td>
-	<td>TWICE, 또 한 번 정상에 서다!</td>
-	<td>발라드가 감성에 맞을 것 같은 요즘, 지난 주 I.O.I에 이어 댄스 트랙이 2주 연속 정상을 이어갔는데요. 작년 이맘때 정상을 차지했던 아이유의 '스물셋'과 지코 (ZICO)의 'Boys And Girls (Feat. Babylon)'에 이어 이번 사례까지 화제성이 있는 곡들은 장르와 계절에 관계 없이 사랑 받는다는 사실을 다시 한 번 확인 할 수 있었네요.</td>
-	<td>2016.10.19</td>
-	<td>0</td>
-	</tr>
-	<tr>
-	<td><input type="checkbox" class="item_checked"/></td>
-	<td>2</td>
-	<td>qkrtkdqkrtkd</td>
-	<td>빅스 2016 CONCEPTION의 완결판, 3번째 미니앨범 [Kratos] 발매!</td>
-	<td>지난 8월, 여섯 번 째 앨범 [Hades]에서 다크하고 섹시한 매력으로 대중들의 시선을 사로잡았던 빅스가 약 한 달 반 만에 빅스 2016 CONCEPTION 마지막 이야기 [Kratos]로 돌아왔다.</td>
-	<td>2016.10.19</td>
-	<td>0</td>
-	</tr>
-	<tr>
-	<td><input type="checkbox" class="item_checked"/></td>
-	<td>1</td>
-	<td>qkrtkdqkrtkd</td>
-	<td>월간 유희열의 스케치북 첫 주인공, 박효신!</td>
-	<td>대망의 첫 주자는 바로 박효신! 7년 만에 공중파 출연, 80분 단독공연이라는 타이틀로 방송 전부터 이미 많은 사람들의 기대를 모았는데요. 그 반가운 현장을 지금 공개합니다!</td>
-	<td>2016.10.19</td>
-	<td>0</td>
-	</tr>
 	</tbody>
 	</table>
 	</div>
 	<!-- 테이블 end -->
-	</div>
 	<!-- 버튼 start -->
 	<div id="bt_box">
 	<button id="delete">삭제</button>
 	</div>
+	</form>
+	</div>
 	<!-- 버튼 end -->
 	<!-- 컨텐츠 영역 end -->
-	</div>
+	
+	<!-- 페이지 번호 시작 -->
+		<nav class="text-center">
+			<ul class="pagination">
+				<!-- 이전 그룹으로 이동 -->
+				<c:choose>
+					<c:when test="${pageHelper.prevPage > 0 }">
+					<!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
+					<!-- 이전 그룹으로 이동하기 위한 URL을 생성하여 "prevUrl"에 저장 -->
+					<c:url var="prevUrl" value="/admin/info_list.do">
+						<c:param name="category" value="${category }"></c:param>
+						<c:param name="keyword" value="${keyword }"></c:param>
+						<c:param name="page" value="${pageHelper.prevPage }"></c:param>
+					</c:url>
+					
+					<li><a href="${pageUrl }">&laquo;</a></li>
+					</c:when>
+				
+				<c:otherwise>
+					<!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+					<li class='disabled'><a href="#">&laquo;</a></li>
+				</c:otherwise>
+				</c:choose>
+				
+				<!-- 페이지 번호 -->
+				<!-- 현재 그룹의 시작페이지-끝페이지 사이를 1씩 증가하면서 반복 -->
+				<c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage }" step="1">
+					
+					<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
+					<c:url var="pageUrl" value="/admin/info_list.do">
+						<c:param name="category" value="${category }"></c:param>
+						<c:param name="keyword" value="${keyword }"></c:param>
+						<c:param name="page" value="${i }"></c:param>
+					</c:url>
+					
+					<!-- 반복 중의 페이지 번호와 현재 페이지 번호가 같은 경우에 대한 분기 -->
+					<c:choose>
+						<c:when test="${pageHelper.page == i }">
+							<li class='active'><a href="#">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="${pageUrl }">${i }</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				
+				<!-- 다음 그룹으로 이동 -->
+				<c:choose>
+					<c:when test="pageHelper.nextPage > 0">
+						<!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
+						<!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
+						<c:url var="nextUrl" value="/admin/info_list.do">
+							<c:param name="category" value="${category }"></c:param>
+							<c:param name="keyword" value="${keyword }"></c:param>
+							<c:param name="page" value="${pageHelper.nextPage }"></c:param>
+						</c:url>
+						
+						<li><a href="${nextUrl }">&raquo;</a></li>
+					</c:when>
+					
+					<c:otherwise>
+						<!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+						<li class='disabled'><a href="#">&raquo;</a></li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+		</nav>
+		<!-- 페이지 번호 끝 -->
 	</div>
 
 		<!-- jquery start -->

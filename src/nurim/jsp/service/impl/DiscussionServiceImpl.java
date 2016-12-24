@@ -214,9 +214,25 @@ public class DiscussionServiceImpl implements DiscussionService {
 	}
 
 	@Override
-	public void updateDiscussionEndDate(Document document) throws Exception {
+	public Document selectDiscussionEndDate(Document document) throws Exception {
+		Document result = null;
+		
 		try {
-			int result = sqlSession.update("DiscussionMapper.updateDiscussionHit", document);
+			//토론종료일이 없는 게시물은 없으므로 NullPointerException을 생략한다.
+			result = sqlSession.selectOne("DiscussionMapper.selectDiscussionEndDate", document);
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("토론종료일 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	
+
+	@Override
+	public void updateDiscussionVote(Document document) throws Exception {
+		try {
+			int result = sqlSession.update("DiscussionMapper.updateDiscussionVote", document);
 			if (result == 0) {
 				throw new NullPointerException();
 			}
@@ -226,31 +242,48 @@ public class DiscussionServiceImpl implements DiscussionService {
 		} catch (Exception e) {
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
-			throw new Exception("조회수 갱신에 실패했습니다.");
+			throw new Exception("투표수 갱신에 실패했습니다.");
 		} finally {
 			sqlSession.commit();
 		}
 	}
-	
-	
+
 	@Override
-	public int selectDiscussionCountByPw(Document document) throws Exception {
-		int result = 0;
+	public Document selectBestDiscussion(Document document) throws Exception {
+		Document result = null;
 		
 		try {
-			result = sqlSession.selectOne("DiscussionMapper.selectDiscussionCountByPw", document);
-			//비밀번호가 일치하는 데이터의 수가 0이라면 비밀번호가 잘못된 것으로 간주한다.
-			if (result < 1) {
+			result = sqlSession.selectOne("DiscussionMapper.selectBestDiscussion", document);
+			if (result == null) {
 				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 게시물이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("게시물 조회에 실패했습니다.");
 		}
-	} catch (NullPointerException e) {
-		logger.error(e.getLocalizedMessage());
-		throw new Exception("비밀번호를 확인하세요.");
-	} catch (Exception e) {
-		logger.error(e.getLocalizedMessage());
-		throw new Exception("게시물 수 조회에 실패했습니다.");
-	}
 		return result;
 	}
+
+	/**
+	@Override
+	public Document selectBestDiscussionPercent(Document document) throws Exception {
+		Document result = null;
+		
+		try {
+			result = sqlSession.selectOne("DiscussionMapper.selectBestDiscussionPercent", document);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 게시물이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("게시물 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	*/
 	
 }

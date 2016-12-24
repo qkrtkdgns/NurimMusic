@@ -23,7 +23,6 @@ import nurim.jsp.helper.PageHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Document;
-
 @WebServlet("/admin/info_list.do")
 public class infoList extends BaseController {
 	private static final long serialVersionUID = -2817677512464923488L;
@@ -54,6 +53,7 @@ public class infoList extends BaseController {
 		/** (3) 게시판 카테고리 값을 받아서 View에 전달 */
 		String category = web.getString("category");
 		request.setAttribute("category", category);
+		logger.debug("category = " + category);
 		
 		/** (4) 존재하는 게시판인지 판별하기 */
 		try {
@@ -68,7 +68,6 @@ public class infoList extends BaseController {
 		/** (5) 조회할 정보에 대한 Beans 생성 */
 		//검색어
 		String keyword = web.getString("keyword");
-		
 		Document document = new Document();
 		document.setCategory(category);
 		//현재 페이지 수 -> 기본값은 1페이지로 설정함
@@ -82,9 +81,6 @@ public class infoList extends BaseController {
 		int totalCount = 0;
 		List<Document> documentList = null;
 		
-		//게시판 종류가 갤러리인 경우 사진목록을 함께 조회함을 요청
-		document.setGallery(category.equals("gallery"));
-		
 		try {
 			//전체 게시물 수
 			totalCount = documentNoticeService.selectNoticeCount(document);
@@ -96,6 +92,7 @@ public class infoList extends BaseController {
 			document.setLimitStart(pageHelper.getLimitStart());
 			document.setListCount(pageHelper.getListCount());	
 			documentList = documentNoticeService.selectNoticeList(document);
+			
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;

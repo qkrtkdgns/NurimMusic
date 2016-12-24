@@ -38,33 +38,30 @@
 		<div class="discussion">
 			<div class="dis_sub">
 				<div class="dis_sub2">
-					<h4>베스트토론&nbsp;&nbsp;&nbsp;${document.subject}</h4>
+					<h4><b>베스트토론</b>&nbsp;&nbsp;&nbsp;${document.subject}</h4>
 				</div>
-
+				<div class="best" style="margin-left:100px;">
 				<ul class="dis_info">
 					<li>작성자명 :</li>
 					<li>${document.memberId }</li>
-					<li class="barlink">|</li>
+					<li class="barlink">&nbsp;|</li>
 					<li>기간 :</li>
-					<li>2016.09.28 ~ 2016.10.28</li>
-					<li class="barline">|</li>
-					<li>총 참여 :</li>
-					<li>0</li>
+					<li>${document.regDate } ~ ${document.endDate }</li>
 				</ul>
-				<hr>
-
+				${document.content }
+				</div>
 				<!--참여하기 버튼 -->
 				<div class="dis_img">
-					<img class="agree_img" src="${pageContext.request.contextPath }/img/dis_1.png"> 
+					<img class="agree_img" src="${pageContext.request.contextPath }/img/dis_1.png">
+					<b style="margin-left:-110px; margin-top:10px; margin-right:50px;">${document.agree }%</b>
 					<img class="bar_img" src="${pageContext.request.contextPath }/img/dis_3.png"> 
-					<img class="disargee_img" src="${pageContext.request.contextPath }/img/dis_2.png"> 
-					<a href="${pageContext.request.contextPath }/discussion_write_result.do?category=discussion"> 
+					<img class="disargee_img" src="${pageContext.request.contextPath }/img/dis_2.png">
+					<b style="margin-left:-110px; margin-top:10px; margin-right:50px;">${document.disagree }%</b>
+					<a href="${pageContext.request.contextPath }/discussion_write_result.do?category=discussion&document_id=${document.id}"> 
 					<img class="parti_img" src="${pageContext.request.contextPath }/img/dis_4.png">
 					</a>
 				</div>
 			</div>
-
-
 
 			<div class="dis_content">
 				<table class="dis_table">
@@ -78,7 +75,6 @@
 					</colgroup>
 
 					<thead>
-
 						<tr>
 							<th scope="col" class="text-center">제목</th>
 							<th scope="col" class="text-center">작성일</th>
@@ -87,7 +83,6 @@
 							<th scope="col" class="text-center">찬성</th>
 							<th scope="col" class="text-center">반대</th>
 						</tr>
-
 					</thead>
 
 					<tbody>
@@ -103,10 +98,10 @@
 						<a href="${readUrl }">${document.subject }</a>
 						</td>
 							<td class="cont_date">${document.regDate }</td>
-							<td class="cont_datec">2016.10.17</td>
+							<td class="cont_datec">${document.endDate }</td>
 							<td class="cont_view">${document.hit }</td>
-							<td class="cont_ag"></td>
-							<td class="cont_disag"></td>
+							<td class="cont_ag">${document.agree }</td>
+							<td class="cont_disag">${document.disagree }</td>
 						</tr>
 						</c:forEach>
 						</c:when>
@@ -134,14 +129,14 @@
 					<!-- //토론 글쓰기 버튼 끝 -->
 
 					<!-- 페이지 번호 시작 -->
-		<div class="text-center">
+		<nav class="page_num">
 			<ul class="pagination">
 				<!-- 이전 그룹으로 이동 -->
 				<c:choose>
 					<c:when test="${pageHelper.prevPage > 0 }">
 					<!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
 					<!-- 이전 그룹으로 이동하기 위한 URL을 생성하여 "prevUrl"에 저장 -->
-					<c:url var="prevUrl" value="/admin/info_list.do">
+					<c:url var="prevUrl" value="/discussion.do">
 						<c:param name="category" value="${category }"></c:param>
 						<c:param name="keyword" value="${keyword }"></c:param>
 						<c:param name="page" value="${pageHelper.prevPage }"></c:param>
@@ -161,7 +156,7 @@
 				<c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage }" step="1">
 					
 					<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
-					<c:url var="pageUrl" value="/admin/info_list.do">
+					<c:url var="pageUrl" value="/discussion.do">
 						<c:param name="category" value="${category }"></c:param>
 						<c:param name="keyword" value="${keyword }"></c:param>
 						<c:param name="page" value="${i }"></c:param>
@@ -183,7 +178,7 @@
 					<c:when test="pageHelper.nextPage > 0">
 						<!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
 						<!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
-						<c:url var="nextUrl" value="/admin/info_list.do">
+						<c:url var="nextUrl" value="/discussion.do">
 							<c:param name="category" value="${category }"></c:param>
 							<c:param name="keyword" value="${keyword }"></c:param>
 							<c:param name="page" value="${pageHelper.nextPage }"></c:param>
@@ -198,7 +193,7 @@
 					</c:otherwise>
 				</c:choose>
 			</ul>
-		</div>
+		</nav>
 		<!-- 페이지 번호 끝 -->
 
 					<!-- 검색 영역 -->

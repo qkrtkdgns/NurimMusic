@@ -1,7 +1,6 @@
 package nurim.jsp.service;
 
 import java.util.List;
-
 import nurim.jsp.model.Document;
 
 public interface ReviewService {
@@ -82,4 +81,5 @@ public interface ReviewService {
 	 * @throws Exception
 	 */
 	public Document selectNextReview(Document document) throws Exception;
+	
 }

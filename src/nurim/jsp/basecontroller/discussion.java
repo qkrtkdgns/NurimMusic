@@ -59,18 +59,12 @@ public class discussion extends BaseController {
 		}
 		logger.debug("category = " + category);
 		
-		/** 찬성 수, 반대 수 받기 */
-		int agree = web.getInt("agree");
-		int disagree = web.getInt("disagree");
-		
 		/** (5) 조회할 정보에 대한 Beans 생성 */
 		//검색어
 		String keyword = web.getString("keyword");
 		
 		Document document = new Document();
 		document.setCategory(category);
-		document.setAgree(agree);
-		document.setDisagree(disagree);
 		
 		//현재 페이지 수 -> 기본값은 1페이지로 설정함
 		int page = web.getInt("page", 1);
@@ -82,18 +76,8 @@ public class discussion extends BaseController {
 		/** (6) 게시글 목록 조회 */
 		int totalCount = 0;
 		List<Document> documentList = null;
-		
-			//ex) discussion_1
-			String cookieKey = "discussion" + "_" + agree;
-			String agreeCount = web.getCookie(cookieKey);
-			
-			String cookieKey2 = "discussion" + "_" + disagree;
-			String disagreeCount = web.getCookie(cookieKey2);
 			
 		try {
-			web.setCookie(cookieKey, agreeCount, 60*60*60*24);
-			web.setCookie(cookieKey2, disagreeCount, 60*60*60*24);
-			
 			//전체 게시물 수
 			totalCount = discussionService.selectDiscussionCount(document);
 			
@@ -105,7 +89,9 @@ public class discussion extends BaseController {
 			document.setLimitStart(pageHelper.getLimitStart());
 			document.setListCount(pageHelper.getListCount());
 			documentList = discussionService.selectDiscussionList(document);
-			logger.debug("documentList = " + documentList);
+			//document = discussionService.selectBestDiscussionPercent(document);
+			document = discussionService.selectBestDiscussion(document);
+			logger.debug("document = " + document);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage()); 
 			return null;
@@ -117,6 +103,7 @@ public class discussion extends BaseController {
 		request.setAttribute("documentList", documentList);
 		//페이지 번호 계산 결과를 view에 전달
 		request.setAttribute("pageHelper", pageHelper);
+		request.setAttribute("document", document);
 		
 		return "discussion";
 	}
