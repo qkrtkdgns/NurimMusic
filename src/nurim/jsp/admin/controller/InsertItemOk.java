@@ -105,11 +105,20 @@ public class InsertItemOk extends BaseController {
 			return null;
 		}
 		
+		
+		
 		/** (6) 업로드 된 파일 정보 추출 */
 		List<FileInfo> fileList = upload.getFileList();
 		// 업로드 된 프로필 사진 경로가 저장될 변수
 		String profileImg = null;
-
+		
+		String profileImg1= paramMap.get("file");
+		if (!regex.isValue(profileImg1)) {
+			sqlSession.close();
+			web.redirect(null, "상품 이미지를 넣어주세요.");
+			return null;
+		}
+		
 		// 업로드 된 파일이 존재할 경우만 변수값을 할당한다.
 		if (fileList.size() > 0) {
 			// 단일 업로드이므로 0번째 항목만 가져온다.
