@@ -230,8 +230,23 @@ public class CommentServiceImpl implements CommentService {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("댓글 조회에 실패했습니다.");
 		}
-		
 		return result;
+	}
+	
+	@Override
+	public void deleteCommentAll(Comment comment) throws Exception {
+		try {
+			//덧글이 존재하지 않는 게시물에 대한 요청일 수 있으므로,
+			//NullPointerException 를 발생시키지 않는다.
+			sqlSession.delete("CommentMapper.deleteCommentAll", comment);
+		} catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("댓글 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		
 	}
 
 }

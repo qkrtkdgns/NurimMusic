@@ -97,6 +97,7 @@ public class DocumentNoticeServiceImpl implements DocumentNoticeService {
 		
 		return result;
 	}
+	
 	@Override
 	public int selectNoticeCount(Document document) throws Exception {
 		int result = 0;
@@ -166,6 +167,34 @@ public class DocumentNoticeServiceImpl implements DocumentNoticeService {
 			sqlSession.commit();
 		}
 		
+	}
+
+	@Override
+	public Document selectPrevNotice(Document document) throws Exception {
+		Document result = null;
+		
+		try {
+			//이전글이 없는 경우도 있으므로, 리턴값이 null인 경우 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("DocumentNoticeMapper.selectPrevNotice", document);
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("이전글 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public Document selectNextNotice(Document document) throws Exception {
+		Document result = null;
+		
+		try {
+			//다음글이 없는 경우도 있으므로, 리턴값이 null인 경우 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("DocumentNoticeMapper.selectNextNotice", document);
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("다음글 조회에 실패했습니다.");
+		}
+		return result;
 	}
 
 }

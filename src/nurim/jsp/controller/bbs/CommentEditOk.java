@@ -89,7 +89,7 @@ public class CommentEditOk extends BaseController {
 		/** (7) 댓글 변경을 위한 Service 기능을 호출 */
 		Comment item = null;
 		try {
-			commentService.updateComment(comment);
+			commentService.updatecomment(comment);
 			//변경된 결과를 조회
 			item = commentService.selectComment(comment);
 		}  catch (Exception e) {

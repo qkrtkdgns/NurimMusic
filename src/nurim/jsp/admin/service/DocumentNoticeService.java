@@ -64,5 +64,21 @@ public interface DocumentNoticeService {
 	 * @throws Exception
 	 */
 	public void deleteNotice(Document document) throws Exception;
+	
+	/**
+	 * 현재 글을 기준으로 이전글을 읽어들인다.
+	 * @param document	- 현재글에 대한 게시물 번호가 저장된 Beans
+	 * @return	 BbsDocument - 읽어들인 게시물 내용 (없을 경우 null)
+	 * @throws Exception
+	 */
+	public Document selectPrevNotice(Document document) throws Exception;
+	
+	/**
+	 * 현재글을 기준으로 다음글을 읽어들인다.
+	 * @param document	- 현재글에 대한 게시물 번호가 저장된 Beans
+	 * @return	BbsDocument - 읽어들인 게시물 내용 (없을 경우 null)
+	 * @throws Exception
+	 */
+	public Document selectNextNotice(Document document) throws Exception;
 
 }

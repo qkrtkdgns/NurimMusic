@@ -92,5 +92,12 @@ public interface CommentService {
 	 */
 	public void updatecomment(Comment comment) throws Exception;
 	
+	/**
+	 * 하나의 게시물에 속한 모든 댓글을 삭제한다.
+	 * @param comment
+	 * @throws Exception
+	 */
+	public void deleteCommentAll(Comment comment) throws Exception;
+	
 	
 }

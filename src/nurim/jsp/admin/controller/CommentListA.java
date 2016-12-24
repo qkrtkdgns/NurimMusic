@@ -21,7 +21,7 @@ import nurim.jsp.service.CommentService;
 import nurim.jsp.service.impl.CommentServiceImpl;
 
 @WebServlet("/admin/comment.do")
-public class CommentList extends BaseController{
+public class CommentListA extends BaseController{
 	private static final long serialVersionUID = -7415600846773313763L;
 	/**(1) 사용하고자 하는 Helper 객체 선언 */
 	Logger logger;

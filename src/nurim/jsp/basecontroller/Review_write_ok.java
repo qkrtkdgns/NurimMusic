@@ -149,7 +149,7 @@ public class Review_write_ok extends BaseController {
 				file.setDocumentId(document.getId());
 				
 				//데이터 복사
-				file.setOriginName(info.getOriginName());
+				file.setOriginName(info.getOrginName());
 				file.setFileDir(info.getFileDir());
 				file.setFileName(info.getFileName());
 				file.setContentType(info.getContentType());

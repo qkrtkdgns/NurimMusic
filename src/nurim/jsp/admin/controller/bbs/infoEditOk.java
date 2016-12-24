@@ -178,7 +178,7 @@ public class infoEditOk extends BaseController {
 			File file = new File();
 			
 			//데이터 복사
-			file.setOriginName(info.getOriginName());
+			file.setOriginName(info.getOrginName());
 			file.setFileDir(info.getFileDir());
 			file.setFileName(info.getFileName());
 			file.setContentType(info.getContentType());

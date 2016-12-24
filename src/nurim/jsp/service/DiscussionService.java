@@ -94,12 +94,11 @@ public interface DiscussionService {
 	 * @param document
 	 * @throws Exception
 	 */
-	public void updateDiscussionEndDate(Document document) throws Exception;
+	public Document updateDiscussionEndDate(Document document) throws Exception;
 	
-	/**
-	 * 비밀번호를 검사한다.
-	 * @param document
-	 * @throws Exception
-	 */
-	public int selectDiscussionCountByPw(Document document) throws Exception;
+	public Document selectBestDiscussion(Document document) throws Exception;
+	
+	public void updateDiscussionVote(Document document) throws Exception;
+	
+	public Document selectDiscussionEndDate(Document document) throws Exception;
 }

@@ -266,24 +266,18 @@ public class DiscussionServiceImpl implements DiscussionService {
 		return result;
 	}
 
-	/**
 	@Override
-	public Document selectBestDiscussionPercent(Document document) throws Exception {
+	public Document updateDiscussionEndDate(Document document) throws Exception {
 		Document result = null;
 		
 		try {
-			result = sqlSession.selectOne("DiscussionMapper.selectBestDiscussionPercent", document);
-			if (result == null) {
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
-			throw new Exception("조회된 게시물이 없습니다.");
+			//토론종료일이 없는 게시물은 없으므로 NullPointerException을 생략한다.
+			result = sqlSession.selectOne("DiscussionMapper.selectDiscussionEndDate", document);
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
-			throw new Exception("게시물 조회에 실패했습니다.");
+			throw new Exception("토론종료일 조회에 실패했습니다.");
 		}
 		return result;
 	}
-	*/
-	
+
 }

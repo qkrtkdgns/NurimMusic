@@ -67,7 +67,7 @@ public class CommentList extends BaseController {
 		//작성 결과를 저장할 객체
 		List<Comment> item = null;
 		try {
-			item = commentService.selectCommentList(comment);
+			item = commentService.selectcommentList(comment);
 			logger.debug("item = " + item);
 		} catch (Exception e) {
 			web.printJsonRt(e.getLocalizedMessage());
