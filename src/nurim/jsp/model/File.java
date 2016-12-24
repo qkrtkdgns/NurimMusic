@@ -8,7 +8,7 @@ public class File {
 	private String fileDir = null;
 	private String fileName = null;
 	private String contentType = null;
-	private int fileSize = 0;
+	private long fileSize = 0;
 	private String regDate = null;
 	private String editDate = null;
 	
@@ -54,10 +54,10 @@ public class File {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	public int getFileSize() {
+	public long getFileSize() {
 		return fileSize;
 	}
-	public void setFileSize(int fileSize) {
+	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
 	public String getRegDate() {
