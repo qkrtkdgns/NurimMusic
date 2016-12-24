@@ -16,6 +16,7 @@ import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Basket;
+import nurim.jsp.model.Member;
 import nurim.jsp.service.BasketService;
 import nurim.jsp.service.ProductService;
 import nurim.jsp.service.impl.BasketServiceImpl;

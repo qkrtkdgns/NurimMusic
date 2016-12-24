@@ -17,7 +17,7 @@ import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Basket;
-import nurim.jsp.model.Product;
+import nurim.jsp.model.Member;
 import nurim.jsp.service.BasketService;
 import nurim.jsp.service.ProductService;
 import nurim.jsp.service.impl.BasketServiceImpl;
@@ -70,9 +70,7 @@ public class basketGo extends BaseController {
 				
 		
 		Member loginInfo = (Member) web.getSession("loginInfo");
-		Basket bas = new Basket();
-	
-		
+
 		/** (5) 조회할 정보에 대한 Beans 생성 */
 		// 파라미터를 Beans로 묶기
 		Basket basket = new Basket();
