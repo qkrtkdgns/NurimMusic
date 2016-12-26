@@ -14,13 +14,13 @@
 	<li class="glyphicon glyphicon-cog">&nbsp;<a href="#" class=" bt_on"><span>고객센터관리</span></a>
 	<ul>
 	<li><a href="${pageContext.request.contextPath}/admin/one_one.do">1:1답변관리</a></li>
-	<li><a href="${pageContext.request.contextPath}/admin/info.do">공지사항</a></li>
+	<li><a href="${pageContext.request.contextPath}/admin/info_list.do?category=notice">공지사항</a></li>
 	</ul>
 	</li>
 	<li class="glyphicon glyphicon-cog">&nbsp;<a href="#" class=" bt_on"><span>커뮤니티관리</span></a>
 	<ul>
-	<li><a href="${pageContext.request.contextPath}/admin/user_review.do">회원리뷰</a></li>
-	<li><a href="${pageContext.request.contextPath}/admin/debate.do">토론광장</a></li>
+	<li><a href="${pageContext.request.contextPath}/admin/user_review.do?category=review">회원리뷰</a></li>
+	<li><a href="${pageContext.request.contextPath}/admin/debate.do?category=discussion">토론광장</a></li>
 	</ul>
 	</li>
 	<li class="glyphicon glyphicon-cog">&nbsp;<a href="#" class=" bt_on"><span>상품관리</span></a>

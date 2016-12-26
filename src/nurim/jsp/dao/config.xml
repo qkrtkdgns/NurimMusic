@@ -11,9 +11,9 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url" 
-				    value="jdbc:mysql://localhost:3306/nurimmusic?characterEncoding=UTF8" />
-				<property name="username" value="root" />
-				<property name="password" value="root" />
+				    value="jdbc:mysql://localhost:3306/qkrtkdgns2?characterEncoding=UTF8" />
+				<property name="username" value="qkrtkdgns2" />
+				<property name="password" value="snfla0110!" />
 			</dataSource>
 		</environment>
 	</environments>

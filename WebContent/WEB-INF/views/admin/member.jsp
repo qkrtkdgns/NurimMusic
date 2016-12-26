@@ -82,7 +82,7 @@
 		<c:when test="${fn:length(memberList) > 0}">
 		<c:forEach var="member" items="${memberList }"  varStatus="i">
 		<tr>
-		<td>${i.index + (fn:length(memberList)*pageHelper.page-2)}</td>
+		<td>${i.index + (fn:length(memberList)*pageHelper.page)}</td>
 		<td><input type="checkbox" name="checkbox" class="item_checked" id="${member.id }" value="${member.id }"/></td>
 		<td>${member.userId}</td>
 		<td>${member.userName}</td>
