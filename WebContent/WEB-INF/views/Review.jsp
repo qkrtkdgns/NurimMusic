@@ -22,11 +22,11 @@
          <div class="side_area">
             <a href="#">회원리뷰</a>
             <ul>
-               <li><a href="${pageContext.request.contextPath }/Review.do">♪ 회원리뷰</a></li>
+               <li><a href="${pageContext.request.contextPath }/Review.do?category=review">♪ 회원리뷰</a></li>
             </ul>
             <a href="#">토론광장</a>
             <ul>
-               <li><a href="${pageContext.request.contextPath }/discussion.do">♪ 토론광장</a></li>
+               <li><a href="${pageContext.request.contextPath }/discussion.do?category=discussion">♪ 토론광장</a></li>
             </ul>
          </div>
 		

@@ -2,7 +2,7 @@
 <!DOCTYPE configuration
     PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
+ 	
 <configuration>
 	<!-- MySQL 접속 정보를 지정한다. -->
 	<environments default="development">
@@ -24,11 +24,15 @@
 	<mapper resource="nurim/jsp/dao/mapper/CommentMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/DocumentMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/DocumentQnaMapper.xml" />
+	<mapper resource="nurim/jsp/dao/mapper/DocumentNoticeMapper.xml" />
+	<mapper resource="nurim/jsp/dao/mapper/DiscussionMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/FileMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/MemberMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/OrderMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/ProductMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/ProCategoryMapper.xml" />
 	<mapper resource="nurim/jsp/dao/mapper/CategoryMapper.xml" />
+	<mapper resource="nurim/jsp/dao/mapper/ReviewMapper.xml" />
+	<mapper resource="nurim/jsp/dao/mapper/NoticeFileMapper.xml" />
 	</mappers>
 </configuration>

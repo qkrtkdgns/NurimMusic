@@ -31,7 +31,7 @@
    </c:choose>
       <li><a href="${pageContext.request.contextPath }/mypage.do">마이페이지</a></li>
       <li><a href="${pageContext.request.contextPath }/basket.do">장바구니</a></li>
-      <li><a href="${pageContext.request.contextPath }/info.do">고객센터</a></li>
+      <li><a href="${pageContext.request.contextPath }/info_service_list.do?category=notice">고객센터</a></li>
   </ul>
   </div>
 </div>
@@ -69,8 +69,8 @@
             </li>
             <li><a href="${pageContext.request.contextPath }/community.do">커뮤니티</a>
                   <ul>
-                  <li><a href="${pageContext.request.contextPath }/Review.do">회원리뷰</a></li>
-                  <li><a href="${pageContext.request.contextPath }/discussion.do">토론광장</a></li>
+                  <li><a href="${pageContext.request.contextPath }/Review.do?category=review">회원리뷰</a></li>
+                  <li><a href="${pageContext.request.contextPath }/discussion.do?category=discussion">토론광장</a></li>
                </ul>
             </li>
          </ul>

@@ -25,7 +25,7 @@ import nurim.jsp.service.impl.ProductServiceImpl;
 public class index extends BaseController {
 	private static final long serialVersionUID = 8940201158330638365L;
 
-	Logger logger;
+	Logger logger; 
 	SqlSession sqlSession;
 	ProductService productService;
 	WebHelper web;

@@ -9,12 +9,18 @@
 		<link rel="stylesheet"  type="text/css" href="${pageContext.request.contextPath }/css/questionSend.css" />
 	</head>
 	<body>
- <%@include file="inc/top_nav.jsp" %>
+<%@include file="inc/top_nav.jsp" %>
+
 
 <!-- 본문내용 작성 start -->
 	<div id="content">
 		  <!--  내용 탭 start -->
-         <%@include file="inc/info_nav.jsp" %>
+ <ul class="nav nav-tabs">
+         <li><a href="${pageContext.request.contextPath }/info_service_list.do?category=notice">공지사항</a></li>
+         <li><a href="${pageContext.request.contextPath }/question_top10.do">자주하는 질문</a></li>
+         <li class="active"><a href="${pageContext.request.contextPath }/question_send.do">문의하기</a></li>
+         <li><a href="${pageContext.request.contextPath }/pay_check.do">입금확인</a></li>
+         </ul>
         <!-- 내용 탭 end -->
 
 	<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/bbs/qna_write_ok.do">

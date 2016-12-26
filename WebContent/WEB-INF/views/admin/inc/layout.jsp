@@ -10,9 +10,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/admin_assets/js/compressed/picker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/admin_assets/js/compressed/picker.date.js"></script>
 <script src="http://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/admin_assets/js/compressed/ko_KR.js"></script>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin_assets/js/compressed/themes/classic.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin_assets/js/compressed/themes/classic.date.css" />
-
-
+		

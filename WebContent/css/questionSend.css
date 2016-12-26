@@ -14,7 +14,7 @@ h2,h3{
 	text-align: left !important;
 	float: left;
 }
-#qna_type, #name, #tel, #email, #title{
+#qna_type, #member_id, #subject, #qna_content{
 	width:400px;
 	float: left;
 }

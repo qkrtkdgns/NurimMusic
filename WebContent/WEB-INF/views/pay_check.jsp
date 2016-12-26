@@ -16,7 +16,7 @@
          <div id="content">
             <!--  내용 탭 start -->
         <ul class="nav nav-tabs">
-         <li><a href="${pageContext.request.contextPath }/info.do">공지사항</a></li>
+         <li><a href="${pageContext.request.contextPath }/info_service_list.do?category=notice">공지사항</a></li>
          <li><a href="${pageContext.request.contextPath }/question_top10.do">자주하는 질문</a></li>
          <li><a href="${pageContext.request.contextPath }/question_send.do">문의하기</a></li>
          <li class="active"><a href="${pageContext.request.contextPath }/pay_check.do">입금확인</a></li>
@@ -78,6 +78,9 @@
 				var template = Handlebars.compile($("#tmpl_check_item")
 						.html());
 				for (var i = 0; i < 10; i++) {
+					if(json.item[i]==null){
+						break;
+					}
 					//줄 바꿈에 대한 처리
 					// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
 					// --> JSON에 포함된 '&lt;br//&gt;'을 검색에서 <br/>로 변경함.
@@ -111,6 +114,10 @@
 							var template = Handlebars.compile($("#tmpl_check_item")
 									.html());
 							for (var i = 0; i < 10; i++) {
+
+								if(json.item[i]==null){
+									break;
+								}
 								//줄 바꿈에 대한 처리
 								// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
 								// --> JSON에 포함된 '&lt;br//&gt;'을 검색에서 <br/>로 변경함.

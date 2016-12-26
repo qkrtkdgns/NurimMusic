@@ -44,7 +44,7 @@ public class UploadHelper {
    }
    // --- 싱글톤 객체 생성 끝 ---
    
-   public static final String homeDir ="F:/workspace2";
+   public static final String homeDir ="/ROOT/";
 	public static final String fileDir = homeDir+"/upload";
 	public static final String tempDir = fileDir + "/temp";
    
