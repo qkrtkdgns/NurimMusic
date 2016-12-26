@@ -37,7 +37,7 @@ color:#249;
 		<%@ include file="inc/category.jsp"%>
 
 		<!-- 컨텐츠 영역 start -->
-	<form method="get" action="../admin/item_list.do" >	
+	<form method="post" action="../admin/item_list.do" >	
 			<div id="content">
 			
 				<div id="member">
@@ -146,6 +146,7 @@ color:#249;
 				<!-- 버튼 start -->
 				<div id="bt_box">
 					<button id="delete">삭제</button>
+					<input type="hidden" id="ok"  name="ok">
 				</div>
 				<!-- 버튼 end -->			
 				<!-- 컨텐츠 영역 end -->
@@ -157,6 +158,7 @@ color:#249;
 
 	<script type="text/javascript">
 	$(function(){
+		
 		 $("#all_check").change(function(){
 			  var is_check=$(this).is(":checked");
 
@@ -164,18 +166,21 @@ color:#249;
 			});
 		
 		  $("#delete").click(function(){
+			  $('#ok').attr("value", "B"); 
 		    if($("input[type='checkbox']").is(":checked")){
 		      var result = confirm("정말 삭제하시겠습니까?");
 		      if(result){
 		          alert("삭제완료");
+		          $('#ok').attr("value", "A"); 
+		          location.reload();
 		      }
 		    }else{
 		      alert("삭제할 데이터를 선택해주세요.");
+		      $('#ok').attr("value", "B"); 
+		      location.reload();
 		    }
-		  });
-		  
-		 
-		});
+		  }); 
+	});
 
 	</script>
 	<!-- jquery end -->

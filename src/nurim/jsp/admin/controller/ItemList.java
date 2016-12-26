@@ -43,10 +43,9 @@ public class ItemList extends BaseController{
 		productAdmin = new ProductAdminImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
-	
-		
 		/** (3) 로그인 여부 검사 */
-		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		
+		//로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
 		if (web.getSession("loginInfo") == null) {
 			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
 			sqlSession.close();
@@ -54,25 +53,50 @@ public class ItemList extends BaseController{
 			return null;
 		}
 		
+		
+		//검색어
+		String searchItem = web.getString("search_item");
+		String checkOk = web.getString("ok");
+		logger.debug("checkOk >> " + checkOk);
+		logger.debug("searchItem >> " + searchItem);
 		/** (4) 조회할 정보에 대한 Beans 생성 */
 	
 		Product product = new Product();
 		ProCategory proCategory = new ProCategory();
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page",1);
-		//검색어
-		//String keyword = web.getString("search_item");
-		//logger.debug("keyword >> " + keyword);
-				
-				//제목과 내용에 대한 검색으로 활용하기 위해서 입력값을 설정한다.
-				//prod.setProName(keyword);
-
-				/** (4) 게시글 목록 조회 */
+		
+		
+			/** (5) 상품 목록 조회 */
 				int totalCount = 0;
 				List<Product> productList = null;
 				String[] checkbox = web.getStringArray("check");
+				int dropdown = web.getInt("dropdown");
+				logger.debug("dropdown >> " + dropdown);
+				if(dropdown==1){
+					product.setProName(searchItem);
+				}else if(dropdown==2){
+					product.setProvider(searchItem);
+				}
 				
 				try {
+					
+					if(checkbox !=null&&checkOk.equals("A")){
+						for(int i = 0 ; i < checkbox.length; i++){
+							logger.debug("checkbox >>"+checkbox);
+							proCategory.setProductId(Integer.parseInt(checkbox[i]));
+							product.setId(Integer.parseInt(checkbox[i]));
+							Product productONE = null;
+							productONE= productAdmin.selectProduct(product);
+							productONE.getProImg();
+							logger.debug("productONE.getProImg(); >>"+productONE.getProImg());
+							upload.removeFile(productONE.getProImg());
+							logger.debug("productONE.getProImg(); 1>>"+productONE.getProImg());
+							productAdmin.deleteProCategory(proCategory);
+							productAdmin.deleteProduct(product);
+						}
+					}
+					
 					//전체 게시물 수
 					totalCount = productAdmin.selectProductCount(product);
 					//나머지 페이지 번호 계산하기
@@ -85,22 +109,7 @@ public class ItemList extends BaseController{
 					product.setListCount(pageHelper.getListCount());
 					productList = productAdmin.selectProductList(product);
 					logger.debug("productList > " +productList);
-					if(checkbox != null){
-						for(int i = 0 ; i < checkbox.length; i++){
-							logger.debug("checkbox >>"+checkbox);
-							proCategory.setProductId(Integer.parseInt(checkbox[i]));
-							product.setId(Integer.parseInt(checkbox[i]));
-							Product img = null;
-							img =  productAdmin.selectImg(product);
-							String img1 = String.valueOf(img);
-							logger.debug("img1 >>"+img1);
-							upload.removeFile(img1);
-							productAdmin.deleteProCategory(proCategory);
-							productAdmin.deleteProduct(product);
-							
-
-						}
-					}
+					
 				} catch (Exception e) {
 					web.redirect(null, e.getLocalizedMessage());
 					return null;
@@ -130,7 +139,6 @@ public class ItemList extends BaseController{
 				
 				//페이지 번호 계산 결과를 View에 전달
 				request.setAttribute("pageHelper", pageHelper);
-		
 
 		return "admin/item_list";
 	}
