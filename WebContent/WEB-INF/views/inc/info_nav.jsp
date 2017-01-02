@@ -5,6 +5,6 @@
 <ul class="nav nav-tabs">
          <li class="active"><a href="${pageContext.request.contextPath }/info.do?category=notice">공지사항</a></li>
          <li><a href="${pageContext.request.contextPath }/question_top10.do">자주하는 질문</a></li>
-         <li><a href="${pageContext.request.contextPath }/question_send.do">문의하기</a></li>
+         <li><a href="${pageContext.request.contextPath }/bbs/qna_write.do?category=qna">문의하기</a></li>
          <li><a href="${pageContext.request.contextPath }/pay_check.do">입금확인</a></li>
          </ul>

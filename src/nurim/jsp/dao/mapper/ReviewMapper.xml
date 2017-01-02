@@ -33,7 +33,7 @@
     SELECT id, category, subject, content, hit,
     	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
     	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
-    	ip_address, member_id, product_id
+    	ip_address, member_id
     FROM document
    WHERE category=#{category} AND id=#{id}
     </select>
@@ -117,7 +117,7 @@
 	SELECT id, category, subject, content, hit,
 	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
 	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
-				ip_address, member_id, product_id
+				ip_address, member_id
 	FROM 	document
 	WHERE	category=#{category} AND id &lt; #{id}
 	ORDER 	BY id DESC
@@ -131,7 +131,7 @@
 	SELECT id, category, subject, content, hit,
 	DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
 	DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
-				ip_address, member_id, product_id
+				ip_address, member_id
 	FROM 	document
 	WHERE	category=#{category} AND id &gt; #{id}
 	ORDER	 BY id ASC

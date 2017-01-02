@@ -105,7 +105,7 @@
     </otherwise>
     </choose>
     </where>
-    ORDER BY reg_date desc
+    ORDER BY id desc
     LIMIT #{limitStart},#{listCount}
     </select>
     

@@ -89,12 +89,12 @@
 	</c:otherwise>
 	</c:choose>
 	<td>${document.qnaType }</td>
-	<td><i style="display:inline-block; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${document.subject }</i></td>
+	<td><i style="display:inline-block; width:100px; line-height:40px; height:40px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${document.subject }</i></td>
 	<td>
-	<i style="display:inline-block; width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${document.content }
+	<i style="display:inline-block; width:300px; line-height:40px; height:40px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${document.content }
 	</i></td>
 	<c:choose>
-	<c:when test="${((pageHelper.totalCount-(pageHelper.page-1)*pageHelper.listCount)-pageHelper.totalPage-i.index+2)%2 == 0 }">
+	<c:when test="${document.qnaType ne '답변'}">
 	<td>${document.regDate}</td>
 	</c:when>
 	<c:otherwise>

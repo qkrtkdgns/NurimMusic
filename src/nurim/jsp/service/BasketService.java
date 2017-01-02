@@ -3,7 +3,6 @@ package nurim.jsp.service;
 import java.util.List;
 
 import nurim.jsp.model.Basket;
-import nurim.jsp.model.Product;
 
 public interface BasketService {
 
@@ -93,4 +92,10 @@ public interface BasketService {
 	 * @throws Exception
 	 */
 	public int CountItem(Basket basket) throws Exception;
+	
+	
+	public void deleteitemProduct(Basket basket) throws Exception;
+	
+	
+	public Basket selectProductBasketItemAA(Basket basket) throws Exception;
 }

@@ -99,7 +99,7 @@
 	<!-- 테이블 end -->
 	<!-- 버튼 start -->
 	<div id="bt_box">
-	<button id="delete">삭제</button>
+	<button type="submit" id="delete">삭제</button>
 	</div>
 	</form>
 	</div>

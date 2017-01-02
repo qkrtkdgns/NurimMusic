@@ -5,7 +5,7 @@
 <!-- 회원에 대한 CRUD -->
 <mapper namespace="NoticeFileMapper">
     
-    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. --> 
     <resultMap id="file" type="nurim.jsp.model.File">
     	<result property="id" 				column="id" />
     	<result property="documentId" 	column="document_id" />
@@ -21,9 +21,9 @@
     <!-- 게시글에 속한 첨부파일의 정보를 저장한다. -->
     <insert id="insertFile" parameterType="nurim.jsp.model.File"  useGeneratedKeys="true" keyProperty="id">
     INSERT INTO file (
-    	origin_name, file_dir, file_name, content_type, file_size, reg_date, edit_date
+    	origin_name, file_dir, file_name, content_type, file_size, reg_date, edit_date, document_id
     ) VALUES (
-    	#{originName}, #{fileDir}, #{fileName}, #{contentType}, #{fileSize}, now(), now()
+    	#{originName}, #{fileDir}, #{fileName}, #{contentType}, #{fileSize}, now(), now(), #{documentId}
     )
     </insert>
     
@@ -51,6 +51,6 @@
     
     <!-- 내가 업로드 한 파일의 목록들을 조회한다. -->
 	<select id="selectMemberFileList" parameterType="nurim.jsp.model.Member" resultMap="file">
-	SELECT id, orgin_name, file_dir, file_name, content_type, file_size, reg_date, edit_date, document_id FROM file WHERE document_id=any(select id from document where member_id=#{id})	
+	SELECT id, origin_name, file_dir, file_name, content_type, file_size, reg_date, edit_date, document_id FROM file WHERE document_id=any(select id from document where member_id=#{id})	
 	</select>
 </mapper>

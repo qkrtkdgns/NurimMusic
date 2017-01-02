@@ -88,6 +88,9 @@ public class drop_out_ok extends BaseController {
 		}finally{
 			sqlSession.close();
 		}
+		/** (4) 로그아웃 */
+		// 로그아웃은 모든 세션 정보를 삭제하는 처리.
+		web.removeAllSession();
 
 		web.redirect(web.getRootPath()+"/index.do", "회원탈퇴를 성공했습니다.");
 		

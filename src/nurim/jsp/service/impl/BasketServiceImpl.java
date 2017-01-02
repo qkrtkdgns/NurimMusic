@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.model.Basket;
-import nurim.jsp.model.Product;
 import nurim.jsp.service.BasketService;
 
 public class BasketServiceImpl implements BasketService {
@@ -239,4 +238,38 @@ Basket result = null;
 		return result;
 	}
 
+	@Override
+	public void deleteitemProduct(Basket basket) throws Exception {
+		try{
+			int result = sqlSession.delete("BasketMapper.deleteitemProduct",basket);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("삭제된 데이터가 없습니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("상품 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+
+	@Override
+	public Basket selectProductBasketItemAA(Basket basket) throws Exception {
+		Basket result = null;
+		
+		try{
+			result = sqlSession.selectOne("BasketMapper.selectProductBasketItemAA",basket);
+		}catch(Exception e){
+			logger.debug(e.getLocalizedMessage());
+			throw new Exception("장바구니 조회에 실패했습니다.");
+		}
+		
+		return result;
+	}
 }

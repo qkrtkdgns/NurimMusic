@@ -163,7 +163,6 @@ public class Review_edit_ok extends BaseController {
 		try {
 			reviewService.updateReview(document);
 		}  catch (Exception e) {
-			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		}

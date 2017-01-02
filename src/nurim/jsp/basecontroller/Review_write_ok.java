@@ -123,15 +123,15 @@ public class Review_write_ok extends BaseController {
 		document.setIpAddress(ipAddress);
 		document.setMemberId(memberId);
 		logger.debug("document >> " + document.toString());
-		
 		/** (9) Service를 통한 게시물 저장 */
 		try {
 			reviewService.insertReview(document);
 		} catch (Exception e) {
-			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		}
+		
+		logger.debug("document Id >> " + document.getId());
 		
 		/** (10) 첨부파일 목록 처리 */
 		//업로드 된 파일 목록

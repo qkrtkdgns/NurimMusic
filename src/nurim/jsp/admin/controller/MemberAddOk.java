@@ -1,6 +1,8 @@
 package nurim.jsp.admin.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nurim.jsp.admin.service.MemberService;
 import nurim.jsp.admin.service.impl.MemberServiceImpl;
@@ -193,10 +197,13 @@ public class MemberAddOk extends BaseController {
 			// 예외가 발생한 경우이므로, 더이상 진행하지 않는다.
 			return null;
 		}
-
-		/** (9) 가입이 완료되었으므로 메인페이지로 이동 */
-		web.redirect(web.getRootPath() + "/admin/member.do", "회원가입이 완료되었습니다. 로그인 해 주세요.");
-
+		Map<String,Object> data = new HashMap<String, Object>();
+		data.put("rt", "OK");
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writeValue(response.getWriter(), data);
+		request.setAttribute("member", member);
+		
 		// INSERT,UPDATE, DELETE 처리를 수행하는 action 페이지들은
 		// 자체적으로 View를 갖지 않고 결과를 확인할 수 있는
 		// 다른페이지로 강제 이동시켜야 한다. (중복실행 방지)

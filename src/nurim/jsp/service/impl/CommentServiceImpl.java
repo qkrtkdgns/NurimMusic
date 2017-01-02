@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.model.Comment;
-import nurim.jsp.model.Product;
 import nurim.jsp.service.CommentService;
 
 public class CommentServiceImpl implements CommentService {
@@ -115,11 +114,32 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	public List<Comment> selectcommentListA(Comment comment) throws Exception {
+			List<Comment> result = null;
+		
+		try{
+			result = sqlSession.selectList("CommentMapper.selectcommentListA",comment);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.debug(e.getLocalizedMessage());
+		}finally{
+			sqlSession.commit();
+		}
+		return result;
+	}
+	
+	@Override
 	public List<Comment> selectcommentList(Comment comment) throws Exception {
 			List<Comment> result = null;
 		
 		try{
-			result = sqlSession.selectList("CommentMapper.selectcommentList",comment);
+			result = sqlSession.selectList("CommentMapper.selectCommentList",comment);
 			if(result == null){
 				throw new NullPointerException();
 			}
@@ -247,6 +267,26 @@ public class CommentServiceImpl implements CommentService {
 			sqlSession.commit();
 		}
 		
+	}
+
+
+	@Override
+	public void updateComment2(Comment comment) throws Exception {
+		try {
+			int result = sqlSession.insert("CommentMapper.updateComment2", comment);
+			if (result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 댓글에 대한 요청입니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("댓글 수정에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
 	}
 
 }

@@ -72,7 +72,7 @@ public class find_pwOk extends BaseController {
 		}finally{
 			sqlSession.close();
 		}
-		web.redirect(null, "회원 비밀번호는 " + password +" 입니다. 비밀번호는 이메일로도 전송됩니다.");
+		web.redirect(null, "비밀번호가 이메일로 전송이 됩니다.");
 		return null;
 	}
 

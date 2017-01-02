@@ -31,7 +31,7 @@ public class OneOneAnswerOk extends BaseController {
 	SqlSession sqlSession;
 	WebHelper web;
 	DocumentService documentService;
-	
+
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -40,38 +40,46 @@ public class OneOneAnswerOk extends BaseController {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		documentService = new DocumentServiceImpl(sqlSession, logger);
-		
+
+		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		if (web.getSession("loginInfo") == null) {
+			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
+			sqlSession.close();
+			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
+			return null;
+		}
+
 		String subject = web.getString("answer_title");
-		String content= web.getString("answer_ans");
+		String content = web.getString("answer_ans");
 		int id = web.getInt("id");
-		
+
 		logger.debug("subject >> " + subject);
 		logger.debug("content >> " + content);
 		logger.debug("id >> " + id);
-		
+
 		Document document = new Document();
 		document.setSubject(subject);
 		document.setContent(content);
 		document.setId(id);
-		
+
 		logger.debug("document >> " + document);
-		
-		try{
+
+		try {
 			int result = documentService.updateQnaAnswer(document);
 			logger.debug("result >> " + result);
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.debug(e.getLocalizedMessage());
 			web.printJsonRt(e.getLocalizedMessage());
-		}finally{
+		} finally {
 			sqlSession.close();
 		}
-		
-		Map<String,Object> data = new HashMap<String, Object>();
+
+		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("rt", "OK");
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getWriter(), data);
-		
+
 		return null;
 
 	}

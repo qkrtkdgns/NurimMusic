@@ -22,8 +22,8 @@
 	<div class="container">
 		<div class="page-header"></div>
 	
-	<form class="form-horizontal" method="post" enctype="multipart/form-data"
-	action="${pageContext.request.contextPath }/admin/info_write_ok.do">
+	<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/admin/info_write_ok.do"
+	 enctype="multipart/form-data">
 	
 		<!-- 게시판 카테고리에 대한 상태유지 -->
 		<input type="hidden" name="category"value="${category }" />

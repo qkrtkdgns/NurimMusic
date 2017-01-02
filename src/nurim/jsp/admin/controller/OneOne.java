@@ -44,6 +44,14 @@ public class OneOne extends BaseController {
 		pageHelper = PageHelper.getInstance();
 		documentService = new DocumentServiceImpl(sqlSession, logger);
 
+		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		if (web.getSession("loginInfo") == null) {
+			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
+			sqlSession.close();
+			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
+			return null;
+		}
+
 		/** (5) 조회할 정보에 대한 Beans 생성 */
 		// 검색어
 		String keyword = web.getString("keyword");
@@ -61,12 +69,13 @@ public class OneOne extends BaseController {
 		int page = web.getInt("page", 1);
 
 		// 제목과 내용에 대한 검색으로 활용하기 위해서 입력값을 설정한다.
-		if(dropdown != null){
-		if (dropdown.equals("제목")) {
-			document.setSubject(keyword);
-		} else if (dropdown.equals("내용")) {
-			document.setContent(keyword);
-		} }else {
+		if (dropdown != null) {
+			if (dropdown.equals("제목")) {
+				document.setSubject(keyword);
+			} else if (dropdown.equals("내용")) {
+				document.setContent(keyword);
+			}
+		} else {
 			document.setSubject(keyword);
 			document.setContent(keyword);
 		}
@@ -75,7 +84,7 @@ public class OneOne extends BaseController {
 		/** (6) 게시글 목록 조회 */
 		int totalCount = 0;
 		List<Document> documentList = null;
- 
+
 		try {
 			// 전체 게시물 수
 			totalCount = documentService.selectDocumentOneCount(document);

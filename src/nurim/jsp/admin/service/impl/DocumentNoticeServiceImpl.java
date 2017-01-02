@@ -117,17 +117,17 @@ public class DocumentNoticeServiceImpl implements DocumentNoticeService {
 	@Override
 	public void updateNotice(Document document) throws Exception {
 		try {
-			int result = sqlSession.delete("DocumentNoticeMapper.deleteNotice", document);
+			int result = sqlSession.update("DocumentNoticeMapper.updateNotice", document);
 			if (result == 0) {
 				throw new NullPointerException();
 			}
 		} catch (NullPointerException e) {
 			sqlSession.rollback();
-			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+			throw new Exception("존재하지 않는 게시물입니다.");
 		} catch (Exception e) {
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
-			throw new Exception("게시물 삭제에 실패했습니다.");
+			throw new Exception("게시물 수정에 실패했습니다.");
 		} finally {
 			sqlSession.commit();
 		}
@@ -182,7 +182,7 @@ public class DocumentNoticeServiceImpl implements DocumentNoticeService {
 		}
 		return result;
 	}
-
+		
 	@Override
 	public Document selectNextNotice(Document document) throws Exception {
 		Document result = null;
@@ -196,5 +196,4 @@ public class DocumentNoticeServiceImpl implements DocumentNoticeService {
 		}
 		return result;
 	}
-
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
@@ -47,7 +47,9 @@
 	WHERE	document_id=#{documentId}
 	ORDER BY id ASC
 	</select>
-	
+	<update id="updateComment2" parameterType="nurim.jsp.model.Comment">
+	UPDATE comment SET user_id=#{userId}, content=#{content}, ip_address=#{ipAddress}, edit_date=now() WHERE id=#{id}
+	</update>	
 	<!-- 댓글 정보 수정하기 -->
 	<update id="updateComment" parameterType="nurim.jsp.model.Comment">
 	UPDATE comment SET user_id=#{userId}, content=#{content}, ip_address=#{ipAddress}, edit_date=now() WHERE id=#{id}
@@ -128,7 +130,7 @@
     </update>
     
     <!-- 1:1 제외한 모든 덧글 리스트 -->
-     <select id="selectcommentList" parameterType="nurim.jsp.model.Comment"
+     <select id="selectcommentListA" parameterType="nurim.jsp.model.Comment"
     resultMap="comment">
     SELECT c.id, c.member_id, c.user_id, c.document_id, 
     c.content, c.reg_date, c.edit_date, d.category FROM comment c 

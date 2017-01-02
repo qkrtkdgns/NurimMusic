@@ -13,14 +13,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nurim.jsp.admin.service.DocumentNoticeService;
-import nurim.jsp.admin.service.NoticeFileService;
 import nurim.jsp.admin.service.impl.DocumentNoticeServiceImpl;
-import nurim.jsp.admin.service.impl.NoticeFileServiceImpl;
 import nurim.jsp.controller.bbs.BBSCommon;
 import nurim.jsp.dao.MyBatisConnectionFactory;
 import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.PageHelper;
-import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
 import nurim.jsp.model.Document;
 @WebServlet("/admin/info_list.do")
@@ -34,8 +31,6 @@ public class infoList extends BaseController {
 	BBSCommon bbs;
 	DocumentNoticeService documentNoticeService;
 	PageHelper pageHelper;
-	UploadHelper upload;
-	NoticeFileService fileService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,8 +42,15 @@ public class infoList extends BaseController {
 		bbs = BBSCommon.getInstance();
 		documentNoticeService = new DocumentNoticeServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
-		upload = UploadHelper.getInstance();
-		fileService = new NoticeFileServiceImpl(sqlSession, logger);
+		
+		/** (3) 로그인 여부 검사 */
+		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		if (web.getSession("loginInfo") == null) {
+			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
+			sqlSession.close();
+			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
+			return null;
+		}
 		
 		/** (3) 게시판 카테고리 값을 받아서 View에 전달 */
 		String category = web.getString("category");
@@ -101,25 +103,15 @@ public class infoList extends BaseController {
 		}
 		logger.debug("documentList = " + documentList);
 		
-		//조회결과가 존재할 경우 -> 갤러리라면 이미지 경로를 썸네일로 교체
-		if (document.isGallery() && documentList != null) {
-			for (int i=0; i<documentList.size(); i++) {
-				Document item = documentList.get(i);
-				String imagePath = item.getImagePath();
-				if (imagePath != null) {
-					String thumbPath = upload.createThumbnail(imagePath, 400, 320, true);
-					//글 목록 컬렉션 내의 Beans 객체가 갖는 이미지 경로를 썸네일로 변경한다.
-					item.setImagePath(thumbPath);
-					logger.debug("thumbnail create > " + item.getImagePath());
-				}
-			}
-		}
-		
 		/** (7) 조회 결과를 view에 전달 */
 		request.setAttribute("documentList", documentList);
 		//사용자가 입력한 검색어를 view에 되돌려준다. -> 자동완성 구현을 위함
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("pageHelper", pageHelper);
+		logger.debug("document >> " + document);
+		logger.debug("totalCount = " + totalCount);
+		logger.debug("pageHelper = " + pageHelper);
+		
 		
 		return "admin/info_list";
 	}

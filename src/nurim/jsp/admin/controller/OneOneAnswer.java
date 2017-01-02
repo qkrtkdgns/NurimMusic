@@ -27,7 +27,7 @@ public class OneOneAnswer extends BaseController {
 	SqlSession sqlSession;
 	WebHelper web;
 	DocumentService documentService;
-	
+
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -36,21 +36,29 @@ public class OneOneAnswer extends BaseController {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		documentService = new DocumentServiceImpl(sqlSession, logger);
-		
+
+		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
+		if (web.getSession("loginInfo") == null) {
+			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
+			sqlSession.close();
+			web.redirect(web.getRootPath() + "/admin/index.do", "로그인 중이 아닙니다.");
+			return null;
+		}
+
 		int id = web.getInt("id");
 		logger.debug("id >> " + id);
-		
+
 		Document document = new Document();
 		document.setId(id);
 
-		try{
+		try {
 			document = documentService.selectAnswer(document);
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.debug(e.getLocalizedMessage());
-		}finally{
+		} finally {
 			sqlSession.close();
 		}
-		
+		document.setId(id);
 		logger.debug("document >> " + document);
 		request.setAttribute("document", document);
 		return "admin/one_one_answer";

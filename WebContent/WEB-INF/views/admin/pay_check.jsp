@@ -76,7 +76,7 @@
 	<c:when test="${fn:length(commentList) > 0}">
 										<c:forEach var="c" items="${commentList}" varStatus="i">
 											<tr>
-											<td><input type="hidden" id="id" value="${c.id }"/>${i.index + (fn:length(commentList)*pageHelper.page-2)}</td>
+											<td><input type="hidden" id="id" value="${c.id }"/>${i.index + (fn:length(commentList)*pageHelper.page)}</td>
 											<td>${c.userId }</td>
 											<td>${c.content }</td>
 											<td>

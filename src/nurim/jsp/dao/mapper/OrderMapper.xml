@@ -35,7 +35,7 @@
 	resultMap="order">
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
 			DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where> 
 	<if test="prevDate !=null and nextDate !=null">
 	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY AND
@@ -45,7 +45,7 @@
 	rec_state = #{recState} AND
 	</when>
 	<otherwise>
-	rec_state = ANY(SELECT rec_state FROM qkrtkdgns2.order WHERE rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료") AND
+	rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료") AND
 	</otherwise>
 	</choose>
 	<if test="proName != null">
@@ -60,7 +60,7 @@
 	<select id="selectOrderPrevPay" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId} AND rec_state="입금대기"
 	<if test="prevDate !=null and nextDate !=null">
@@ -79,7 +79,7 @@
 	<select id="selectOrderNextPay" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId}  AND rec_state="입금완료"
 	<if test="prevDate !=null and nextDate !=null">
@@ -97,7 +97,7 @@
 	<select id="selectOrderPrevDelivery" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId}  AND rec_state="배송준비중"
 	<if test="prevDate !=null and nextDate !=null">
@@ -115,7 +115,7 @@
 	<select id="selectOrderNextDelivery" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId} AND rec_state="배송완료"
 	<if test="prevDate !=null and nextDate !=null">
@@ -133,7 +133,7 @@
 	<select id="selectOrderCount" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	<if test="prevDate !=null and nextDate !=null">
 	#{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY AND
@@ -143,7 +143,7 @@
 	rec_state = #{recState} AND
 	</when>
 	<otherwise>
-	rec_state = ANY(SELECT rec_state FROM qkrtkdgns2.order WHERE rec_state="입금대기" OR rec_state="입금완료" OR rec_state="배송준비중" OR rec_state="배송완료") AND
+	rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="입금대기" OR rec_state="결제완료" OR rec_state="배송준비중" OR rec_state="배송완료") AND
 	</otherwise>
 	</choose>
 	<if test="proName != null">
@@ -158,7 +158,7 @@
 	resultMap="order">
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
 			DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId}
 	<if test="prevDate !=null and nextDate !=null">
@@ -169,7 +169,7 @@
 	AND rec_state = #{recState}
 	</when>
 	<otherwise>
-	AND rec_state = ANY(SELECT rec_state FROM qkrtkdgns2.order WHERE rec_state="주문취소" OR rec_state="교환" OR rec_state="반품")
+	AND rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="주문취소" OR rec_state="교환" OR rec_state="반품")
 	</otherwise>
 	</choose>
 	<if test="proName != null">
@@ -183,7 +183,7 @@
 	<select id="selectOrderCancel" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId} AND rec_state="주문취소"
 	<if test="prevDate !=null and nextDate !=null">
@@ -201,7 +201,7 @@
 	<select id="selectOrderChange" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId} AND rec_state="교환"
 	<if test="prevDate !=null and nextDate !=null">
@@ -220,7 +220,7 @@
 	<select id="selectOrderReaper" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId} AND rec_state="반품"
 	<if test="prevDate !=null and nextDate !=null">
@@ -239,7 +239,7 @@
 	<select id="selectOrderCount2" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	member_id = #{memberId}
 	<if test="prevDate !=null and nextDate !=null">
@@ -250,7 +250,7 @@
 	AND rec_state = #{recState}
 	</when>
 	<otherwise>
-	AND rec_state = ANY(SELECT rec_state FROM qkrtkdgns2.order WHERE rec_state="주문취소" OR rec_state="교환" OR rec_state="반품")
+	AND rec_state = ANY(SELECT rec_state FROM nurimmusic.order WHERE rec_state="주문취소" OR rec_state="교환" OR rec_state="반품")
 	</otherwise>
 	</choose>
 	<if test="proName != null">
@@ -264,7 +264,7 @@
 	resultMap="order">
 	SELECT id,rec_name,rec_tel,rec_postcode,rec_addr1,rec_addr2,member_id,product_id,
 			DATE_FORMAT(reg_date,'%Y-%m-%d') AS reg_date,DATE_FORMAT(edit_date,'%Y-%m-%d') AS edit_date,o_amount,rec_state,pro_img,pro_name,pro_price,amount
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	<if test="prevDate !=null and nextDate !=null">
 	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
@@ -283,7 +283,7 @@
 	<select id="selectOrderCountAll" parameterType="nurim.jsp.model.Order"
 	resultType="int">
 	SELECT count(id)
-	FROM qkrtkdgns2.order
+	FROM nurimmusic.order
 	<where>
 	<if test="prevDate !=null and nextDate !=null">
 	AND #{prevDate} &lt;= edit_date AND edit_date &lt;= #{nextDate} + INTERVAL 1 DAY
@@ -299,14 +299,14 @@
 	
 	<!-- 주문내역 삭제 -->
 	<delete id="deleteOrder" parameterType="nurim.jsp.model.Order">
-	DELETE FROM qkrtkdgns2.order
+	DELETE FROM nurimmusic.order
 	WHERE id=#{id}	
 	</delete>
 	
 	<!-- 주문 저장 -->
 	<insert id="insertOrder" parameterType="nurim.jsp.model.Order"
 	useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO qkrtkdgns2.order(
+	INSERT INTO nurimmusic.order(
 	rec_name, rec_tel, rec_postcode, rec_addr1, rec_addr2, rec_state,
 	member_id, product_id, reg_date, edit_date, o_amount, pro_img,
 	pro_name,pro_price,amount
@@ -326,14 +326,14 @@
 	
 	<!-- 상품 상태 변경 -->
 	<update id="updateOrder" parameterType="nurim.jsp.model.Order">
-	UPDATE qkrtkdgns2.order
+	UPDATE nurimmusic.order
 	SET rec_state = ${recState}, edit_date = now()
 	WHERE id=#{id}
 	</update>
 	
 	<!-- 주문목록에서 회원아이디 변경 -->
 	<update id="updateOrderByMember" parameterType="nurim.jsp.model.Order">
-	UPDATE qkrtkdgns2.order
+	UPDATE nurimmusic.order
 	SET member_id = 1
 	WHERE member_id=#{memberId}
 	</update>

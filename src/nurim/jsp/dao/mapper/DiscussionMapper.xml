@@ -24,9 +24,10 @@
     <!-- 토론광장 글 저장하기 -->
     <insert id="insertDiscussion" parameterType="nurim.jsp.model.Document" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO document (
-    category, member_id, subject, content, reg_date, edit_date, hit, ip_address
+    category, member_id, subject, content, reg_date, edit_date, hit, ip_address, end_date, agree, disagree
     ) VALUES (
-   		#{category}, #{memberId}, #{subject}, #{content}, now(), now(), 0, #{ipAddress}
+   		#{category}, #{memberId}, #{subject}, #{content}, now(), now(), 0, #{ipAddress},DATE(date_add(now(), INTERVAL 7 DAY)),
+   		0, 0
     )
     </insert>
     
@@ -75,6 +76,20 @@
 	UPDATE document SET hit=hit+1 WHERE category=#{category} AND id=#{id}
 	</update>
 	
+	<!-- 토론 찬성수, 반대수 증가 -->
+	<update id="updateDiscussionVote" parameterType="nurim.jsp.model.Document">
+	 UPDATE document SET 
+   	 <choose>
+   		 <when test="agree!=0">
+   		 agree=agree+1
+   		 </when>
+   		 <when test="disagree!=0">
+   		 disagree=disagree+1
+   		 </when>
+    </choose>
+   	 where id=#{id}
+	</update>
+	
 	<!-- 토론종료일을 계산한다. -->
 	<select id="selectDiscussionEndDate" parameterType="nurim.jsp.model.Document" resultMap="document">
 	SELECT date_add(now(), INTERVAL 7 DAY) as end_date FROM document WHERE category=#{category} AND id=#{id}
@@ -82,7 +97,8 @@
 
     <!-- 토론광장 목록을 조회한다. -->
 	<select id="selectDiscussionList" parameterType="nurim.jsp.model.Document" resultMap="document">
-	SELECT id, category, subject, content, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, DATE(date_add(now(), INTERVAL 7 DAY)) as end_date
+	SELECT id, category, subject, content, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, DATE(date_add(reg_date, INTERVAL 7 DAY)) as end_date,
+	agree, disagree
 	FROM document
 	<where>
 		category=#{category}
@@ -142,10 +158,23 @@
 	UPDATE document SET member_id=NULL, edit_date=now() WHERE member_id=#{memberId}
 	</update>
 	
-	<!-- 비밀번호를 검사한다. 
-	<select id="selectDiscussionCountByPw" parameterType="nurim.jsp.model.Document" resultType="int">
-	SELECT COUNT(id) FROM document
-	WHERE category=#{category} AND id=#{id} AND writer_pw=password(#{writerPw})
+	<!-- 베스트토론을 조회한다. -->
+	<select id="selectBestDiscussion" parameterType="nurim.jsp.model.Document" resultMap="document">
+	SELECT id, category, subject, content, hit,
+				DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date,
+				DATE_FORMAT(edit_date, '%Y-%m-%d') as edit_date,
+				ip_address, member_id, DATE(date_add(reg_date, INTERVAL 7 DAY)) as end_date, 
+				(FORMAT((agree/(agree+disagree)*100), 0)) as agree,
+				(FORMAT((disagree/((agree+disagree))*100), 0)) as disagree
+	FROM 	document
+	WHERE category='discussion' AND reg_date >= (CURDATE() - INTERVAL 7 DAY) ORDER BY hit DESC
+	LIMIT 0, 1
+	</select>
+	
+	<!-- 베스트토론의 찬성수와 반대수를 퍼센트로 조회한다.
+	<select id="selectBestDiscussionPercent" parameterType="nurim.jsp.model.Document" resultMap="document">
+	SELECT FORMAT((agree/((agree+disagree))*100), 0) as agree,
+		FORMAT((disagree/((agree+disagree))*100), 0) as disagree FROM document WHERE id=#{id}
 	</select>
 	-->
      

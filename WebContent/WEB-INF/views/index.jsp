@@ -149,7 +149,7 @@
 													src="${pageContext.request.contextPath}/assets/img/no_image.jpg"
 													style="width: 60%; height: 100%;" />
 											</c:otherwise>
-										</c:choose></span>
+										</c:choose></span></a>
 									<div class="text">
 										<span class="title">${md.proName }</span> <span
 											class="md_price"> ${md.proPrice }원 </span> <span

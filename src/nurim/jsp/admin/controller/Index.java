@@ -22,29 +22,13 @@ public class Index extends BaseController {
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
-	
+
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
-		
-		Member loginInfo = (Member) web.getSession("loginInfo");
-		// 로그인 중이 아니라면 이 페이지를 동작시켜서는 안된다.
-		if (loginInfo != null) {
-			// 이미 SqlSession 객체를 생성했으므로, 데이터베이스 접속을 해제해야 한다.
-			if(loginInfo.getUserName()=="관리자"){
-			sqlSession.close();
-			web.redirect(web.getRootPath() + "/admin/main.do", "로그인 중인 중입니다.");
-			return null;
-			}else{
-				sqlSession.close();
-				web.removeAllSession();
-				web.redirect(web.getRootPath()+"/admin/index.do", "관리자 계정이 아닙니다. 로그아웃이 진행됩니다.");
-				return null;
-			}
-		}
 
 		return "admin/index";
 	}

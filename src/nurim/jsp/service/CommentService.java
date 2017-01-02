@@ -3,8 +3,6 @@ package nurim.jsp.service;
 import java.util.List;
 
 import nurim.jsp.model.Comment;
-import nurim.jsp.model.Product;
-
 /**
  * 덧글 관련 기능을 제공하기 위한 Service 계층
  */
@@ -44,9 +42,15 @@ public interface CommentService {
 	 * @return List - 검색된 덧글 목록
 	 * @throws Exception
 	 */
+	public List<Comment> selectcommentListA(Comment comment) throws Exception;
+	
+	/**
+	 * 게시글 덧글을 조회한다.
+	 * @param comment - 덧글 데이터
+	 * @return List - 검색된 덧글 목록
+	 * @throws Exception
+	 */
 	public List<Comment> selectcommentList(Comment comment) throws Exception;
-	
-	
 	/**
 	 * 선택된 덧글 삭제
 	 * @param  comment - 덧글 데이터
@@ -98,6 +102,9 @@ public interface CommentService {
 	 * @throws Exception
 	 */
 	public void deleteCommentAll(Comment comment) throws Exception;
+	
+	public void updateComment2(Comment comment) throws Exception;
+
 	
 	
 }

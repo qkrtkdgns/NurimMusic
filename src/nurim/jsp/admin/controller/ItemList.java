@@ -19,8 +19,11 @@ import nurim.jsp.helper.BaseController;
 import nurim.jsp.helper.PageHelper;
 import nurim.jsp.helper.UploadHelper;
 import nurim.jsp.helper.WebHelper;
+import nurim.jsp.model.Basket;
 import nurim.jsp.model.ProCategory;
 import nurim.jsp.model.Product;
+import nurim.jsp.service.BasketService;
+import nurim.jsp.service.impl.BasketServiceImpl;
 
 @WebServlet("/admin/item_list.do")
 public class ItemList extends BaseController{
@@ -32,7 +35,7 @@ public class ItemList extends BaseController{
 	ProductAdmin productAdmin;
 	PageHelper pageHelper;
 	UploadHelper upload;
-
+	BasketService basketService; 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -41,6 +44,7 @@ public class ItemList extends BaseController{
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		productAdmin = new ProductAdminImpl(sqlSession, logger);
+		basketService = new BasketServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
 		/** (3) 로그인 여부 검사 */
@@ -63,6 +67,7 @@ public class ItemList extends BaseController{
 	
 		Product product = new Product();
 		ProCategory proCategory = new ProCategory();
+		Basket basket = new Basket();
 		//현재 페이지 수 --> 기본 값은 1페이지로 설정함
 		int page = web.getInt("page",1);
 		
@@ -70,6 +75,7 @@ public class ItemList extends BaseController{
 			/** (5) 상품 목록 조회 */
 				int totalCount = 0;
 				List<Product> productList = null;
+				Basket basketList =null;
 				String[] checkbox = web.getStringArray("check");
 				int dropdown = web.getInt("dropdown");
 				logger.debug("dropdown >> " + dropdown);
@@ -86,12 +92,22 @@ public class ItemList extends BaseController{
 							logger.debug("checkbox >>"+checkbox);
 							proCategory.setProductId(Integer.parseInt(checkbox[i]));
 							product.setId(Integer.parseInt(checkbox[i]));
-							Product productONE = null;
+							/**이미지 삭제Product productONE = null;
 							productONE= productAdmin.selectProduct(product);
 							productONE.getProImg();
 							logger.debug("productONE.getProImg(); >>"+productONE.getProImg());
 							upload.removeFile(productONE.getProImg());
 							logger.debug("productONE.getProImg(); 1>>"+productONE.getProImg());
+							
+							product.setProImg(null);
+							basket.setProImg(null);
+							*/
+							basket.setProductId(Integer.parseInt(checkbox[i]));
+							logger.debug("basket >>"+basket.getProductId());
+							basketList=basketService.selectProductBasketItemAA(basket);
+							if(basketList!=null){
+							basketService.deleteitemProduct(basket);
+							}
 							productAdmin.deleteProCategory(proCategory);
 							productAdmin.deleteProduct(product);
 						}

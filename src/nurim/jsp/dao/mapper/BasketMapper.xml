@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.og/dtd/mybatis-3-mapper.dtd">
 
@@ -116,5 +116,21 @@
 	SELECT COUNT(id) FROM basket WHERE member_id = #{memberId} AND  product_id=#{productId}
 	</select>
 	
+	
+	<!-- 상품 삭제시 장바구니 아이템 삭제 -->
+	<delete id="deleteitemProduct" parameterType="nurim.jsp.model.Basket">
+	DELETE FROM basket WHERE product_id=#{productId}
+	</delete>
+
+	<!-- 장바구니에 담긴 상품 검색 -->
+	<select id="selectProductBasketItemAA" parameterType="nurim.jsp.model.Basket"
+	resultMap="basket">
+	SELECT
+	id, product_id,pro_img,pro_name
+	FROM basket
+	WHERE product_id=#{productId}
+	</select>
+
+
 </mapper>
 
